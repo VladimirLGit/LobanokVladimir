@@ -21,6 +21,7 @@ public class RoomService implements IRoomService {
         ArrayList<Room> freeRooms;
         freeRooms = listFreeRooms();
         Room room = freeRooms.get(RANDOM.nextInt(freeRooms.size()));
+        room.setStateRoom(StateRoom.CHECKED);
         guest.setRoom(room); //поселили гостя в комнату без критериев
         guest.setDateOfCheckIn(today);
     }
@@ -30,6 +31,7 @@ public class RoomService implements IRoomService {
     public void checkOut(Guest guest) {
         LocalDate today = LocalDate.now();
         Room room = guest.getRoom();
+        room.setStateRoom(StateRoom.FREE);
         guest.setRoom(null);
         guest.setDateOfCheckOut(today);
         //сумма к уплате за проживание и оказанные услуги

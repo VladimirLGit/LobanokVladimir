@@ -1,18 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="af7225b5-2888-44e3-9144-22fb3da50a06" name="Default Changelist" comment="Create report">
-      <change afterPath="$PROJECT_DIR$/src/eu/senla/Hotel/dao/Connector.java" afterDir="false" />
+    <list default="true" id="af7225b5-2888-44e3-9144-22fb3da50a06" name="Default Changelist" comment="Created functions for data base">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/eu/senla/Hotel/api/dao/IGuestDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/eu/senla/Hotel/api/dao/IGuestDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/eu/senla/Hotel/api/dao/IRoomDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/eu/senla/Hotel/api/dao/IRoomDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/eu/senla/Hotel/api/dao/IServiceDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/eu/senla/Hotel/api/dao/IServiceDao.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/eu/senla/Hotel/dao/GuestDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/eu/senla/Hotel/dao/GuestDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/eu/senla/Hotel/dao/RoomDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/eu/senla/Hotel/dao/RoomDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/eu/senla/Hotel/dao/ServiceDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/eu/senla/Hotel/dao/ServiceDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/eu/senla/Hotel/model/Guest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/eu/senla/Hotel/model/Guest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/eu/senla/Hotel/model/Room.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/eu/senla/Hotel/model/Room.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/eu/senla/Hotel/model/Service.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/eu/senla/Hotel/model/Service.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/eu/senla/Hotel/service/GuestService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/eu/senla/Hotel/service/GuestService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/eu/senla/Hotel/service/RoomService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/eu/senla/Hotel/service/RoomService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -102,11 +95,26 @@
       <option name="project" value="LOCAL" />
       <updated>1622356518046</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Created functions for data base">
+      <created>1622392895345</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1622392895345</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Created functions for data base">
+      <created>1622392925629</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1622392925629</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Create report" />
-    <option name="LAST_COMMIT_MESSAGE" value="Create report" />
+    <MESSAGE value="Created functions for data base" />
+    <option name="LAST_COMMIT_MESSAGE" value="Created functions for data base" />
   </component>
 </project>
