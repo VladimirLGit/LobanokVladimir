@@ -14,9 +14,27 @@ public class ServiceDao implements IServiceDao {
     public ServiceDao() {
         connector = new Connector();
     }
+
+    public boolean createTableServices(){
+        final String QUERY ="CREATE TABLE services (\n" +
+                " idService int(10) NOT NULL AUTO_INCREMENT,\n" +
+                " name varchar(20) NOT NULL,\n" +
+                " price int(10) NOT NULL,\n" +
+                " PRIMARY KEY (idService)\n" +
+                ");";
+        try(Connection con = connector.getConnection();
+            Statement stmt = con.createStatement();) {
+            boolean execute = stmt.execute(QUERY);
+            return execute;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+            return false;
+        }
+    }
+
     @Override
     public void addService(Service service) {
-        final String QUERY = "INSERT INTO guests (Name, Price) VALUES (?,?)";
+        final String QUERY = "INSERT INTO services (Name, Price) VALUES (?,?)";
         //return idRoom into ?;
         try (Connection con = connector.getConnection();){
             PreparedStatement preparedStatement = con.prepareStatement(QUERY);

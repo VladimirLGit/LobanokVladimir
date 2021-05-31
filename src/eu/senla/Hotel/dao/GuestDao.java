@@ -18,6 +18,39 @@ public class GuestDao implements IGuestDao {
         connector = new Connector();
     }
 
+    public boolean createTableGuests(){
+        final String QUERY ="CREATE TABLE guests (\n" +
+                " idGuest int(10) NOT NULL AUTO_INCREMENT,\n" +
+                " name varchar(20) NOT NULL,\n" +
+                " DateOfCheckIn date NOT NULL,\n" +
+                " DateOfCheckOut date NOT NULL,\n" +
+                " PRIMARY KEY (idGuest)\n" +
+                ");";
+        try(Connection con = connector.getConnection();
+            Statement stmt = con.createStatement();) {
+            boolean execute = stmt.execute(QUERY);
+            return execute;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+            return false;
+        }
+    }
+
+    public boolean createLinkTableServices(){
+        final String QUERY ="CREATE TABLE linkService (\n" +
+                " idService int(10) NOT NULL,\n" +
+                " idGuest int(10) NOT NULL,\n" +
+                ");";
+        try(Connection con = connector.getConnection();
+            Statement stmt = con.createStatement();) {
+            boolean execute = stmt.execute(QUERY);
+            return execute;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+            return false;
+        }
+    }
+
     public LocalDate convertToLocalDateViaInstant(Date dateToConvert) {
         return dateToConvert.toInstant()
                 .atZone(ZoneId.systemDefault())

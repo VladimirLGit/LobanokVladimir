@@ -15,6 +15,42 @@ public class RoomDao implements IRoomDao {
     public RoomDao() {
         connector = new Connector();
     }
+
+    public boolean createTableRooms(){
+        final String QUERY ="CREATE TABLE rooms (\n" +
+                " idRoom int(10) NOT NULL AUTO_INCREMENT,\n" +
+                " number int(10) NOT NULL,\n" +
+                " numberOfGuests int(10) NOT NULL,\n" +
+                " price int(10) NOT NULL,\n" +
+                " stateRoom int(10) NOT NULL,\n" +
+                " typeRoom int(10) NOT NULL,\n" +
+                " PRIMARY KEY (idRoom)\n" +
+                ");";
+        try(Connection con = connector.getConnection();
+            Statement stmt = con.createStatement();) {
+            boolean execute = stmt.execute(QUERY);
+            return execute;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+            return false;
+        }
+    }
+
+    public boolean createLinkTableRooms(){
+        final String QUERY ="CREATE TABLE linkTable (\n" +
+                " idRoom int(10) NOT NULL,\n" +
+                " idGuest int(10) NOT NULL,\n" +
+                ");";
+        try(Connection con = connector.getConnection();
+            Statement stmt = con.createStatement();) {
+            boolean execute = stmt.execute(QUERY);
+            return execute;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+            return false;
+        }
+    }
+
     public ArrayList<Integer> checkInGuests(Room room){
         final String QUERY = "select IDGuest from linkTable where IDRoom = ?";
         ArrayList<Integer> guests = new ArrayList<>();
