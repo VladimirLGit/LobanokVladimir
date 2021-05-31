@@ -17,7 +17,7 @@ public class RoomDao implements IRoomDao {
     }
 
     public boolean createTableRooms(){
-        final String QUERY ="CREATE TABLE rooms (\n" +
+        final String QUERY ="CREATE TABLE IF NOT EXISTS rooms (\n" +
                 " idRoom int(10) NOT NULL AUTO_INCREMENT,\n" +
                 " number int(10) NOT NULL,\n" +
                 " numberOfGuests int(10) NOT NULL,\n" +
@@ -36,11 +36,35 @@ public class RoomDao implements IRoomDao {
         }
     }
 
+    public boolean deleteTableRooms(){
+        final String QUERY ="DROP TABLE rooms;";
+        try(Connection con = connector.getConnection();
+            Statement stmt = con.createStatement();) {
+            boolean execute = stmt.execute(QUERY);
+            return execute;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+            return false;
+        }
+    }
+
     public boolean createLinkTableRooms(){
-        final String QUERY ="CREATE TABLE linkTable (\n" +
+        final String QUERY ="CREATE TABLE IF NOT EXISTS linkTable (\n" +
                 " idRoom int(10) NOT NULL,\n" +
-                " idGuest int(10) NOT NULL,\n" +
+                " idGuest int(10) NOT NULL\n" +
                 ");";
+        try(Connection con = connector.getConnection();
+            Statement stmt = con.createStatement();) {
+            boolean execute = stmt.execute(QUERY);
+            return execute;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+            return false;
+        }
+    }
+
+    public boolean deleteLinkTableRooms(){
+        final String QUERY ="DROP TABLE linkTable;";
         try(Connection con = connector.getConnection();
             Statement stmt = con.createStatement();) {
             boolean execute = stmt.execute(QUERY);
@@ -68,7 +92,7 @@ public class RoomDao implements IRoomDao {
     }
     @Override
     public void addRoom(Room room) {
-        final String QUERY = "INSERT INTO rooms (number, numberOfGuests, price, stateRoom, typeRoom) VALUES (?,?,?,?,?)";
+        final String QUERY = "INSERT INTO rooms (number, numberOfGuests, price, stateRoom, typeRoom) VALUES (?,?,?,?,?);";
         //return idRoom into ?;
         try (Connection con = connector.getConnection();){
             PreparedStatement preparedStatement = con.prepareStatement(QUERY);
@@ -139,12 +163,13 @@ public class RoomDao implements IRoomDao {
             while(rs.next()){
                 int idRoom = rs.getInt("IDRoom");
                 int number = rs.getInt("Number");
-                int numberOfGuest = rs.getInt("NumberOfGuest");
+                int numberOfGuest = rs.getInt("NumberOfGuests");
                 int price = rs.getInt("Price");
                 StateRoom stateRoom = StateRoom.values()[rs.getInt("StateRoom")];
                 TypeRoom typeRoom = TypeRoom.values()[rs.getInt("TypeRoom")];
                 Room room = new Room(number, price,numberOfGuest, typeRoom);
                 room.setIdRoom(idRoom);
+                room.setStateRoom(stateRoom);
                 rooms.add(room);
             }
         } catch (SQLException e) {

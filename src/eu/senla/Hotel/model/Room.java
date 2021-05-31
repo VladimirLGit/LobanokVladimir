@@ -20,6 +20,7 @@ public class Room {
         this.price = price;
         this.numberOfGuests = numberOfGuests;
         this.typeRoom = typeRoom;
+        this.stateRoom = StateRoom.FREE;
     }
 
     public int getIdRoom() {

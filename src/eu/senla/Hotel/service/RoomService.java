@@ -1,6 +1,7 @@
 package eu.senla.Hotel.service;
 
 import eu.senla.Hotel.api.sevice.IRoomService;
+import eu.senla.Hotel.dao.RoomDao;
 import eu.senla.Hotel.model.Guest;
 import eu.senla.Hotel.model.Room;
 import eu.senla.Hotel.model.StateRoom;
@@ -12,7 +13,13 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class RoomService implements IRoomService {
+    private RoomDao roomDao;
     private ArrayList<Room> rooms;
+
+    public RoomService() {
+        roomDao = new RoomDao();
+        rooms = roomDao.allRooms();
+    }
 
     @Override
     public void checkIn(Guest guest) {
@@ -24,6 +31,7 @@ public class RoomService implements IRoomService {
         room.setStateRoom(StateRoom.CHECKED);
         guest.setRoom(room); //поселили гостя в комнату без критериев
         guest.setDateOfCheckIn(today);
+        guest.setDateOfCheckOut(today.plusDays(RANDOM.nextInt(5)+1));
     }
 
 

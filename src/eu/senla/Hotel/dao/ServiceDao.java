@@ -16,7 +16,7 @@ public class ServiceDao implements IServiceDao {
     }
 
     public boolean createTableServices(){
-        final String QUERY ="CREATE TABLE services (\n" +
+        final String QUERY ="CREATE TABLE IF NOT EXISTS services (\n" +
                 " idService int(10) NOT NULL AUTO_INCREMENT,\n" +
                 " name varchar(20) NOT NULL,\n" +
                 " price int(10) NOT NULL,\n" +
@@ -31,6 +31,19 @@ public class ServiceDao implements IServiceDao {
             return false;
         }
     }
+
+    public boolean deleteTableServices(){
+        final String QUERY ="DROP TABLE services;";
+        try(Connection con = connector.getConnection();
+            Statement stmt = con.createStatement();) {
+            boolean execute = stmt.execute(QUERY);
+            return execute;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+            return false;
+        }
+    }
+
 
     @Override
     public void addService(Service service) {

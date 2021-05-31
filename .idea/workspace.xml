@@ -2,12 +2,19 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="af7225b5-2888-44e3-9144-22fb3da50a06" name="Default Changelist" comment="Created functions for data base">
-      <change afterPath="$PROJECT_DIR$/src/eu/senla/Hotel/Main.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/junit_junit_4_13.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/mysql_connector_java_5_1_5_bin.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/eu/senla/Hotel/utils/DateUtils.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/GuestServiceTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ProjectEE.iml" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectEE.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/eu/senla/Hotel/dao/GuestDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/eu/senla/Hotel/dao/GuestDao.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/eu/senla/Hotel/dao/RoomDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/eu/senla/Hotel/dao/RoomDao.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/eu/senla/Hotel/dao/ServiceDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/eu/senla/Hotel/dao/ServiceDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/eu/senla/Hotel/model/Room.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/eu/senla/Hotel/model/Room.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/eu/senla/Hotel/service/RoomService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/eu/senla/Hotel/service/RoomService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -19,6 +26,7 @@
       <list>
         <option value="Interface" />
         <option value="Enum" />
+        <option value="JUnit5 Test Class" />
         <option value="Class" />
       </list>
     </option>
@@ -52,38 +60,87 @@
     <property name="Repository.Attach.Sources" value="false" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="project.structure.last.edited" value="Project" />
-    <property name="project.structure.proportion" value="0.0" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit5" />
+    <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5" value="" />
+    <property name="create.test.in.the.same.root" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../mysql-connector-java-5.1.5-bin.jar/mysql-connector-java-5.1.5-bin.jar" />
+    <property name="project.structure.last.edited" value="Libraries" />
+    <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.26431182" />
     <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
   </component>
   <component name="RecentsManager">
+    <key name="CreateTestDialog.Recents.Supers">
+      <recent name="" />
+    </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="" />
       <recent name="eu.senla" />
+    </key>
+    <key name="CreateTestDialog.RecentsKey">
+      <recent name="eu.senla.junit" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="eu.senla.Hotel" />
       <recent name="eu.senla.Hotel.dao" />
     </key>
   </component>
-  <component name="RunManager">
-    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="eu.senla.task1.Main" />
+  <component name="RunManager" selected="JUnit.GuestServiceTest.addGuest">
+    <configuration name="GuestServiceTest" type="AndroidJUnit" factoryName="Android JUnit" temporary="true" nameIsGenerated="true">
       <module name="ProjectEE" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="eu.senla.task1.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="GuestServiceTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="All in ProjectEE" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="ProjectEE" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="TEST_OBJECT" value="package" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="GuestServiceTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="ProjectEE" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="GuestServiceTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="GuestServiceTest.addGuest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="ProjectEE" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="GuestServiceTest" />
+      <option name="METHOD_NAME" value="addGuest" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="GuestServiceTest.addOrderGuest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="ProjectEE" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="GuestServiceTest" />
+      <option name="METHOD_NAME" value="addOrderGuest" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.Main" />
+        <item itemvalue="JUnit.GuestServiceTest.addGuest" />
+        <item itemvalue="JUnit.GuestServiceTest.addOrderGuest" />
+        <item itemvalue="Android JUnit.GuestServiceTest" />
+        <item itemvalue="JUnit.GuestServiceTest" />
+        <item itemvalue="JUnit.All in ProjectEE" />
       </list>
     </recent_temporary>
   </component>
@@ -130,10 +187,27 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Create report" />
     <MESSAGE value="Created functions for data base" />
     <option name="LAST_COMMIT_MESSAGE" value="Created functions for data base" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/eu/senla/Hotel/dao/GuestDao.java</url>
+          <line>259</line>
+          <option name="timeStamp" value="11" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/ProjectEE$Main__1_.ic" NAME="Main (1) Coverage Results" MODIFIED="1622483232825" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>eu.senla.Hotel.*</FILTER>
+    </SUITE>
   </component>
 </project>
