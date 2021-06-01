@@ -9,8 +9,8 @@ import eu.senla.Hotel.model.StateGuest;
 import java.util.ArrayList;
 
 public class GuestService implements IGuestService {
-    private GuestDao guestDao;
-    private ArrayList<Guest> guests;
+    private final GuestDao guestDao;
+    private final ArrayList<Guest> guests;
 
     public GuestService() {
         guestDao = new GuestDao();

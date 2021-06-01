@@ -5,17 +5,17 @@ import eu.senla.Hotel.model.Service;
 
 
 import java.sql.*;
-import java.time.ZoneId;
+
 import java.util.ArrayList;
 
 public class ServiceDao implements IServiceDao {
-    private Connector connector;
+    private final Connector connector;
 
     public ServiceDao() {
         connector = new Connector();
     }
 
-    public boolean createTableServices(){
+    public void createTableServices(){
         final String QUERY ="CREATE TABLE IF NOT EXISTS services (\n" +
                 " idService int(10) NOT NULL AUTO_INCREMENT,\n" +
                 " name varchar(20) NOT NULL,\n" +
@@ -23,24 +23,20 @@ public class ServiceDao implements IServiceDao {
                 " PRIMARY KEY (idService)\n" +
                 ");";
         try(Connection con = connector.getConnection();
-            Statement stmt = con.createStatement();) {
-            boolean execute = stmt.execute(QUERY);
-            return execute;
+            Statement stmt = con.createStatement()) {
+            stmt.execute(QUERY);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
-            return false;
         }
     }
 
-    public boolean deleteTableServices(){
+    public void deleteTableServices(){
         final String QUERY ="DROP TABLE services;";
         try(Connection con = connector.getConnection();
-            Statement stmt = con.createStatement();) {
-            boolean execute = stmt.execute(QUERY);
-            return execute;
+            Statement stmt = con.createStatement()) {
+            stmt.execute(QUERY);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
-            return false;
         }
     }
 
@@ -49,15 +45,15 @@ public class ServiceDao implements IServiceDao {
     public void addService(Service service) {
         final String QUERY = "INSERT INTO services (Name, Price) VALUES (?,?)";
         //return idRoom into ?;
-        try (Connection con = connector.getConnection();){
+        try (Connection con = connector.getConnection()){
             PreparedStatement preparedStatement = con.prepareStatement(QUERY);
             preparedStatement.setString(1, service.getNameService());
             preparedStatement.setInt(2, service.getPriceService());
-            boolean execute = preparedStatement.execute();
+            preparedStatement.execute();
 
             // get the generated key for the id
             ResultSet rs = preparedStatement.getGeneratedKeys();
-            int id = -1;
+            int id;
             if (rs.next()) {
                 id = rs.getInt(1);
                 service.setIdService(id);
@@ -71,9 +67,9 @@ public class ServiceDao implements IServiceDao {
 
     @Override
     public void deleteService(Service service) {
-        final String QUERY = "Delete FROM services WHERE idService = " + '"' + Integer.toString(service.getIdService()) + '"';
+        final String QUERY = "Delete FROM services WHERE idService = " + '"' + service.getIdService() + '"';
         try (Connection con = connector.getConnection();
-             Statement query =  con.createStatement();) {
+             Statement query =  con.createStatement()) {
             int execute = query.executeUpdate(QUERY);
             query.close();
             if (execute>0) {
@@ -90,12 +86,12 @@ public class ServiceDao implements IServiceDao {
     @Override
     public void updateService(Service service) {
         final String QUERY = "UPDATE services name = ?, price = ? WHERE idService = ?";
-        try (Connection con = connector.getConnection();) {
+        try (Connection con = connector.getConnection()) {
             PreparedStatement preparedStatement = con.prepareStatement(QUERY);
             preparedStatement.setString(1, service.getNameService());
             preparedStatement.setInt(2, service.getPriceService());
             preparedStatement.setInt(3, service.getIdService());
-            boolean execute = preparedStatement.execute();
+            preparedStatement.execute();
             preparedStatement.close();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -118,7 +114,6 @@ public class ServiceDao implements IServiceDao {
                 service.setIdService(idService);
                 services.add(service);
             }
-            rs.close();
 
         } catch (SQLException e) {
             e.printStackTrace();

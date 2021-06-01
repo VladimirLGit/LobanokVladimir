@@ -8,30 +8,27 @@ import eu.senla.Hotel.utils.DateUtils;
 
 import java.sql.*;
 import java.time.LocalDate;
-import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
 
 
 public class GuestDao implements IGuestDao {
-    private Connector connector;
+    private final Connector connector;
 
     public GuestDao() {
         connector = new Connector();
     }
-    public boolean createHotelBase() {
+    public void createHotelBase() {
         final String QUERY = "CREATE DATABASE IF NOT EXISTS hotelBase;";
         try(Connection con = connector.getConnection();
-            Statement stmt = con.createStatement();) {
-            boolean execute = stmt.execute(QUERY);
-            return execute;
+            Statement stmt = con.createStatement()) {
+            stmt.execute(QUERY);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
-            return false;
         }
     }
 
-    public boolean createTableGuests(){
+    public void createTableGuests(){
         final String QUERY ="CREATE TABLE IF NOT EXISTS guests (\n" +
                 " idGuest int(10) NOT NULL AUTO_INCREMENT,\n" +
                 " name varchar(20) NOT NULL,\n" +
@@ -41,55 +38,47 @@ public class GuestDao implements IGuestDao {
                 " PRIMARY KEY (idGuest)\n" +
                 ");";
         try(Connection con = connector.getConnection();
-            Statement stmt = con.createStatement();) {
-            boolean execute = stmt.execute(QUERY);
-            return execute;
+            Statement stmt = con.createStatement()) {
+            stmt.execute(QUERY);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
-            return false;
         }
     }
 
-    public boolean deleteTableGuests(){
+    public void deleteTableGuests(){
         final String QUERY ="DROP TABLE guests;";
         try(Connection con = connector.getConnection();
-            Statement stmt = con.createStatement();) {
-            boolean execute = stmt.execute(QUERY);
-            return execute;
+            Statement stmt = con.createStatement()) {
+            stmt.execute(QUERY);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
-            return false;
         }
     }
 
-    public boolean createLinkTableServices(){
+    public void createLinkTableServices(){
         final String QUERY ="CREATE TABLE IF NOT EXISTS linkService (\n" +
                 " idService int(10) NOT NULL,\n" +
                 " idGuest int(10) NOT NULL\n" +
                 ");";
         try(Connection con = connector.getConnection();
-            Statement stmt = con.createStatement();) {
-            boolean execute = stmt.execute(QUERY);
-            return execute;
+            Statement stmt = con.createStatement()) {
+            stmt.execute(QUERY);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
-            return false;
         }
     }
 
-    public boolean deleteLinkTableServices(){
+    public void deleteLinkTableServices(){
         final String QUERY ="DROP TABLE linkService;";
         try(Connection con = connector.getConnection();
-            Statement stmt = con.createStatement();) {
-            boolean execute = stmt.execute(QUERY);
-            return execute;
+            Statement stmt = con.createStatement()) {
+            stmt.execute(QUERY);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
-            return false;
         }
     }
 
-    public boolean createTableHistoryGuests(){
+    public void createTableHistoryGuests(){
         final String QUERY ="CREATE TABLE IF NOT EXISTS historyGuests (\n" +
                 " idGuest int(10) NOT NULL AUTO_INCREMENT,\n" +
                 " name varchar(20) NOT NULL,\n" +
@@ -99,33 +88,23 @@ public class GuestDao implements IGuestDao {
                 " PRIMARY KEY (idGuest)\n" +
                 ");";
         try(Connection con = connector.getConnection();
-            Statement stmt = con.createStatement();) {
-            boolean execute = stmt.execute(QUERY);
-            return execute;
+            Statement stmt = con.createStatement()) {
+            stmt.execute(QUERY);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
-            return false;
         }
     }
 
-    public boolean deleteTableHistoryGuests(){
+    public void deleteTableHistoryGuests(){
         final String QUERY ="DROP TABLE historyGuests;";
         try(Connection con = connector.getConnection();
-            Statement stmt = con.createStatement();) {
-            boolean execute = stmt.execute(QUERY);
-            return execute;
+            Statement stmt = con.createStatement()) {
+            stmt.execute(QUERY);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
-            return false;
         }
     }
 
-
-    private LocalDate convertToLocalDateViaInstant(Date dateToConvert) {
-        return dateToConvert.toInstant()
-                .atZone(ZoneId.systemDefault())
-                .toLocalDate();
-    }
 
     private LocalDate convertToLocalDateViaSqlDate(Date dateToConvert) {
         return new java.sql.Date(dateToConvert.getTime()).toLocalDate();
@@ -134,11 +113,11 @@ public class GuestDao implements IGuestDao {
     public void addOrderGuest(Guest guest, Service service) {
         final String QUERY = "INSERT INTO linkService (idGuest, idService) VALUES (?,?)";
         //return idRoom into ?;
-        try (Connection con = connector.getConnection();){
+        try (Connection con = connector.getConnection()){
             PreparedStatement preparedStatement = con.prepareStatement(QUERY);
             preparedStatement.setInt(1, guest.getIdGuest());
             preparedStatement.setInt(2, service.getIdService());
-            boolean execute = preparedStatement.execute();
+            preparedStatement.execute();
             preparedStatement.close();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -146,9 +125,9 @@ public class GuestDao implements IGuestDao {
     }
 
     public void deleteOrderGuest(Guest guest) {
-        final String QUERY = "Delete FROM linkService WHERE idGuest = " + '"' + Integer.toString(guest.getIdGuest()) + '"';
+        final String QUERY = "Delete FROM linkService WHERE idGuest = " + '"' + guest.getIdGuest() + '"';
         try (Connection con = connector.getConnection();
-             Statement query =  con.createStatement();) {
+             Statement query =  con.createStatement()) {
             int execute = query.executeUpdate(QUERY);
             if (execute>0) {
                 System.out.println("Delete orders as " + guest.getNameGuest());
@@ -163,23 +142,17 @@ public class GuestDao implements IGuestDao {
     public void addGuestIntoHistory(Guest guest) {
         final String QUERY = "INSERT INTO historyGuests (Name, DateOfCheckIn, DateOfCheckOut, StateGuest) VALUES (?,?,?,?)";
         //return idRoom into ?;
-        try (Connection con = connector.getConnection();){
-            //default time zone
-            ZoneId defaultZoneId = ZoneId.systemDefault();
+        try (Connection con = connector.getConnection()){
             PreparedStatement preparedStatement = con.prepareStatement(QUERY);
             preparedStatement.setString(1, guest.getNameGuest());
-            //local date + atStartOfDay() + default time zone + toInstant() = Date
-            //Date date = (Date) Date.from(guest.getDateOfCheckIn().atStartOfDay(defaultZoneId).toInstant());
-            Date date = DateUtils.asDate(guest.getDateOfCheckIn());
             preparedStatement.setDate(2, java.sql.Date.valueOf(guest.getDateOfCheckIn()));
-            //date = (Date) Date.from(guest.getDateOfCheckOut().atStartOfDay(defaultZoneId).toInstant());
             preparedStatement.setDate(3, java.sql.Date.valueOf(guest.getDateOfCheckOut()));
             preparedStatement.setInt(4, guest.getStateGuest().ordinal());
-            boolean execute = preparedStatement.execute();
+            preparedStatement.execute();
 
             // get the generated key for the id
             ResultSet rs = preparedStatement.getGeneratedKeys();
-            int id = -1;
+            int id;
             if (rs.next()) {
                 id = rs.getInt(1);
                 guest.setIdGuest(id);
@@ -195,26 +168,17 @@ public class GuestDao implements IGuestDao {
     public void addGuest(Guest guest) {
         final String QUERY = "INSERT IGNORE INTO guests (Name, DateOfCheckIn, DateOfCheckOut, StateGuest) VALUES (?,?,?,?);";
         //return idRoom into ?;
-        try (Connection con = connector.getConnection();){
-            //default time zone
-            //ZoneId defaultZoneId = ZoneId.systemDefault();
-            PreparedStatement preparedStatement = con.prepareStatement(QUERY);
+        try (Connection con = connector.getConnection()){
+             PreparedStatement preparedStatement = con.prepareStatement(QUERY);
             preparedStatement.setString(1, guest.getNameGuest());
-            //local date + atStartOfDay() + default time zone + toInstant() = Date
-            //Date date = (Date) Date.from(guest.getDateOfCheckIn().atStartOfDay(defaultZoneId).toInstant());
-            //preparedStatement.setDate(2, date);
-            //date = (Date) Date.from(guest.getDateOfCheckOut().atStartOfDay(defaultZoneId).toInstant());
-            //preparedStatement.setDate(3, date);
             preparedStatement.setDate(2, new java.sql.Date(DateUtils.asDate(guest.getDateOfCheckIn()).getTime()));
             preparedStatement.setDate(3, new java.sql.Date(DateUtils.asDate(guest.getDateOfCheckOut()).getTime()));
-            //preparedStatement.setDate(2, java.sql.Date.valueOf(guest.getDateOfCheckIn()));
-            //preparedStatement.setDate(3, java.sql.Date.valueOf(guest.getDateOfCheckOut()));
             preparedStatement.setInt(4, guest.getStateGuest().ordinal());
-            boolean execute = preparedStatement.execute();
+            preparedStatement.execute();
 
             // get the generated key for the id
             ResultSet rs = preparedStatement.getGeneratedKeys();
-            int id = -1;
+            int id;
             if (rs.next()) {
                 id = rs.getInt(1);
                 guest.setIdGuest(id);
@@ -228,9 +192,9 @@ public class GuestDao implements IGuestDao {
 
     @Override
     public void deleteGuest(Guest guest) {
-        final String QUERY = "Delete FROM guests WHERE idGuest = " + '"' + Integer.toString(guest.getIdGuest()) + '"';
+        final String QUERY = "Delete FROM guests WHERE idGuest = " + '"' + guest.getIdGuest() + '"';
         try (Connection con = connector.getConnection();
-             Statement query =  con.createStatement();) {
+             Statement query =  con.createStatement()) {
             int execute = query.executeUpdate(QUERY);
             if (execute>0) {
                 System.out.println("Delete guest as " + guest.getNameGuest());
@@ -246,20 +210,14 @@ public class GuestDao implements IGuestDao {
     @Override
     public void updateGuest(Guest guest) {
         final String QUERY = "UPDATE guests SET `name`=?, `DateOfCheckIn`=?, `DateOfCheckOut`=?, `StateGuest`=? WHERE `idGuest`=?;";
-        try (Connection con = connector.getConnection();) {
-            //default time zone
-            //ZoneId defaultZoneId = ZoneId.systemDefault();
+        try (Connection con = connector.getConnection()) {
             PreparedStatement preparedStatement = con.prepareStatement(QUERY);
             preparedStatement.setString(1, guest.getNameGuest());
-            //Date date = (Date) Date.from(guest.getDateOfCheckIn().atStartOfDay(defaultZoneId).toInstant());
-            //preparedStatement.setDate(2, date);
-            //date = (Date) Date.from(guest.getDateOfCheckOut().atStartOfDay(defaultZoneId).toInstant());
-            //preparedStatement.setDate(3, date);
             preparedStatement.setDate(2, java.sql.Date.valueOf(guest.getDateOfCheckIn()));
             preparedStatement.setDate(3, java.sql.Date.valueOf(guest.getDateOfCheckOut()));
             preparedStatement.setInt(4, guest.getStateGuest().ordinal());
             preparedStatement.setInt(5, guest.getIdGuest());
-            boolean execute = preparedStatement.execute();
+            preparedStatement.execute();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }

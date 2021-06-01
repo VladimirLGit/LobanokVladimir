@@ -13,9 +13,8 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class RoomService implements IRoomService {
-    private RoomDao roomDao;
-    private ArrayList<Room> rooms;
-
+    private final RoomDao roomDao;
+    private final ArrayList<Room> rooms;
     public RoomService() {
         roomDao = new RoomDao();
         rooms = roomDao.allRooms();
@@ -29,6 +28,7 @@ public class RoomService implements IRoomService {
         freeRooms = listFreeRooms();
         Room room = freeRooms.get(RANDOM.nextInt(freeRooms.size()));
         room.setStateRoom(StateRoom.CHECKED);
+        roomDao.updateRoom(room);
         guest.setRoom(room); //поселили гостя в комнату без критериев
         guest.setDateOfCheckIn(today);
         guest.setDateOfCheckOut(today.plusDays(RANDOM.nextInt(5)+1));
@@ -40,6 +40,7 @@ public class RoomService implements IRoomService {
         LocalDate today = LocalDate.now();
         Room room = guest.getRoom();
         room.setStateRoom(StateRoom.FREE);
+        roomDao.updateRoom(room);
         guest.setRoom(null);
         guest.setDateOfCheckOut(today);
         //сумма к уплате за проживание и оказанные услуги
@@ -50,8 +51,8 @@ public class RoomService implements IRoomService {
 
     @Override
     public void listNumber() {
-        for (int i = 0; i < rooms.size(); i++) {
-            System.out.println(rooms.get(i));
+        for (Room room : rooms) {
+            System.out.println(room);
         }
     }
 
@@ -70,9 +71,9 @@ public class RoomService implements IRoomService {
         }
         if (room.getStateRoom() == StateRoom.CHECKED){
             guests = room.getGuests();
-            for (int i = 0; i < guests.size(); i++) {
-                if (guests.get(i).getDateOfCheckOut().isAfter(dateCheckOut)){
-                    dateCheckOut = guests.get(i).getDateOfCheckOut();
+            for (Guest guest : guests) {
+                if (guest.getDateOfCheckOut().isAfter(dateCheckOut)) {
+                    dateCheckOut = guest.getDateOfCheckOut();
                 }
             }
             if (dateCheckOut.isBefore(date)) {
