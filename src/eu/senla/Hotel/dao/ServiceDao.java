@@ -1,6 +1,7 @@
 package eu.senla.Hotel.dao;
 
 import eu.senla.Hotel.api.dao.IServiceDao;
+import eu.senla.Hotel.model.Guest;
 import eu.senla.Hotel.model.Service;
 
 
@@ -98,6 +99,7 @@ public class ServiceDao implements IServiceDao {
         }
     }
 
+
     @Override
     public ArrayList<Service> allServices() {
         final String QUERY = "select * from services";
@@ -120,4 +122,6 @@ public class ServiceDao implements IServiceDao {
         }
         return services;
     }
+
+
 }

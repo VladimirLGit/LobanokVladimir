@@ -1,9 +1,7 @@
 package eu.senla.Hotel.dao;
 
 import eu.senla.Hotel.api.dao.IRoomDao;
-import eu.senla.Hotel.model.Room;
-import eu.senla.Hotel.model.StateRoom;
-import eu.senla.Hotel.model.TypeRoom;
+import eu.senla.Hotel.model.*;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -81,6 +79,52 @@ public class RoomDao implements IRoomDao {
         }
         return guests;
     }
+
+    public Room checkGuest(int idGuest){
+        int idRoom = 0;
+        Room room = null;
+        final String QUERY = "select IDRoom from linkTable where `IDGuest`=?;";
+        try(Connection con = connector.getConnection()) {
+            PreparedStatement preparedStatement = con.prepareStatement(QUERY);
+            preparedStatement.setInt(1, idGuest);
+            ResultSet rs = preparedStatement.executeQuery(QUERY);
+            while (rs.next()){
+                idRoom = rs.getInt(1);
+                final String QUERY2 = "select * from rooms where `IDRoom`=?";
+                preparedStatement = con.prepareStatement(QUERY2);
+                preparedStatement.setInt(1, idRoom);
+                ResultSet rs2 = preparedStatement.executeQuery(QUERY2);
+                while (rs2.next()) {
+                    idRoom = rs2.getInt("IDRoom");
+                    int number = rs2.getInt("Number");
+                    int numberOfGuest = rs2.getInt("NumberOfGuests");
+                    int price = rs2.getInt("Price");
+                    StateRoom stateRoom = StateRoom.values()[rs2.getInt("StateRoom")];
+                    TypeRoom typeRoom = TypeRoom.values()[rs2.getInt("TypeRoom")];
+                    room = new Room(number, price, numberOfGuest, typeRoom);
+                    room.setIdRoom(idRoom);
+                    room.setStateRoom(stateRoom);
+                }
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return room;
+    }
+
+    public void addLinkGuestWithRoom(Guest guest, Room room) {
+        final String QUERY = "INSERT INTO linkTable (idRoom, idGuest) VALUES (?,?)";
+        try (Connection con = connector.getConnection()){
+            PreparedStatement preparedStatement = con.prepareStatement(QUERY);
+            preparedStatement.setInt(1, room.getIdRoom());
+            preparedStatement.setInt(2, guest.getIdGuest());
+            preparedStatement.execute();
+            preparedStatement.close();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
     @Override
     public void addRoom(Room room) {
         final String QUERY = "INSERT INTO rooms (number, numberOfGuests, price, stateRoom, typeRoom) VALUES (?,?,?,?,?);";
@@ -126,7 +170,7 @@ public class RoomDao implements IRoomDao {
 
     @Override
     public void updateRoom(Room room) {
-        final String QUERY = "UPDATE rooms number = ?, numberOfGuests = ?, price = ?, stateRoom = ?, typeRoom = ? WHERE idRoom = ?";
+        final String QUERY = "UPDATE rooms SET`number`=?, `numberOfGuests`=?, `price`=?, `stateRoom`=?, `typeRoom` =? WHERE `idRoom` =?;";
         try (Connection con = connector.getConnection()) {
             PreparedStatement preparedStatement = con.prepareStatement(QUERY);
             preparedStatement.setInt(1, room.getNumber());

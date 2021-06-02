@@ -9,6 +9,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 public class GuestServiceTest {
@@ -63,38 +64,76 @@ public class GuestServiceTest {
 
     @Test
     public void addOrderGuest() {
-
+        Guest guest = new Guest("Tom");
+        guestService.enter(guest);
+        roomService.checkIn(guest);
+        guestDao.updateGuest(guest);
         Service service = new Service("Заказ еды в номер",15);
-        //guestService.orderService();
+        guestService.orderService(guest, service);
+        Assert.assertFalse(guest.getOrderedServices().isEmpty());
+        Service service2 = new Service("Массаж",45);
+        guestService.orderService(guest, service2);
     }
 
     @Test
-    public void deleteOrderGuest() {
+    public void checkOutAndDeleteOrderGuests() {
+        ArrayList<Guest> guests;
+        addGuest();
+        addGuest();
+        addGuest();
+        guests = guestDao.allGuests();
+        for (Guest guest : guests) {
+            System.out.println(guest);
+            Room room = roomDao.checkGuest(guest.getIdGuest());
+            guest.setRoom(room);
+            roomService.checkOut(guest);
+            ArrayList<Service> orderedServices = guest.getOrderedServices();
+            int priceServices = 0;
+            for (Service service : orderedServices) {
+                priceServices =+ service.getPriceService();
+            }
+            guestDao.deleteOrderGuest(guest);
+            orderedServices = guest.getOrderedServices();
+            Assert.assertTrue(orderedServices.isEmpty());
+
+            System.out.println("К оплате = " + priceServices + "$ за все услуги");
+            
+        }
     }
 
     @Test
     public void addGuest() {
         Guest guest = new Guest("Tom");
+        guestService.enter(guest);
+        Assert.assertEquals(guest.getStateGuest(), StateGuest.CHECK_IN);
         roomService.checkIn(guest);
         Assert.assertNotEquals(guest.getDateOfCheckIn(),null);
         Assert.assertNotEquals(guest.getDateOfCheckOut(),null);
         Assert.assertNotEquals(guest.getRoom(),null);
-        guestService.enter(guest);
-        Assert.assertEquals(guest.getStateGuest(), StateGuest.CHECK_IN);
+
         guestDao.updateGuest(guest);
     }
 
     @Test
     public void deleteGuest() {
+        ArrayList<Guest> guests;
+        Random RANDOM = new Random();
+        Guest guest = new Guest("Tom");
+        guestService.enter(guest);
+        roomService.checkIn(guest);
+        guestDao.updateGuest(guest);
+        guests = guestDao.allGuests();
+        if (guests.size()>0) {
+            Guest guestGet = guests.get(RANDOM.nextInt(guests.size()));
+            guestService.leave(guestGet);
+            Guest guest2 = guestDao.readGuest(guestGet.getIdGuest());
+            Assert.assertNull(guest2);
+
+        }
+
+
     }
 
-    @Test
-    public void updateGuest() {
-    }
-
-    @Test
-    public void allGuests() {
-    }
 
     @Test
     public void last3Guests() {

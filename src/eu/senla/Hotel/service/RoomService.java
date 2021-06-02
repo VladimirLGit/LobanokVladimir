@@ -4,6 +4,7 @@ import eu.senla.Hotel.api.sevice.IRoomService;
 import eu.senla.Hotel.dao.RoomDao;
 import eu.senla.Hotel.model.Guest;
 import eu.senla.Hotel.model.Room;
+import eu.senla.Hotel.model.Service;
 import eu.senla.Hotel.model.StateRoom;
 
 import static java.time.temporal.ChronoUnit.DAYS;
@@ -22,16 +23,14 @@ public class RoomService implements IRoomService {
 
     @Override
     public void checkIn(Guest guest) {
-        LocalDate today = LocalDate.now();
         Random RANDOM = new Random();
         ArrayList<Room> freeRooms;
         freeRooms = listFreeRooms();
         Room room = freeRooms.get(RANDOM.nextInt(freeRooms.size()));
         room.setStateRoom(StateRoom.CHECKED);
         roomDao.updateRoom(room);
+        roomDao.addLinkGuestWithRoom(guest, room);
         guest.setRoom(room); //поселили гостя в комнату без критериев
-        guest.setDateOfCheckIn(today);
-        guest.setDateOfCheckOut(today.plusDays(RANDOM.nextInt(5)+1));
     }
 
 
@@ -46,7 +45,8 @@ public class RoomService implements IRoomService {
         //сумма к уплате за проживание и оказанные услуги
         int priceRoom = room.getPrice();
         int amountOfDaysOfStay = (int) DAYS.between(guest.getDateOfCheckIn(), guest.getDateOfCheckOut());
-        System.out.println("К оплате = " + amountOfDaysOfStay*priceRoom + "$");
+
+        System.out.println("К оплате = " + amountOfDaysOfStay*priceRoom + "$ за проживание");
     }
 
     @Override

@@ -131,6 +131,7 @@ public class GuestDao implements IGuestDao {
             int execute = query.executeUpdate(QUERY);
             if (execute>0) {
                 System.out.println("Delete orders as " + guest.getNameGuest());
+                guest.clearListOrder();
             } else {
                 System.out.println("The orders does not exist");
             }
@@ -223,6 +224,30 @@ public class GuestDao implements IGuestDao {
         }
     }
 
+    public Guest readGuest(int idGuest) {
+        Guest guest = null;
+        final String QUERY = "select * FROM guests WHERE idGuest = " + '"' + idGuest + '"';
+        try (Connection con = connector.getConnection();
+             Statement query = con.createStatement()) {
+            ResultSet rs = query.executeQuery(QUERY);
+            while(rs.next()) {
+                int idReadGuest = rs.getInt("IDGuest");
+                String nameGuest = rs.getString("Name");
+                LocalDate localDateIn = DateUtils.asLocalDate(rs.getDate("DateOfCheckIn"));
+                LocalDate localDateOut = DateUtils.asLocalDate(rs.getDate("DateOfCheckOut"));
+                StateGuest stateRoom = StateGuest.values()[rs.getInt("StateGuest")];
+                guest = new Guest(nameGuest);
+                guest.setIdGuest(idReadGuest);
+                guest.setStateGuest(stateRoom);
+                guest.setDateOfCheckIn(localDateIn);
+                guest.setDateOfCheckOut(localDateOut);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return guest;
+    }
     @Override
     public ArrayList<Guest> allGuests() {
         final String QUERY = "select * from guests";
@@ -230,8 +255,7 @@ public class GuestDao implements IGuestDao {
         try(Connection con = connector.getConnection();
             Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery(QUERY)) {
-            //stmt.close();
-            while(rs.next()){
+            while(rs.next()) {
                 int idGuest = rs.getInt("IDGuest");
                 String nameGuest = rs.getString("Name");
                 LocalDate localDateIn = DateUtils.asLocalDate(rs.getDate("DateOfCheckIn"));
@@ -244,7 +268,6 @@ public class GuestDao implements IGuestDao {
                 guest.setDateOfCheckOut(localDateOut);
                 guests.add(guest);
             }
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -280,5 +303,47 @@ public class GuestDao implements IGuestDao {
             e.printStackTrace();
         }
         return guests;
+    }
+
+    public Service readService(int idService) {
+        final String QUERY = "select * from services WHERE IDService = ?;";
+        Service service = null;
+        try (Connection con = connector.getConnection()) {
+            PreparedStatement preparedStatement = con.prepareStatement(QUERY);
+            preparedStatement.setInt(1, idService);
+            ResultSet rs = preparedStatement.executeQuery();
+            while(rs.next()){
+                int id = rs.getInt("IDService");
+                String nameService = rs.getString("Name");
+                int price = rs.getInt("Price");
+                service = new Service(nameService, price);
+                service.setIdService(id);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return service;
+    }
+
+    public ArrayList<Service> allServicesGuest(Guest guest) {
+        ArrayList<Service> services = null;
+        final String QUERY = "select * from linkService WHERE idGuest = ?;";
+        try (Connection con = connector.getConnection()) {
+            PreparedStatement preparedStatement = con.prepareStatement(QUERY);
+            preparedStatement.setInt(1, guest.getIdGuest());
+            ResultSet rs = preparedStatement.executeQuery();
+            while(rs.next()){
+                int idService = rs.getInt("IDService");
+                Service service = readService(idService);
+                if (service!=null) {
+                    services.add(service);
+                }
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return services;
     }
 }

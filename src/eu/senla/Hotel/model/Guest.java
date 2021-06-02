@@ -13,13 +13,20 @@ public class Guest {
     private StateGuest stateGuest;
     private Room room;
     private ArrayList<Service> orderedServices;
+
     public Guest(String nameGuest) {
         this.nameGuest = nameGuest;
         this.room = null;
-        ArrayList<Service> orderedServices = new ArrayList<>();
+        orderedServices = new ArrayList<>();
+    }
+    public void clearListOrder(){
+        orderedServices.clear();
     }
     public void addOrderedService(Service service){
         orderedServices.add(service);
+    }
+    public ArrayList<Service> getOrderedServices() {
+        return orderedServices;
     }
 
     public int getIdGuest() {
@@ -64,5 +71,15 @@ public class Guest {
 
     public void setRoom(Room room) {
         this.room = room;
+    }
+
+    @Override
+    public String toString() {
+        return "Guest{" +
+                "nameGuest='" + nameGuest + '\'' +
+                ", dateOfCheckIn=" + dateOfCheckIn +
+                ", dateOfCheckOut=" + dateOfCheckOut +
+                ", stateGuest=" + stateGuest +
+                '}';
     }
 }

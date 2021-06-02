@@ -6,7 +6,9 @@ import eu.senla.Hotel.model.Guest;
 import eu.senla.Hotel.model.Service;
 import eu.senla.Hotel.model.StateGuest;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Random;
 
 public class GuestService implements IGuestService {
     private final GuestDao guestDao;
@@ -19,7 +21,11 @@ public class GuestService implements IGuestService {
 
     @Override
     public void enter(Guest guest) {
+        Random RANDOM = new Random();
+        LocalDate today = LocalDate.now();
         guest.setStateGuest(StateGuest.CHECK_IN);
+        guest.setDateOfCheckIn(today);
+        guest.setDateOfCheckOut(today.plusDays(RANDOM.nextInt(5)+1));
         guestDao.addGuest(guest);
         guests.add(guest);
     }
