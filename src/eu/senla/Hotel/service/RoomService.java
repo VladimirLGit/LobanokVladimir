@@ -44,7 +44,7 @@ public class RoomService implements IRoomService {
         guest.setDateOfCheckOut(today);
         //сумма к уплате за проживание и оказанные услуги
         int priceRoom = room.getPrice();
-        int amountOfDaysOfStay = (int) DAYS.between(guest.getDateOfCheckIn(), guest.getDateOfCheckOut());
+        int amountOfDaysOfStay = (int) DAYS.between(guest.getDateOfCheckIn(), guest.getDateOfCheckOut()) + 1;
 
         System.out.println("К оплате = " + amountOfDaysOfStay*priceRoom + "$ за проживание");
     }

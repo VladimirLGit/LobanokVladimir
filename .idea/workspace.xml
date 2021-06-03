@@ -3,10 +3,15 @@
   <component name="ChangeListManager">
     <list default="true" id="af7225b5-2888-44e3-9144-22fb3da50a06" name="Default Changelist" comment="Created functions for data base">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/eu/senla/Hotel/dao/GuestDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/eu/senla/Hotel/dao/GuestDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ProjectEE/eu/senla/Hotel/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ProjectEE/eu/senla/Hotel/Main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ProjectEE/eu/senla/Hotel/dao/GuestDao.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ProjectEE/eu/senla/Hotel/dao/GuestDao.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ProjectEE/eu/senla/Hotel/dao/RoomDao.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ProjectEE/eu/senla/Hotel/dao/RoomDao.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ProjectEE/eu/senla/Hotel/dao/ServiceDao.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ProjectEE/eu/senla/Hotel/dao/ServiceDao.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ProjectEE/eu/senla/Hotel/model/Guest.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ProjectEE/eu/senla/Hotel/model/Guest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ProjectEE/eu/senla/Hotel/service/GuestService.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ProjectEE/eu/senla/Hotel/service/GuestService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ProjectEE/eu/senla/Hotel/service/RoomService.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ProjectEE/eu/senla/Hotel/service/RoomService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/test/ProjectEE/GuestServiceTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/test/ProjectEE/GuestServiceTest.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/eu/senla/Hotel/dao/RoomDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/eu/senla/Hotel/dao/RoomDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/eu/senla/Hotel/dao/ServiceDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/eu/senla/Hotel/dao/ServiceDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/eu/senla/Hotel/model/Guest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/eu/senla/Hotel/model/Guest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/eu/senla/Hotel/service/RoomService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/eu/senla/Hotel/service/RoomService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/test/GuestServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/GuestServiceTest.java" afterDir="false" />
     </list>
@@ -187,7 +192,14 @@
       <option name="project" value="LOCAL" />
       <updated>1622582633690</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Modified test">
+      <created>1622673281683</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1622673281684</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -207,35 +219,16 @@
     <MESSAGE value="Created functions for data base" />
     <MESSAGE value="Create test dataBase.&#10;Create table and drop.&#10;Create rooms and guests." />
     <MESSAGE value="edit Dao and Service" />
-    <option name="LAST_COMMIT_MESSAGE" value="edit Dao and Service" />
+    <MESSAGE value="Modified test" />
+    <option name="LAST_COMMIT_MESSAGE" value="Modified test" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/test/GuestServiceTest.java</url>
-          <line>98</line>
+          <line>99</line>
           <option name="timeStamp" value="3" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/test/GuestServiceTest.java</url>
-          <line>88</line>
-          <option name="timeStamp" value="4" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/eu/senla/Hotel/dao/RoomDao.java</url>
-          <line>92</line>
-          <option name="timeStamp" value="8" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/eu/senla/Hotel/dao/RoomDao.java</url>
-          <line>89</line>
-          <option name="timeStamp" value="9" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/eu/senla/Hotel/service/RoomService.java</url>
-          <line>32</line>
-          <option name="timeStamp" value="11" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

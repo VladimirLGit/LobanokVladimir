@@ -83,19 +83,18 @@ public class RoomDao implements IRoomDao {
     public Room checkGuest(int idGuest){
         int idRoom = 0;
         Room room = null;
-        final String QUERY = "select IDRoom from linkTable where `IDGuest`=?;";
-        try(Connection con = connector.getConnection()) {
-            PreparedStatement preparedStatement = con.prepareStatement(QUERY);
-            preparedStatement.setInt(1, idGuest);
-            ResultSet rs = preparedStatement.executeQuery(QUERY);
+        //final String QUERY = "select idRoom from linkTable where idGuest=?;";
+        final String QUERY = "select idRoom FROM linkTable WHERE idGuest = " + '"' + idGuest + '"';
+        try(Connection con = connector.getConnection();
+            Statement query = con.createStatement()) {
+            ResultSet rs = query.executeQuery(QUERY);
             while (rs.next()){
                 idRoom = rs.getInt(1);
-                final String QUERY2 = "select * from rooms where `IDRoom`=?";
-                preparedStatement = con.prepareStatement(QUERY2);
-                preparedStatement.setInt(1, idRoom);
-                ResultSet rs2 = preparedStatement.executeQuery(QUERY2);
+                final String QUERY2 = "select * FROM rooms WHERE idRoom = " + '"' + idRoom + '"';
+                Statement query2 = con.createStatement();
+                ResultSet rs2 = query2.executeQuery(QUERY2);
                 while (rs2.next()) {
-                    idRoom = rs2.getInt("IDRoom");
+                    idRoom = rs2.getInt("idRoom");
                     int number = rs2.getInt("Number");
                     int numberOfGuest = rs2.getInt("NumberOfGuests");
                     int price = rs2.getInt("Price");
@@ -105,6 +104,7 @@ public class RoomDao implements IRoomDao {
                     room.setIdRoom(idRoom);
                     room.setStateRoom(stateRoom);
                 }
+                rs2.close();
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();

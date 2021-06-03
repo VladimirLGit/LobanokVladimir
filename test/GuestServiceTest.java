@@ -83,10 +83,11 @@ public class GuestServiceTest {
         addGuest();
         guests = guestDao.allGuests();
         for (Guest guest : guests) {
-            System.out.println(guest);
             Room room = roomDao.checkGuest(guest.getIdGuest());
             guest.setRoom(room);
             roomService.checkOut(guest);
+            System.out.println(guest);
+
             ArrayList<Service> orderedServices = guest.getOrderedServices();
             int priceServices = 0;
             for (Service service : orderedServices) {
