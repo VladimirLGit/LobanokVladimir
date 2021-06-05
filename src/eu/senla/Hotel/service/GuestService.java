@@ -12,6 +12,7 @@ import java.util.Random;
 
 public class GuestService implements IGuestService {
     private final GuestDao guestDao;
+
     private final ArrayList<Guest> guests;
 
     public GuestService() {
@@ -26,22 +27,26 @@ public class GuestService implements IGuestService {
         guest.setStateGuest(StateGuest.CHECK_IN);
         guest.setDateOfCheckIn(today);
         guest.setDateOfCheckOut(today.plusDays(RANDOM.nextInt(5)+1));
-        guestDao.addGuest(guest);
         guests.add(guest);
+        guestDao.addGuest(guest);
     }
 
     @Override
     public void leave(Guest guest) {
         guest.setStateGuest(StateGuest.CHECK_OUT);
         guestDao.deleteGuest(guest);
-        guestDao.deleteOrderGuest(guest);
+        //guestDao.deleteOrderGuest(guest);
         guests.remove(guest);
+    }
+
+    public ArrayList<Guest> getGuests() {
+        return guests;
     }
 
     @Override
     public void orderService(Guest guest, Service service) {
         guest.addOrderedService(service);
-        guestDao.addOrderGuest(guest, service);
+        //guestDao.addOrderGuest(guest, service);
     }
 
     @Override

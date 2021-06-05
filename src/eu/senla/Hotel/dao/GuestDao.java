@@ -110,36 +110,6 @@ public class GuestDao implements IGuestDao {
         return new java.sql.Date(dateToConvert.getTime()).toLocalDate();
     }
 
-    public void addOrderGuest(Guest guest, Service service) {
-        final String QUERY = "INSERT INTO linkService (idGuest, idService) VALUES (?,?)";
-        //return idRoom into ?;
-        try (Connection con = connector.getConnection()){
-            PreparedStatement preparedStatement = con.prepareStatement(QUERY);
-            preparedStatement.setInt(1, guest.getIdGuest());
-            preparedStatement.setInt(2, service.getIdService());
-            preparedStatement.execute();
-            preparedStatement.close();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-    }
-
-    public void deleteOrderGuest(Guest guest) {
-        final String QUERY = "Delete FROM linkService WHERE idGuest = " + '"' + guest.getIdGuest() + '"';
-        try (Connection con = connector.getConnection();
-             Statement query =  con.createStatement()) {
-            int execute = query.executeUpdate(QUERY);
-            if (execute>0) {
-                System.out.println("Delete orders as " + guest.getNameGuest());
-                guest.clearListOrder();
-            } else {
-                System.out.println("The orders does not exist");
-            }
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-    }
-
     public void addGuestIntoHistory(Guest guest) {
         final String QUERY = "INSERT INTO historyGuests (Name, DateOfCheckIn, DateOfCheckOut, StateGuest) VALUES (?,?,?,?)";
         //return idRoom into ?;

@@ -19,6 +19,7 @@ public class RoomDao implements IRoomDao {
                 " number int(10) NOT NULL,\n" +
                 " numberOfGuests int(10) NOT NULL,\n" +
                 " price int(10) NOT NULL,\n" +
+                " rating double NOT NULL,\n" +
                 " stateRoom int(10) NOT NULL,\n" +
                 " typeRoom int(10) NOT NULL,\n" +
                 " PRIMARY KEY (idRoom)\n" +
@@ -98,11 +99,13 @@ public class RoomDao implements IRoomDao {
                     int number = rs2.getInt("Number");
                     int numberOfGuest = rs2.getInt("NumberOfGuests");
                     int price = rs2.getInt("Price");
+                    double rating = rs2.getDouble("rating");
                     StateRoom stateRoom = StateRoom.values()[rs2.getInt("StateRoom")];
                     TypeRoom typeRoom = TypeRoom.values()[rs2.getInt("TypeRoom")];
                     room = new Room(number, price, numberOfGuest, typeRoom);
                     room.setIdRoom(idRoom);
                     room.setStateRoom(stateRoom);
+                    room.setRating(rating);
                 }
                 rs2.close();
             }
@@ -127,15 +130,16 @@ public class RoomDao implements IRoomDao {
 
     @Override
     public void addRoom(Room room) {
-        final String QUERY = "INSERT INTO rooms (number, numberOfGuests, price, stateRoom, typeRoom) VALUES (?,?,?,?,?);";
+        final String QUERY = "INSERT INTO rooms (number, numberOfGuests, price, rating, stateRoom, typeRoom) VALUES (?,?,?,?,?,?);";
         //return idRoom into ?;
         try (Connection con = connector.getConnection()){
             PreparedStatement preparedStatement = con.prepareStatement(QUERY);
             preparedStatement.setInt(1, room.getNumber());
             preparedStatement.setInt(2, room.getNumberOfGuests());
             preparedStatement.setInt(3, room.getPrice());
-            preparedStatement.setInt(4, room.getStateRoom().ordinal());
-            preparedStatement.setInt(5, room.getTypeRoom().ordinal());
+            preparedStatement.setDouble(4, room.getRating());
+            preparedStatement.setInt(5, room.getStateRoom().ordinal());
+            preparedStatement.setInt(6, room.getTypeRoom().ordinal());
             preparedStatement.execute();
 
             // get the generated key for the id
@@ -170,15 +174,16 @@ public class RoomDao implements IRoomDao {
 
     @Override
     public void updateRoom(Room room) {
-        final String QUERY = "UPDATE rooms SET`number`=?, `numberOfGuests`=?, `price`=?, `stateRoom`=?, `typeRoom` =? WHERE `idRoom` =?;";
+        final String QUERY = "UPDATE rooms SET`number`=?, `numberOfGuests`=?, `price`=?, `rating`=?, `stateRoom`=?, `typeRoom` =? WHERE `idRoom` =?;";
         try (Connection con = connector.getConnection()) {
             PreparedStatement preparedStatement = con.prepareStatement(QUERY);
             preparedStatement.setInt(1, room.getNumber());
             preparedStatement.setInt(2, room.getNumberOfGuests());
             preparedStatement.setInt(3, room.getPrice());
-            preparedStatement.setInt(4, room.getStateRoom().ordinal());
-            preparedStatement.setInt(5, room.getTypeRoom().ordinal());
-            preparedStatement.setInt(6, room.getIdRoom());
+            preparedStatement.setDouble(4, room.getRating());
+            preparedStatement.setInt(5, room.getStateRoom().ordinal());
+            preparedStatement.setInt(6, room.getTypeRoom().ordinal());
+            preparedStatement.setInt(7, room.getIdRoom());
             preparedStatement.execute();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -200,11 +205,13 @@ public class RoomDao implements IRoomDao {
                 int number = rs.getInt("Number");
                 int numberOfGuest = rs.getInt("NumberOfGuests");
                 int price = rs.getInt("Price");
+                double rating = rs.getDouble("rating");
                 StateRoom stateRoom = StateRoom.values()[rs.getInt("StateRoom")];
                 TypeRoom typeRoom = TypeRoom.values()[rs.getInt("TypeRoom")];
                 Room room = new Room(number, price,numberOfGuest, typeRoom);
                 room.setIdRoom(idRoom);
                 room.setStateRoom(stateRoom);
+                room.setRating(rating);
                 rooms.add(room);
             }
         } catch (SQLException e) {

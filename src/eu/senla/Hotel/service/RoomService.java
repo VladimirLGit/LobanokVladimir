@@ -15,12 +15,13 @@ import java.util.Random;
 
 public class RoomService implements IRoomService {
     private final RoomDao roomDao;
+
     private final ArrayList<Room> rooms;
+
     public RoomService() {
         roomDao = new RoomDao();
         rooms = roomDao.allRooms();
     }
-
     @Override
     public void checkIn(Guest guest) {
         Random RANDOM = new Random();
@@ -36,10 +37,16 @@ public class RoomService implements IRoomService {
 
     @Override
     public void checkOut(Guest guest) {
+        Random RANDOM = new Random();
         LocalDate today = LocalDate.now();
         Room room = guest.getRoom();
+        int indexRoom = rooms.indexOf(room);
+        if (indexRoom>=0)
+            room = rooms.get(indexRoom);
+        room.setRating(RANDOM.nextInt(5));
         room.setStateRoom(StateRoom.FREE);
         roomDao.updateRoom(room);
+
         guest.setRoom(null);
         guest.setDateOfCheckOut(today);
         //сумма к уплате за проживание и оказанные услуги
@@ -47,6 +54,10 @@ public class RoomService implements IRoomService {
         int amountOfDaysOfStay = (int) DAYS.between(guest.getDateOfCheckIn(), guest.getDateOfCheckOut()) + 1;
 
         System.out.println("К оплате = " + amountOfDaysOfStay*priceRoom + "$ за проживание");
+    }
+
+    public ArrayList<Room> getRooms() {
+        return rooms;
     }
 
     @Override
@@ -62,6 +73,7 @@ public class RoomService implements IRoomService {
             list.add(room);
         }
     }
+
     void addStateRoom(Room room, StateRoom stateRoom, LocalDate date, ArrayList<Room> list)
     {
         ArrayList<Guest> guests;
@@ -116,4 +128,5 @@ public class RoomService implements IRoomService {
         else
             System.out.println("Номер не существует");
     }
+
 }
