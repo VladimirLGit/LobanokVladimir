@@ -250,7 +250,7 @@ public class GuestDao implements IGuestDao {
         try(Connection con = connector.getConnection();
             Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery(QUERY)) {
-            stmt.close();
+
             while(rs.next()){
                 int idGuest = rs.getInt("IDGuest");
                 String nameGuest = rs.getString("Name");
@@ -267,6 +267,7 @@ public class GuestDao implements IGuestDao {
                     break;
                 }
             }
+
 
 
         } catch (SQLException e) {

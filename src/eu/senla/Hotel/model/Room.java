@@ -24,6 +24,7 @@ public class Room {
         this.numberOfGuests = numberOfGuests;
         this.typeRoom = typeRoom;
         this.stateRoom = StateRoom.FREE;
+        guests = new ArrayList<>();
     }
     public int getIdRoom() {
         return idRoom;
@@ -69,9 +70,17 @@ public class Room {
         return guests;
     }
 
-
     public void setGuests(ArrayList<Guest> guests) {
         this.guests = guests;
+    }
+
+    public void addGuest(Guest guest){
+        guests.add(guest);
+    }
+
+    public void deleteGuest(Guest guest){
+        int index = guests.indexOf(guest);
+        if (index!=-1) guests.remove(index);
     }
 
     public StateRoom getStateRoom() {

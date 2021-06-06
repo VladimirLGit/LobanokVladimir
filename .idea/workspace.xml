@@ -2,28 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="af7225b5-2888-44e3-9144-22fb3da50a06" name="Default Changelist" comment="Created functions for data base">
-      <change afterPath="$PROJECT_DIR$/src/eu/senla/Hotel/utils/guest/NameComparator.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/eu/senla/Hotel/utils/room/NumberComparator.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/eu/senla/Hotel/utils/room/NumberOfGuestsComparator.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/eu/senla/Hotel/utils/room/PriceComparator.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/eu/senla/Hotel/utils/room/RatingComparator.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ProjectEE/eu/senla/Hotel/api/sevice/IServiceService.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ProjectEE/eu/senla/Hotel/api/sevice/IServiceService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ProjectEE/eu/senla/Hotel/dao/GuestDao.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ProjectEE/eu/senla/Hotel/dao/GuestDao.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ProjectEE/eu/senla/Hotel/dao/RoomDao.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ProjectEE/eu/senla/Hotel/dao/RoomDao.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ProjectEE/eu/senla/Hotel/dao/ServiceDao.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ProjectEE/eu/senla/Hotel/dao/ServiceDao.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ProjectEE/eu/senla/Hotel/model/Room.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ProjectEE/eu/senla/Hotel/model/Room.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ProjectEE/eu/senla/Hotel/service/GuestService.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ProjectEE/eu/senla/Hotel/service/GuestService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ProjectEE/eu/senla/Hotel/service/HotelService.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ProjectEE/eu/senla/Hotel/service/HotelService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ProjectEE/eu/senla/Hotel/service/RoomService.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ProjectEE/eu/senla/Hotel/service/RoomService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/test/ProjectEE/GuestServiceTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/test/ProjectEE/GuestServiceTest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/eu/senla/Hotel/api/sevice/IServiceService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/eu/senla/Hotel/api/sevice/IServiceService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/eu/senla/Hotel/dao/GuestDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/eu/senla/Hotel/dao/GuestDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/eu/senla/Hotel/dao/RoomDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/eu/senla/Hotel/dao/RoomDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/eu/senla/Hotel/dao/ServiceDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/eu/senla/Hotel/dao/ServiceDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/eu/senla/Hotel/model/Guest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/eu/senla/Hotel/model/Guest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/eu/senla/Hotel/model/Room.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/eu/senla/Hotel/model/Room.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/eu/senla/Hotel/service/GuestService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/eu/senla/Hotel/service/GuestService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/eu/senla/Hotel/service/HotelService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/eu/senla/Hotel/service/HotelService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/eu/senla/Hotel/service/RoomService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/eu/senla/Hotel/service/RoomService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/test/GuestServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/GuestServiceTest.java" afterDir="false" />
     </list>
@@ -105,26 +88,7 @@
       <command value="cmd" />
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.GuestServiceTest.checkOutAndDeleteOrderGuests">
-    <configuration name="GuestServiceTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="ProjectEE" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="GuestServiceTest" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="GuestServiceTest.addGuest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="ProjectEE" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="GuestServiceTest" />
-      <option name="METHOD_NAME" value="addGuest" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
+  <component name="RunManager" selected="JUnit.GuestServiceTest.viewListLastGuest">
     <configuration name="GuestServiceTest.checkOutAndDeleteOrderGuests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="ProjectEE" />
       <option name="PACKAGE_NAME" value="" />
@@ -135,21 +99,41 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="GuestServiceTest.deleteGuest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="GuestServiceTest.viewListFreeRoomAndSort" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="ProjectEE" />
       <option name="PACKAGE_NAME" value="" />
       <option name="MAIN_CLASS_NAME" value="GuestServiceTest" />
-      <option name="METHOD_NAME" value="deleteGuest" />
+      <option name="METHOD_NAME" value="viewListFreeRoomAndSort" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="GuestServiceTest.sortRooms" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="GuestServiceTest.viewListGuestsAndSort" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="ProjectEE" />
       <option name="PACKAGE_NAME" value="" />
       <option name="MAIN_CLASS_NAME" value="GuestServiceTest" />
-      <option name="METHOD_NAME" value="sortRooms" />
+      <option name="METHOD_NAME" value="viewListGuestsAndSort" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="GuestServiceTest.viewListLastGuest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="ProjectEE" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="GuestServiceTest" />
+      <option name="METHOD_NAME" value="viewListLastGuest" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="GuestServiceTest.willBeFreeInTheFuture" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="ProjectEE" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="GuestServiceTest" />
+      <option name="METHOD_NAME" value="willBeFreeInTheFuture" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -157,11 +141,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.GuestServiceTest.viewListLastGuest" />
+        <item itemvalue="JUnit.GuestServiceTest.willBeFreeInTheFuture" />
+        <item itemvalue="JUnit.GuestServiceTest.viewListFreeRoomAndSort" />
+        <item itemvalue="JUnit.GuestServiceTest.viewListGuestsAndSort" />
         <item itemvalue="JUnit.GuestServiceTest.checkOutAndDeleteOrderGuests" />
-        <item itemvalue="JUnit.GuestServiceTest.sortRooms" />
-        <item itemvalue="JUnit.GuestServiceTest" />
-        <item itemvalue="JUnit.GuestServiceTest.deleteGuest" />
-        <item itemvalue="JUnit.GuestServiceTest.addGuest" />
       </list>
     </recent_temporary>
   </component>
@@ -223,7 +207,14 @@
       <option name="project" value="LOCAL" />
       <updated>1622760762683</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Sorted list - guests, rooms.">
+      <created>1622890170366</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1622890170366</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -245,7 +236,19 @@
     <MESSAGE value="edit Dao and Service" />
     <MESSAGE value="Modified test" />
     <MESSAGE value="Update test" />
-    <option name="LAST_COMMIT_MESSAGE" value="Update test" />
+    <MESSAGE value="Sorted list - guests, rooms." />
+    <option name="LAST_COMMIT_MESSAGE" value="Sorted list - guests, rooms." />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/eu/senla/Hotel/service/GuestService.java</url>
+          <line>37</line>
+          <option name="timeStamp" value="13" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/ProjectEE$GuestServiceTest_sortRooms.ic" NAME="GuestServiceTest.sortRooms Coverage Results" MODIFIED="1622881908402" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />

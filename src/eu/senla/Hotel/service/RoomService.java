@@ -29,6 +29,7 @@ public class RoomService implements IRoomService {
         freeRooms = listFreeRooms();
         Room room = freeRooms.get(RANDOM.nextInt(freeRooms.size()));
         room.setStateRoom(StateRoom.CHECKED);
+        room.addGuest(guest);
         roomDao.updateRoom(room);
         roomDao.addLinkGuestWithRoom(guest, room);
         guest.setRoom(room); //поселили гостя в комнату без критериев
@@ -40,18 +41,22 @@ public class RoomService implements IRoomService {
         Random RANDOM = new Random();
         LocalDate today = LocalDate.now();
         Room room = guest.getRoom();
+        int amountOfDaysOfStay = 0;
+        int priceRoom = 0;
         int indexRoom = rooms.indexOf(room);
-        if (indexRoom>=0)
+        if (indexRoom>=0){
             room = rooms.get(indexRoom);
-        room.setRating(RANDOM.nextInt(5));
-        room.setStateRoom(StateRoom.FREE);
-        roomDao.updateRoom(room);
+            room.setRating(RANDOM.nextInt(5));
+            room.setStateRoom(StateRoom.FREE);
+            room.deleteGuest(guest);
+            roomDao.updateRoom(room);
+            guest.setRoom(null);
+            guest.setDateOfCheckOut(today);
+            //сумма к уплате за проживание и оказанные услуги
+            priceRoom = room.getPrice();
+            amountOfDaysOfStay = (int) DAYS.between(guest.getDateOfCheckIn(), guest.getDateOfCheckOut()) + 1;
+        }
 
-        guest.setRoom(null);
-        guest.setDateOfCheckOut(today);
-        //сумма к уплате за проживание и оказанные услуги
-        int priceRoom = room.getPrice();
-        int amountOfDaysOfStay = (int) DAYS.between(guest.getDateOfCheckIn(), guest.getDateOfCheckOut()) + 1;
 
         System.out.println("К оплате = " + amountOfDaysOfStay*priceRoom + "$ за проживание");
     }
@@ -81,14 +86,16 @@ public class RoomService implements IRoomService {
         if (room.getStateRoom() == stateRoom){
             list.add(room);
         }
+        else
         if (room.getStateRoom() == StateRoom.CHECKED){
             guests = room.getGuests();
             for (Guest guest : guests) {
-                if (guest.getDateOfCheckOut().isAfter(dateCheckOut)) {
+                LocalDate localDate = guest.getDateOfCheckOut();
+                if (localDate.isAfter(dateCheckOut)) {
                     dateCheckOut = guest.getDateOfCheckOut();
                 }
             }
-            if (dateCheckOut.isBefore(date)) {
+            if (dateCheckOut.equals(date) || dateCheckOut.isBefore(date)) {
                 list.add(room);
             }
         }

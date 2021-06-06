@@ -33,10 +33,12 @@ public class GuestService implements IGuestService {
 
     @Override
     public void leave(Guest guest) {
-        guest.setStateGuest(StateGuest.CHECK_OUT);
-        guestDao.deleteGuest(guest);
-        //guestDao.deleteOrderGuest(guest);
-        guests.remove(guest);
+        int index = guests.indexOf(guest);
+        if (index!=-1){
+            guest.setStateGuest(StateGuest.CHECK_OUT);
+            guestDao.deleteGuest(guest);
+            guests.remove(index);
+        }
     }
 
     public ArrayList<Guest> getGuests() {
@@ -52,14 +54,19 @@ public class GuestService implements IGuestService {
     @Override
     public ArrayList<Guest> last3Guests() {
         ArrayList<Guest> last3Guest = new ArrayList<>();
-        if (guests.size()>=3){
-            for (int i = guests.size()-1; i > 0; i--) {
-               last3Guest.add(guests.get(i));
-            }
+        for (int i = guests.size()-1; i >= 0; i--) {
+           last3Guest.add(guests.get(i));
+           if (last3Guest.size()==3) break;
         }
-        else {
-            //если нет гостей в списке, тогда последние из истории
-            last3Guest.addAll(guestDao.last3Guests());
+
+        if (last3Guest.size()<3) {
+            //если не хватает или нет гостей в списке, тогда последние из истории
+            ArrayList<Guest> last3GuestHistory = guestDao.last3Guests();
+            if (last3GuestHistory.size()>0)
+                while ((last3Guest.size()!=3) && (last3GuestHistory.size()>0)){
+                    last3Guest.add(last3GuestHistory.remove(0));
+                }
+
         }
         return last3Guest;
     }

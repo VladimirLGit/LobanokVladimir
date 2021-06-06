@@ -16,6 +16,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -67,7 +68,6 @@ public class GuestServiceTest {
         }
     }
 
-
     @Before
     public void setUp() {
         createDao();
@@ -85,7 +85,6 @@ public class GuestServiceTest {
         hotelService = new HotelService();
         createServices();
     }
-
 
     @After
     public void tearDown() {
@@ -111,7 +110,7 @@ public class GuestServiceTest {
     }
 
     @Test
-    public void checkOutAndDeleteOrderGuests() {
+    public void viewListGuestsAndSort(){
         ArrayList<Guest> guests;
         addGuest();
         addGuest();
@@ -134,6 +133,64 @@ public class GuestServiceTest {
             System.out.println(guest);
         }
 
+    }
+
+    @Test
+    public void viewListFreeRoomAndSort(){
+        ArrayList<Room> rooms;
+        addGuest();
+        addGuest();
+        addGuest();
+        addGuest();
+        addGuest();
+        rooms = roomService.listFreeRooms();
+        System.out.println("Список свободных номеров");
+        for (Room room : rooms) {
+            System.out.println(room);
+        }
+        System.out.println("Список номеров отсортированный по вместимости гостей");
+        rooms.sort(new NumberOfGuestsComparator());
+        for (Room room : rooms) {
+            System.out.println(room);
+        }
+        System.out.println("Список номеров отсортированный по рейтингу");
+        rooms.sort(new RatingComparator());
+        for (Room room : rooms) {
+            System.out.println(room);
+        }
+
+        System.out.println("Список номеров отсортированный по стоимости");
+        rooms.sort(new PriceComparator());
+        for (Room room : rooms) {
+            System.out.println(room);
+        }
+    }
+
+    @Test
+    public void viewListLastGuest(){
+        addGuest();
+        //addGuest();
+        addGuest();
+        ArrayList<Guest> guests;
+        Random RANDOM = new Random();
+        guests = guestDao.allGuests();
+        Guest guestOut = guests.get(RANDOM.nextInt(guests.size()));
+        Room room = roomDao.checkGuest(guestOut.getIdGuest());
+        guestOut.setRoom(room);
+
+        roomService.checkOut(guestOut);
+        serviceDao.deleteOrderGuest(guestOut);
+        guestService.leave(guestOut);
+        guests = guestService.last3Guests();
+        for (Guest guest : guests) {
+            System.out.println(guest);
+        }
+    }
+
+    @Test
+    public void checkOutAndDeleteOrderGuests() {
+        ArrayList<Guest> guests;
+        guests = guestDao.allGuests();
         Random RANDOM = new Random();
 
         for (Guest guest : guests) {
@@ -157,12 +214,32 @@ public class GuestServiceTest {
             serviceDao.deleteOrderGuest(guest);
             orderedServices = guest.getOrderedServices();
             Assert.assertTrue(orderedServices.isEmpty());
-
+            guestService.leave(guest);
             System.out.println("К оплате = " + priceServices + "$ за все услуги");
             
         }
     }
 
+    @Test
+    public void willBeFreeInTheFuture(){
+        ArrayList<Room> rooms;
+        addGuest();
+        addGuest();
+        addGuest();
+        addGuest();
+        addGuest();
+        ArrayList<Guest> guests = guestDao.allGuests();
+        System.out.println("Список гостей");
+        for (Guest guest : guests) {
+            System.out.println(guest);
+        }
+        LocalDate date = LocalDate.now();
+        System.out.println(date.plusDays(2));
+        rooms = roomService.listFreeRoomsForDate(date.plusDays(2));
+        for (Room room : rooms) {
+            System.out.println(room);
+        }
+    }
 
     @Test
     public void sortRooms(){
@@ -234,8 +311,4 @@ public class GuestServiceTest {
 
     }
 
-
-    @Test
-    public void last3Guests() {
-    }
 }

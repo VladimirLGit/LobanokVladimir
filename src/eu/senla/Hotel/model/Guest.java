@@ -2,6 +2,7 @@ package eu.senla.Hotel.model;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class Guest {
     private int idGuest;
@@ -81,5 +82,18 @@ public class Guest {
                 ", dateOfCheckOut=" + dateOfCheckOut +
                 ", stateGuest=" + stateGuest +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Guest guest = (Guest) o;
+        return idGuest == guest.idGuest && Objects.equals(nameGuest, guest.nameGuest) && Objects.equals(dateOfCheckIn, guest.dateOfCheckIn);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(idGuest, nameGuest, dateOfCheckIn);
     }
 }
