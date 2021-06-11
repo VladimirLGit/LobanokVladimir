@@ -1,15 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="af7225b5-2888-44e3-9144-22fb3da50a06" name="Default Changelist" comment="Created functions for data base">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/eu/senla/Hotel/dao/GuestDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/eu/senla/Hotel/dao/GuestDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/eu/senla/Hotel/model/Guest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/eu/senla/Hotel/model/Guest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/eu/senla/Hotel/model/Room.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/eu/senla/Hotel/model/Room.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/eu/senla/Hotel/service/GuestService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/eu/senla/Hotel/service/GuestService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/eu/senla/Hotel/service/RoomService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/eu/senla/Hotel/service/RoomService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/GuestServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/GuestServiceTest.java" afterDir="false" />
-    </list>
+    <list default="true" id="af7225b5-2888-44e3-9144-22fb3da50a06" name="Default Changelist" comment="Created functions for data base" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -214,7 +206,14 @@
       <option name="project" value="LOCAL" />
       <updated>1622890170366</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="viewListGuestsAndSort&#10;viewListLastGuest&#10;willBeFreeInTheFuture">
+      <created>1622968681785</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1622968681785</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -237,18 +236,8 @@
     <MESSAGE value="Modified test" />
     <MESSAGE value="Update test" />
     <MESSAGE value="Sorted list - guests, rooms." />
-    <option name="LAST_COMMIT_MESSAGE" value="Sorted list - guests, rooms." />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/eu/senla/Hotel/service/GuestService.java</url>
-          <line>37</line>
-          <option name="timeStamp" value="13" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+    <MESSAGE value="viewListGuestsAndSort&#10;viewListLastGuest&#10;willBeFreeInTheFuture" />
+    <option name="LAST_COMMIT_MESSAGE" value="viewListGuestsAndSort&#10;viewListLastGuest&#10;willBeFreeInTheFuture" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/ProjectEE$GuestServiceTest_sortRooms.ic" NAME="GuestServiceTest.sortRooms Coverage Results" MODIFIED="1622881908402" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
