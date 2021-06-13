@@ -4,33 +4,10 @@
 
 package eu.senla.Hotel;
 
-import eu.senla.Hotel.dao.GuestDao;
-import eu.senla.Hotel.dao.RoomDao;
-import eu.senla.Hotel.dao.ServiceDao;
-import org.junit.Before;
+import eu.senla.Hotel.ui.menu.MenuController;
 
 public class Main {
-    private GuestDao guestDao;
-    private RoomDao roomDao;
-    private ServiceDao serviceDao;
-
-    private void createDao(){
-        guestDao = new GuestDao();
-        roomDao = new RoomDao();
-        serviceDao = new ServiceDao();
-    }
-
-
-    @Before
-    public void createTable(){
-        guestDao.createTableGuests();
-        guestDao.createLinkTableServices();
-        roomDao.createTableRooms();
-        roomDao.createLinkTableRooms();
-        serviceDao.createTableServices();
-    }
-
-    public static void main(String[] args) throws InterruptedException {
-
+    public static void main(String[] args) {
+        MenuController.getInstance().run();
     }
 }

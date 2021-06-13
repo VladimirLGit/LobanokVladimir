@@ -1,7 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="af7225b5-2888-44e3-9144-22fb3da50a06" name="Default Changelist" comment="Created functions for data base" />
+    <list default="true" id="af7225b5-2888-44e3-9144-22fb3da50a06" name="Default Changelist" comment="Created functions for data base">
+      <change afterPath="$PROJECT_DIR$/src/eu/senla/Hotel/ui/HotelController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/eu/senla/Hotel/ui/actions/AbstractAction.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/eu/senla/Hotel/ui/actions/AddRoom.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/eu/senla/Hotel/ui/actions/IAction.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/eu/senla/Hotel/ui/menu/Builder.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/eu/senla/Hotel/ui/menu/Menu.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/eu/senla/Hotel/ui/menu/MenuController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/eu/senla/Hotel/ui/menu/MenuItem.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/eu/senla/Hotel/ui/menu/Navigator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ProjectEE/eu/senla/Hotel/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ProjectEE/eu/senla/Hotel/Main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/test/ProjectEE/GuestServiceTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/test/ProjectEE/GuestServiceTest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/eu/senla/Hotel/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/eu/senla/Hotel/Main.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -10,9 +24,9 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Interface" />
         <option value="Enum" />
         <option value="JUnit5 Test Class" />
+        <option value="Interface" />
         <option value="Class" />
       </list>
     </option>
@@ -37,7 +51,9 @@
     </file-type-list>
   </component>
   <component name="ProjectId" id="1svcpLL2wopXimqI4iYsNrilGSL" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -80,13 +96,16 @@
       <command value="cmd" />
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.GuestServiceTest.viewListLastGuest">
-    <configuration name="GuestServiceTest.checkOutAndDeleteOrderGuests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="Application.Main">
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="eu.senla.Hotel.Main" />
       <module name="ProjectEE" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="GuestServiceTest" />
-      <option name="METHOD_NAME" value="checkOutAndDeleteOrderGuests" />
-      <option name="TEST_OBJECT" value="method" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="eu.senla.Hotel.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -133,11 +152,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.Main" />
         <item itemvalue="JUnit.GuestServiceTest.viewListLastGuest" />
         <item itemvalue="JUnit.GuestServiceTest.willBeFreeInTheFuture" />
         <item itemvalue="JUnit.GuestServiceTest.viewListFreeRoomAndSort" />
         <item itemvalue="JUnit.GuestServiceTest.viewListGuestsAndSort" />
-        <item itemvalue="JUnit.GuestServiceTest.checkOutAndDeleteOrderGuests" />
       </list>
     </recent_temporary>
   </component>
@@ -213,7 +232,14 @@
       <option name="project" value="LOCAL" />
       <updated>1622968681785</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="Commit change">
+      <created>1623447451509</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1623447451509</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -237,7 +263,8 @@
     <MESSAGE value="Update test" />
     <MESSAGE value="Sorted list - guests, rooms." />
     <MESSAGE value="viewListGuestsAndSort&#10;viewListLastGuest&#10;willBeFreeInTheFuture" />
-    <option name="LAST_COMMIT_MESSAGE" value="viewListGuestsAndSort&#10;viewListLastGuest&#10;willBeFreeInTheFuture" />
+    <MESSAGE value="Commit change" />
+    <option name="LAST_COMMIT_MESSAGE" value="Commit change" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/ProjectEE$GuestServiceTest_sortRooms.ic" NAME="GuestServiceTest.sortRooms Coverage Results" MODIFIED="1622881908402" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
