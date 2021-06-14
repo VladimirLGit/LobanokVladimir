@@ -1,5 +1,7 @@
 package eu.senla.Hotel.ui.actions;
 
+import eu.senla.Hotel.ui.HotelController;
+
 public abstract class AbstractAction {
-    //protected Fasade fasade = Fasade.getInstance();
+    protected HotelController hotelController = HotelController.getInstance();
 }

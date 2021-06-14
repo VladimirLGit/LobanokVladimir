@@ -22,6 +22,19 @@ public class RoomService implements IRoomService {
         roomDao = new RoomDao();
         rooms = roomDao.allRooms();
     }
+
+    @Override
+    public void addRoom(Room room) {
+        roomDao.addRoom(room);
+        rooms.add(room);
+    }
+
+    @Override
+    public void deleteRoom(Room room) {
+        if (room!=null)
+          roomDao.deleteRoom(room);
+    }
+
     @Override
     public void checkIn(Guest guest) {
         Random RANDOM = new Random();
@@ -70,6 +83,13 @@ public class RoomService implements IRoomService {
         for (Room room : rooms) {
             System.out.println(room);
         }
+    }
+    public void changePriceRoom(int newPrice, Room room) {
+        System.out.println("До " + room);
+        room.setPrice(newPrice);
+        roomDao.updateRoom(room);
+        System.out.println("После измениения цены");
+        System.out.println(room);
     }
 
     void addStateRoom(Room room, StateRoom stateRoom, ArrayList<Room> list)
@@ -128,12 +148,21 @@ public class RoomService implements IRoomService {
     }
 
     @Override
-    public void viewRoom(int indexRoom) {
+    public Room viewRoom(int indexRoom) {
         if (indexRoom<rooms.size()){
             System.out.println(rooms.get(indexRoom));
+            return rooms.get(indexRoom);
         }
         else
             System.out.println("Номер не существует");
+        return null;
     }
 
+    public void changeStateRoom(StateRoom stateRoom, Room room) {
+        System.out.println("До " + room);
+        room.setStateRoom(stateRoom);
+        roomDao.updateRoom(room);
+        System.out.println("После измениения статуса");
+        System.out.println(room);
+    }
 }

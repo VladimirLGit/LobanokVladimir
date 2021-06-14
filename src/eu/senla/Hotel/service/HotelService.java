@@ -46,4 +46,15 @@ public class HotelService implements IServiceService {
         service.setPriceService(newPrice);
         services.set(indexOrder, service);
     }
+
+    @Override
+    public Service viewService(int indexService) {
+        if (indexService<services.size()){
+            System.out.println(services.get(indexService));
+            return services.get(indexService);
+        }
+        else
+            System.out.println("Такой услуги не существует");
+        return null;
+    }
 }

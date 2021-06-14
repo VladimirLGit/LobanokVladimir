@@ -3,6 +3,7 @@ package eu.senla.Hotel.service;
 import eu.senla.Hotel.api.sevice.IGuestService;
 import eu.senla.Hotel.dao.GuestDao;
 import eu.senla.Hotel.model.Guest;
+import eu.senla.Hotel.model.Room;
 import eu.senla.Hotel.model.Service;
 import eu.senla.Hotel.model.StateGuest;
 
@@ -18,6 +19,26 @@ public class GuestService implements IGuestService {
     public GuestService() {
         guestDao = new GuestDao();
         guests = guestDao.allGuests();
+    }
+
+    @Override
+    public void addGuest(Guest guest) {
+        guests.add(guest);
+        guestDao.addGuest(guest);
+    }
+
+    @Override
+    public void deleteGuest(Guest guest) {
+        int index = guests.indexOf(guest);
+        if (index!=-1){
+            guest.setStateGuest(StateGuest.CHECK_OUT);
+            guestDao.deleteGuest(guest);
+            guests.remove(index);
+        }
+    }
+
+    public void updateGuest(Guest guest) {
+        guestDao.updateGuest(guest);
     }
 
     @Override
@@ -74,5 +95,22 @@ public class GuestService implements IGuestService {
     @Override
     public int amountGuests() {
         return guests.size();
+    }
+
+    @Override
+    public Guest viewGuest(int indexGuest) {
+        if (indexGuest<guests.size()){
+            System.out.println(guests.get(indexGuest));
+            return guests.get(indexGuest);
+        }
+        else
+            System.out.println("Такого гостя нет");
+        return null;
+    }
+
+    public void listGuests() {
+        for (Guest guest : guests) {
+            System.out.println(guest);
+        }
     }
 }

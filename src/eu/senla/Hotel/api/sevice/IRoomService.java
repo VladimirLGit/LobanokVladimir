@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public interface IRoomService {
+    void addRoom(Room room);
+    void deleteRoom(Room room);
     void checkIn(Guest guest);
     void checkOut(Guest guest);
     void listNumber();
@@ -15,5 +17,5 @@ public interface IRoomService {
     ArrayList<Room> listCheckedRooms();
     int amountFreeRooms();
     ArrayList<Room> listFreeRoomsForDate(LocalDate date);
-    void viewRoom(int indexRoom);
+    Room viewRoom(int indexRoom);
 }

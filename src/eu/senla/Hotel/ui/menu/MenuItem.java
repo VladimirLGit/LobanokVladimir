@@ -16,7 +16,7 @@ public class MenuItem {
     }
 
     public void doAction() {
-
+        iAction.execute();
     }
 
     public Menu getNextMenu() {
