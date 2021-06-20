@@ -1,6 +1,7 @@
 package eu.senla.Hotel.dao;
 
 import eu.senla.Hotel.api.dao.IGuestDao;
+import eu.senla.Hotel.exception.NotExistObject;
 import eu.senla.Hotel.model.Guest;
 import eu.senla.Hotel.model.Service;
 import eu.senla.Hotel.model.StateGuest;
@@ -162,7 +163,7 @@ public class GuestDao implements IGuestDao {
     }
 
     @Override
-    public void deleteGuest(Guest guest) {
+    public void deleteGuest(Guest guest) throws NotExistObject {
         final String QUERY = "Delete FROM guests WHERE idGuest = " + '"' + guest.getIdGuest() + '"';
         try (Connection con = connector.getConnection();
              Statement query =  con.createStatement()) {
@@ -171,7 +172,8 @@ public class GuestDao implements IGuestDao {
                 System.out.println("Delete guest as " + guest.getNameGuest());
                 addGuestIntoHistory(guest);
             } else {
-                System.out.println("The guest does not exist");
+                throw new NotExistObject("The guest does not exist");
+                //System.out.println("The guest does not exist");
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();

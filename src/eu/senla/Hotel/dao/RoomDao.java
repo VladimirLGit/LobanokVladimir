@@ -1,6 +1,7 @@
 package eu.senla.Hotel.dao;
 
 import eu.senla.Hotel.api.dao.IRoomDao;
+import eu.senla.Hotel.exception.NotExistObject;
 import eu.senla.Hotel.model.*;
 
 import java.sql.*;
@@ -157,7 +158,7 @@ public class RoomDao implements IRoomDao {
     }
 
     @Override
-    public void deleteRoom(Room room) {
+    public void deleteRoom(Room room) throws NotExistObject{
         final String QUERY = "Delete FROM rooms WHERE idRoom = " + '"' + room.getIdRoom() + '"';
         try (Connection con = connector.getConnection();
              Statement query =  con.createStatement()) {
@@ -165,7 +166,8 @@ public class RoomDao implements IRoomDao {
             if (execute>0) {
                 System.out.println("Delete room as " + room.getNumber());
             } else {
-                System.out.println("The room does not exist");
+                throw new NotExistObject("The room does not exist");
+                //System.out.println("The room does not exist");
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();

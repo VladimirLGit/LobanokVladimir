@@ -1,6 +1,8 @@
 import eu.senla.Hotel.dao.GuestDao;
 import eu.senla.Hotel.dao.RoomDao;
 import eu.senla.Hotel.dao.ServiceDao;
+import eu.senla.Hotel.exception.NoFreeRoomInTheHotel;
+import eu.senla.Hotel.exception.NotExistObject;
 import eu.senla.Hotel.model.*;
 import eu.senla.Hotel.service.GuestService;
 import eu.senla.Hotel.service.HotelService;
@@ -143,27 +145,32 @@ public class GuestServiceTest {
         addGuest();
         addGuest();
         addGuest();
-        rooms = roomService.listFreeRooms();
-        System.out.println("Список свободных номеров");
-        for (Room room : rooms) {
-            System.out.println(room);
-        }
-        System.out.println("Список номеров отсортированный по вместимости гостей");
-        rooms.sort(new NumberOfGuestsComparator());
-        for (Room room : rooms) {
-            System.out.println(room);
-        }
-        System.out.println("Список номеров отсортированный по рейтингу");
-        rooms.sort(new RatingComparator());
-        for (Room room : rooms) {
-            System.out.println(room);
+        try {
+            rooms = roomService.listFreeRooms();
+            System.out.println("Список свободных номеров");
+            for (Room room : rooms) {
+                System.out.println(room);
+            }
+            System.out.println("Список номеров отсортированный по вместимости гостей");
+            rooms.sort(new NumberOfGuestsComparator());
+            for (Room room : rooms) {
+                System.out.println(room);
+            }
+            System.out.println("Список номеров отсортированный по рейтингу");
+            rooms.sort(new RatingComparator());
+            for (Room room : rooms) {
+                System.out.println(room);
+            }
+
+            System.out.println("Список номеров отсортированный по стоимости");
+            rooms.sort(new PriceComparator());
+            for (Room room : rooms) {
+                System.out.println(room);
+            }
+        } catch (NoFreeRoomInTheHotel noFreeRoomInTheHotel) {
+            noFreeRoomInTheHotel.printStackTrace();
         }
 
-        System.out.println("Список номеров отсортированный по стоимости");
-        rooms.sort(new PriceComparator());
-        for (Room room : rooms) {
-            System.out.println(room);
-        }
     }
 
     @Test
@@ -179,7 +186,11 @@ public class GuestServiceTest {
         guestOut.setRoom(room);
 
         roomService.checkOut(guestOut);
-        serviceDao.deleteOrderGuest(guestOut);
+        try {
+            serviceDao.deleteOrderGuest(guestOut);
+        } catch (NotExistObject notExistObject) {
+            notExistObject.printStackTrace();
+        }
         guestService.leave(guestOut);
         guests = guestService.last3Guests();
         for (Guest guest : guests) {
@@ -211,7 +222,11 @@ public class GuestServiceTest {
             for (Service service : orderedServices) {
                 priceServices += service.getPriceService();
             }
-            serviceDao.deleteOrderGuest(guest);
+            try {
+                serviceDao.deleteOrderGuest(guest);
+            } catch (NotExistObject notExistObject) {
+                notExistObject.printStackTrace();
+            }
             orderedServices = guest.getOrderedServices();
             Assert.assertTrue(orderedServices.isEmpty());
             guestService.leave(guest);

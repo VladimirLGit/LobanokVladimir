@@ -33,6 +33,11 @@ public class Navigator {
 
     public boolean navigate(int index){
         if (currentMenu != null) {
+            List<MenuItem> menuItems = currentMenu.getMenuItems();
+            if ((index == -1) || (index>=menuItems.size())) {
+                System.out.println("Введите правильный пункт меню");
+                return true;
+            }
             MenuItem menuItem = currentMenu.getMenuItems().get(index);
             menuItem.doAction();
             currentMenu = menuItem.getNextMenu();

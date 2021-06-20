@@ -8,11 +8,23 @@ import eu.senla.Hotel.service.GuestService;
 import eu.senla.Hotel.service.HotelService;
 import eu.senla.Hotel.service.RoomService;
 
+import java.io.FileInputStream;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.logging.LogManager;
+import java.util.logging.Logger;
 
 public class HotelController {
+    public static final Logger logger = Logger.getLogger(
+            HotelController.class.getName());
+    static {
+        try {
+            LogManager.getLogManager().readConfiguration(new FileInputStream("src/eu/senla/Hotel/resources/logging.properties"));
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
     private String[] listNameGuests = new String[]{
             "Tom",
             "Jack",
@@ -111,13 +123,21 @@ public class HotelController {
     public void changePriceRoom(int newPrice, int indexRoom) {
         Random RANDOM = new Random();
         ArrayList<Room> rooms = roomService.getRooms();
-        roomService.changePriceRoom(newPrice, rooms.get(RANDOM.nextInt(rooms.size() - 1)));
+        if (rooms.size()>0) {
+            roomService.changePriceRoom(newPrice, rooms.get(RANDOM.nextInt(rooms.size() - 1)));
+        }
+        else
+            logger.info("rooms.size=0");
     }
 
     public void changeStateRoom(StateRoom stateRoom, int indexRoom) {
         Random RANDOM = new Random();
         ArrayList<Room> rooms = roomService.getRooms();
-        roomService.changeStateRoom(stateRoom, rooms.get(RANDOM.nextInt(rooms.size() - 1)));
+        if (rooms.size()>0) {
+            roomService.changeStateRoom(stateRoom, rooms.get(RANDOM.nextInt(rooms.size() - 1)));
+        }
+        else
+            logger.info("rooms.size=0");
     }
 
     public void viewService() {
@@ -127,11 +147,16 @@ public class HotelController {
     public void changePriceService(int newPrice, int indexService) {
         Random RANDOM = new Random();
         ArrayList<Service> services = hotelService.getServices();
-        hotelService.changePriceOrder(RANDOM.nextInt(services.size() - 1), newPrice);
+        if (services.size()>0) {
+            hotelService.changePriceOrder(RANDOM.nextInt(services.size() - 1), newPrice);
+        }
+        else
+            logger.info("services.size=0");
     }
 
     public void checkInGuest() {
-        ArrayList<Guest> guests = guestService.getGuests();
+        ArrayList<Guest> guests = null;
+        guests = guestService.getGuests();
         for (int i = 0; i < guests.size(); i++) {
             Guest guest = guests.get(i);
             if (guest.getStateGuest()==StateGuest.NO_STATE) {
@@ -144,7 +169,6 @@ public class HotelController {
                 guestService.updateGuest(guest);
                 break;
             }
-
         }
     }
 
@@ -154,6 +178,7 @@ public class HotelController {
             Guest guest = guests.get(i);
             if (guest.getStateGuest() == StateGuest.CHECK_IN) {
                 guestService.leave(guest);
+                break;
             }
         }
     }

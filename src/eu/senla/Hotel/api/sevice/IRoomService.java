@@ -1,5 +1,6 @@
 package eu.senla.Hotel.api.sevice;
 
+import eu.senla.Hotel.exception.NoFreeRoomInTheHotel;
 import eu.senla.Hotel.model.Guest;
 import eu.senla.Hotel.model.Room;
 
@@ -13,7 +14,7 @@ public interface IRoomService {
     void checkIn(Guest guest);
     void checkOut(Guest guest);
     void listNumber();
-    ArrayList<Room> listFreeRooms();
+    ArrayList<Room> listFreeRooms() throws NoFreeRoomInTheHotel;
     ArrayList<Room> listCheckedRooms();
     int amountFreeRooms();
     ArrayList<Room> listFreeRoomsForDate(LocalDate date);

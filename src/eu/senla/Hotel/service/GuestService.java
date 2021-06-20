@@ -2,16 +2,29 @@ package eu.senla.Hotel.service;
 
 import eu.senla.Hotel.api.sevice.IGuestService;
 import eu.senla.Hotel.dao.GuestDao;
+import eu.senla.Hotel.exception.NoGuestsInTheHotel;
+import eu.senla.Hotel.exception.NotExistObject;
 import eu.senla.Hotel.model.Guest;
-import eu.senla.Hotel.model.Room;
 import eu.senla.Hotel.model.Service;
 import eu.senla.Hotel.model.StateGuest;
 
+import java.io.FileInputStream;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.logging.LogManager;
+import java.util.logging.Logger;
 
 public class GuestService implements IGuestService {
+    public static final Logger logger = Logger.getLogger(
+            GuestService.class.getName());
+    static {
+        try {
+            LogManager.getLogManager().readConfiguration(new FileInputStream("src/eu/senla/Hotel/resources/logging.properties"));
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
     private final GuestDao guestDao;
 
     private final ArrayList<Guest> guests;
@@ -32,7 +45,11 @@ public class GuestService implements IGuestService {
         int index = guests.indexOf(guest);
         if (index!=-1){
             guest.setStateGuest(StateGuest.CHECK_OUT);
-            guestDao.deleteGuest(guest);
+            try {
+                guestDao.deleteGuest(guest);
+            } catch (NotExistObject notExistObject) {
+                logger.info(notExistObject.getMessage());
+            }
             guests.remove(index);
         }
     }
@@ -57,12 +74,21 @@ public class GuestService implements IGuestService {
         int index = guests.indexOf(guest);
         if (index!=-1){
             guest.setStateGuest(StateGuest.CHECK_OUT);
-            guestDao.deleteGuest(guest);
+            try {
+                guestDao.deleteGuest(guest);
+            } catch (NotExistObject notExistObject) {
+                logger.info(notExistObject.getMessage());
+            }
             guests.remove(index);
         }
+        else
+            logger.info("The guest does not exist");
     }
 
     public ArrayList<Guest> getGuests() {
+        if (guests.size()==0) {
+            logger.info("no guests at the hotel");
+        }
         return guests;
     }
 

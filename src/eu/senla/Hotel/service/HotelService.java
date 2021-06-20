@@ -5,9 +5,22 @@ import eu.senla.Hotel.dao.ServiceDao;
 import eu.senla.Hotel.model.Guest;
 import eu.senla.Hotel.model.Service;
 
+import java.io.FileInputStream;
 import java.util.ArrayList;
+import java.util.logging.LogManager;
+import java.util.logging.Logger;
 
 public class HotelService implements IServiceService {
+    public static final Logger logger = Logger.getLogger(
+            HotelService.class.getName());
+    static {
+        try {
+            LogManager.getLogManager().readConfiguration(new FileInputStream("src/eu/senla/Hotel/resources/logging.properties"));
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
     private ServiceDao serviceDao;
     private ArrayList<Service> services;
 
@@ -42,9 +55,14 @@ public class HotelService implements IServiceService {
 
     @Override
     public void changePriceOrder(int indexOrder, int newPrice) {
-        Service service = services.get(indexOrder);
-        service.setPriceService(newPrice);
-        services.set(indexOrder, service);
+        if (newPrice<=0) {
+            logger.info("Cost is below zero");
+        }
+        else {
+            Service service = services.get(indexOrder);
+            service.setPriceService(newPrice);
+            services.set(indexOrder, service);
+        }
     }
 
     @Override

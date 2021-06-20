@@ -2,6 +2,9 @@ package eu.senla.Hotel.service;
 
 import eu.senla.Hotel.api.sevice.IRoomService;
 import eu.senla.Hotel.dao.RoomDao;
+import eu.senla.Hotel.exception.CostIsBelowZero;
+import eu.senla.Hotel.exception.NoFreeRoomInTheHotel;
+import eu.senla.Hotel.exception.NotExistObject;
 import eu.senla.Hotel.model.Guest;
 import eu.senla.Hotel.model.Room;
 import eu.senla.Hotel.model.Service;
@@ -9,11 +12,24 @@ import eu.senla.Hotel.model.StateRoom;
 
 import static java.time.temporal.ChronoUnit.DAYS;
 
+import java.io.FileInputStream;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.LogManager;
+import java.util.logging.Logger;
 
 public class RoomService implements IRoomService {
+    public static final Logger logger = Logger.getLogger(
+            RoomService.class.getName());
+    static {
+        try {
+            LogManager.getLogManager().readConfiguration(new FileInputStream("src/eu/senla/Hotel/resources/logging.properties"));
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
     private final RoomDao roomDao;
 
     private final ArrayList<Room> rooms;
@@ -31,21 +47,32 @@ public class RoomService implements IRoomService {
 
     @Override
     public void deleteRoom(Room room) {
-        if (room!=null)
-          roomDao.deleteRoom(room);
+        if (room!=null) {
+            try {
+                roomDao.deleteRoom(room);
+            } catch (NotExistObject notExistObject) {
+                logger.info("The room does not exist"); //notExistObject.printStackTrace();
+                logger.log(Level.ALL,"The room does not exist");
+            }
+        }
     }
 
     @Override
     public void checkIn(Guest guest) {
         Random RANDOM = new Random();
         ArrayList<Room> freeRooms;
-        freeRooms = listFreeRooms();
-        Room room = freeRooms.get(RANDOM.nextInt(freeRooms.size()));
-        room.setStateRoom(StateRoom.CHECKED);
-        room.addGuest(guest);
-        roomDao.updateRoom(room);
-        roomDao.addLinkGuestWithRoom(guest, room);
-        guest.setRoom(room); //поселили гостя в комнату без критериев
+        try {
+            freeRooms = listFreeRooms();
+            Room room = freeRooms.get(RANDOM.nextInt(freeRooms.size()));
+            room.setStateRoom(StateRoom.CHECKED);
+            room.addGuest(guest);
+            roomDao.updateRoom(room);
+            roomDao.addLinkGuestWithRoom(guest, room);
+            guest.setRoom(room); //поселили гостя в комнату без критериев
+        } catch (NoFreeRoomInTheHotel noFreeRoomInTheHotel) {
+            logger.info(noFreeRoomInTheHotel.getMessage());
+        }
+
     }
 
 
@@ -85,11 +112,18 @@ public class RoomService implements IRoomService {
         }
     }
     public void changePriceRoom(int newPrice, Room room) {
-        System.out.println("До " + room);
-        room.setPrice(newPrice);
-        roomDao.updateRoom(room);
-        System.out.println("После измениения цены");
-        System.out.println(room);
+
+        if (newPrice<=0) {
+            logger.info("Cost is below zero");
+        }
+        else
+        {
+            System.out.println("До " + room);
+            room.setPrice(newPrice);
+            roomDao.updateRoom(room);
+            System.out.println("После измениения цены");
+            System.out.println(room);
+        }
     }
 
     void addStateRoom(Room room, StateRoom stateRoom, ArrayList<Room> list)
@@ -122,10 +156,14 @@ public class RoomService implements IRoomService {
     }
 
     @Override
-    public ArrayList<Room> listFreeRooms() {
+    public ArrayList<Room> listFreeRooms() throws NoFreeRoomInTheHotel {
         ArrayList<Room> freeRooms = new ArrayList<>();
         rooms.forEach(room -> addStateRoom(room, StateRoom.FREE, freeRooms));
-        return freeRooms;
+        if (freeRooms.size()==0) {
+            throw new NoFreeRoomInTheHotel("No free room in the hotel");
+        }
+        else
+            return freeRooms;
     }
 
     @Override
@@ -137,7 +175,13 @@ public class RoomService implements IRoomService {
 
     @Override
     public int amountFreeRooms() {
-        return listFreeRooms().size();
+        try {
+            ArrayList<Room> rooms = listFreeRooms();
+            return rooms.size();
+        } catch (NoFreeRoomInTheHotel noFreeRoomInTheHotel) {
+            logger.info(noFreeRoomInTheHotel.getMessage());
+        }
+        return 0;
     }
 
     @Override

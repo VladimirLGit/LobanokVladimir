@@ -1,6 +1,7 @@
 package eu.senla.Hotel.dao;
 
 import eu.senla.Hotel.api.dao.IServiceDao;
+import eu.senla.Hotel.exception.NotExistObject;
 import eu.senla.Hotel.model.Guest;
 import eu.senla.Hotel.model.Service;
 
@@ -138,19 +139,21 @@ public class ServiceDao implements IServiceDao {
         }
     }
 
-    public void deleteOrderGuest(Guest guest) {
-        final String QUERY = "Delete FROM linkService WHERE idGuest = " + '"' + guest.getIdGuest() + '"';
-        try (Connection con = connector.getConnection();
-             Statement query =  con.createStatement()) {
-            int execute = query.executeUpdate(QUERY);
-            if (execute>0) {
-                System.out.println("Delete orders as " + guest.getNameGuest());
-                guest.clearListOrder();
-            } else {
-                System.out.println("The orders does not exist");
+    public void deleteOrderGuest(Guest guest) throws NotExistObject{
+        if (guest.getOrderedServices().size()>0) {
+            final String QUERY = "Delete FROM linkService WHERE idGuest = " + '"' + guest.getIdGuest() + '"';
+            try (Connection con = connector.getConnection();
+                 Statement query = con.createStatement()) {
+                int execute = query.executeUpdate(QUERY);
+                if (execute > 0) {
+                    System.out.println("Delete orders as " + guest.getNameGuest());
+                    guest.clearListOrder();
+                } else {
+                    throw new NotExistObject("The orders does not exist");
+                }
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
             }
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
         }
     }
 
