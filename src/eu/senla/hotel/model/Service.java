@@ -1,4 +1,4 @@
-package eu.senla.Hotel.model;
+package eu.senla.hotel.model;
 
 public class Service {
     private int idService;

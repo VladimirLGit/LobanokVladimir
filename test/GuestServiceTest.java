@@ -1,9 +1,10 @@
-import eu.senla.Hotel.dao.GuestDao;
-import eu.senla.Hotel.dao.RoomDao;
-import eu.senla.Hotel.dao.ServiceDao;
-import eu.senla.Hotel.model.*;
-import eu.senla.Hotel.service.GuestService;
-import eu.senla.Hotel.service.RoomService;
+import eu.senla.hotel.dao.GuestDao;
+import eu.senla.hotel.dao.MainDao;
+import eu.senla.hotel.dao.RoomDao;
+import eu.senla.hotel.dao.ServiceDao;
+import eu.senla.hotel.model.*;
+import eu.senla.hotel.service.GuestService;
+import eu.senla.hotel.service.RoomService;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -12,6 +13,7 @@ import org.junit.Test;
 import java.util.Random;
 
 public class GuestServiceTest {
+    private MainDao mainDao;
     private GuestDao guestDao;
     private RoomDao roomDao;
     private ServiceDao serviceDao;
@@ -37,14 +39,14 @@ public class GuestServiceTest {
     @Before
     public void setUp() {
         createDao();
-        guestDao.createHotelBase();
-        guestDao.createTableGuests();
-        guestDao.createLinkTableServices();
-        guestDao.createTableHistoryGuests();
+        mainDao.createHotelBase();
+        mainDao.createTableGuests();
+        mainDao.createLinkTableServices();
+        mainDao.createTableHistoryGuests();
 
-        roomDao.createTableRooms();
-        roomDao.createLinkTableRooms();
-        serviceDao.createTableServices();
+        mainDao.createTableRooms();
+        mainDao.createLinkTableRooms();
+        mainDao.createTableServices();
         guestService = new GuestService();
         createRooms();
         roomService = new RoomService();
@@ -53,12 +55,12 @@ public class GuestServiceTest {
 
     @After
     public void tearDown() {
-        guestDao.deleteTableGuests();
-        guestDao.deleteTableHistoryGuests();
-        guestDao.deleteLinkTableServices();
-        roomDao.deleteTableRooms();
-        roomDao.deleteLinkTableRooms();
-        serviceDao.deleteTableServices();
+        mainDao.deleteTableGuests();
+        mainDao.deleteTableHistoryGuests();
+        mainDao.deleteLinkTableServices();
+        mainDao.deleteTableRooms();
+        mainDao.deleteLinkTableRooms();
+        mainDao.deleteTableServices();
     }
 
     @Test

@@ -1,12 +1,12 @@
-package eu.senla.Hotel.service;
+package eu.senla.hotel.service;
 
-import eu.senla.Hotel.api.sevice.IServiceService;
-import eu.senla.Hotel.model.Service;
+import eu.senla.hotel.api.sevice.IServiceService;
+import eu.senla.hotel.model.Service;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class HotelService implements IServiceService {
-    private ArrayList<Service> services;
+    private List<Service> services;
     @Override
     public void order(int indexOrder) {
         System.out.println( services.get(indexOrder) + " service done");

@@ -1,4 +1,4 @@
-package eu.senla.Hotel.dao;
+package eu.senla.hotel.dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

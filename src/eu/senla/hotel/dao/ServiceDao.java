@@ -1,12 +1,12 @@
-package eu.senla.Hotel.dao;
+package eu.senla.hotel.dao;
 
-import eu.senla.Hotel.api.dao.IServiceDao;
-import eu.senla.Hotel.model.Service;
+import eu.senla.hotel.api.dao.IServiceDao;
+import eu.senla.hotel.model.Service;
 
 
 import java.sql.*;
-import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.List;
 
 public class ServiceDao implements IServiceDao {
     private Connector connector;
@@ -14,36 +14,6 @@ public class ServiceDao implements IServiceDao {
     public ServiceDao() {
         connector = new Connector();
     }
-
-    public boolean createTableServices(){
-        final String QUERY ="CREATE TABLE IF NOT EXISTS services (\n" +
-                " idService int(10) NOT NULL AUTO_INCREMENT,\n" +
-                " name varchar(20) NOT NULL,\n" +
-                " price int(10) NOT NULL,\n" +
-                " PRIMARY KEY (idService)\n" +
-                ");";
-        try(Connection con = connector.getConnection();
-            Statement stmt = con.createStatement();) {
-            boolean execute = stmt.execute(QUERY);
-            return execute;
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-            return false;
-        }
-    }
-
-    public boolean deleteTableServices(){
-        final String QUERY ="DROP TABLE services;";
-        try(Connection con = connector.getConnection();
-            Statement stmt = con.createStatement();) {
-            boolean execute = stmt.execute(QUERY);
-            return execute;
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-            return false;
-        }
-    }
-
 
     @Override
     public void addService(Service service) {
@@ -103,9 +73,9 @@ public class ServiceDao implements IServiceDao {
     }
 
     @Override
-    public ArrayList<Service> allServices() {
+    public List<Service> allServices() {
         final String QUERY = "select * from services";
-        ArrayList<Service> services = new ArrayList<>();
+        List<Service> services = new ArrayList<>();
         try(Connection con = connector.getConnection();
             Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery(QUERY)) {

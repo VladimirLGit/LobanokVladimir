@@ -1,4 +1,4 @@
-package eu.senla.Hotel.utils;
+package eu.senla.hotel.utils;
 
 import java.time.Instant;
 import java.time.LocalDate;

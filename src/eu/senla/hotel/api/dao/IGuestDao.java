@@ -1,11 +1,12 @@
-package eu.senla.Hotel.api.dao;
+package eu.senla.hotel.api.dao;
 
-import eu.senla.Hotel.model.Guest;
+import eu.senla.hotel.model.Guest;
 import java.util.ArrayList;
+import java.util.List;
 
 public interface IGuestDao {
     void addGuest(Guest guest);
     void deleteGuest(Guest guest);
     void updateGuest(Guest guest);
-    ArrayList<Guest> allGuests();
+    List<Guest> allGuests();
 }

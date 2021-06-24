@@ -1,16 +1,17 @@
-package eu.senla.Hotel.service;
+package eu.senla.hotel.service;
 
-import eu.senla.Hotel.api.sevice.IGuestService;
-import eu.senla.Hotel.dao.GuestDao;
-import eu.senla.Hotel.model.Guest;
-import eu.senla.Hotel.model.Service;
-import eu.senla.Hotel.model.StateGuest;
+import eu.senla.hotel.api.sevice.IGuestService;
+import eu.senla.hotel.dao.GuestDao;
+import eu.senla.hotel.model.Guest;
+import eu.senla.hotel.model.Service;
+import eu.senla.hotel.model.StateGuest;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class GuestService implements IGuestService {
     private GuestDao guestDao;
-    private ArrayList<Guest> guests;
+    private List<Guest> guests;
 
     public GuestService() {
         guestDao = new GuestDao();

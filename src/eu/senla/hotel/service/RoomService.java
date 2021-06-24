@@ -1,20 +1,21 @@
-package eu.senla.Hotel.service;
+package eu.senla.hotel.service;
 
-import eu.senla.Hotel.api.sevice.IRoomService;
-import eu.senla.Hotel.dao.RoomDao;
-import eu.senla.Hotel.model.Guest;
-import eu.senla.Hotel.model.Room;
-import eu.senla.Hotel.model.StateRoom;
+import eu.senla.hotel.api.sevice.IRoomService;
+import eu.senla.hotel.dao.RoomDao;
+import eu.senla.hotel.model.Guest;
+import eu.senla.hotel.model.Room;
+import eu.senla.hotel.model.StateRoom;
 
 import static java.time.temporal.ChronoUnit.DAYS;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class RoomService implements IRoomService {
     private RoomDao roomDao;
-    private ArrayList<Room> rooms;
+    private List<Room> rooms;
 
     public RoomService() {
         roomDao = new RoomDao();
@@ -25,7 +26,7 @@ public class RoomService implements IRoomService {
     public void checkIn(Guest guest) {
         LocalDate today = LocalDate.now();
         Random RANDOM = new Random();
-        ArrayList<Room> freeRooms;
+        List<Room> freeRooms;
         freeRooms = listFreeRooms();
         Room room = freeRooms.get(RANDOM.nextInt(freeRooms.size()));
         room.setStateRoom(StateRoom.CHECKED);
@@ -55,13 +56,13 @@ public class RoomService implements IRoomService {
         }
     }
 
-    void addStateRoom(Room room, StateRoom stateRoom, ArrayList<Room> list)
+    void addStateRoom(Room room, StateRoom stateRoom, List<Room> list)
     {
         if (room.getStateRoom() == stateRoom){
             list.add(room);
         }
     }
-    void addStateRoom(Room room, StateRoom stateRoom, LocalDate date, ArrayList<Room> list)
+    void addStateRoom(Room room, StateRoom stateRoom, LocalDate date, List<Room> list)
     {
         ArrayList<Guest> guests;
         LocalDate dateCheckOut = date;

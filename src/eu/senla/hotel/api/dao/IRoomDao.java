@@ -1,12 +1,13 @@
-package eu.senla.Hotel.api.dao;
+package eu.senla.hotel.api.dao;
 
-import eu.senla.Hotel.model.Room;
+import eu.senla.hotel.model.Room;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public interface IRoomDao {
     void addRoom(Room room);
     void deleteRoom(Room room);
     void updateRoom(Room room);
-    ArrayList<Room> allRooms();
+    List<Room> allRooms();
 }

@@ -1,4 +1,4 @@
-package eu.senla.Hotel.model;
+package eu.senla.hotel.model;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
