@@ -2,36 +2,36 @@ package eu.senla.Hotel.service;
 
 import eu.senla.Hotel.api.sevice.IGuestService;
 import eu.senla.Hotel.dao.GuestDao;
-import eu.senla.Hotel.exception.NoGuestsInTheHotel;
 import eu.senla.Hotel.exception.NotExistObject;
 import eu.senla.Hotel.model.Guest;
 import eu.senla.Hotel.model.Service;
 import eu.senla.Hotel.model.StateGuest;
 
-import java.io.FileInputStream;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
-import java.util.logging.LogManager;
 import java.util.logging.Logger;
 
+@XmlType(name = "guestService")
+@XmlRootElement
 public class GuestService implements IGuestService {
     public static final Logger logger = Logger.getLogger(
             GuestService.class.getName());
-    static {
-        try {
-            LogManager.getLogManager().readConfiguration(new FileInputStream("src/eu/senla/Hotel/resources/logging.properties"));
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-    }
-    private final GuestDao guestDao;
 
-    private final ArrayList<Guest> guests;
+    private final GuestDao guestDao;
+    @XmlElementWrapper(name = "guestList")
+    // XmlElement sets the name of the entities
+    @XmlElement(name = "Guest")
+    private List<Guest> guests;
 
     public GuestService() {
         guestDao = new GuestDao();
-        guests = guestDao.allGuests();
+        guests = new ArrayList<>(); //guestDao.allGuests();
     }
 
     @Override
@@ -44,7 +44,7 @@ public class GuestService implements IGuestService {
     public void deleteGuest(Guest guest) {
         int index = guests.indexOf(guest);
         if (index!=-1){
-            guest.setStateGuest(StateGuest.CHECK_OUT);
+            guest.setState(StateGuest.CHECK_OUT);
             try {
                 guestDao.deleteGuest(guest);
             } catch (NotExistObject notExistObject) {
@@ -62,7 +62,7 @@ public class GuestService implements IGuestService {
     public void enter(Guest guest) {
         Random RANDOM = new Random();
         LocalDate today = LocalDate.now();
-        guest.setStateGuest(StateGuest.CHECK_IN);
+        guest.setState(StateGuest.CHECK_IN);
         guest.setDateOfCheckIn(today);
         guest.setDateOfCheckOut(today.plusDays(RANDOM.nextInt(5)+1));
         guests.add(guest);
@@ -73,7 +73,7 @@ public class GuestService implements IGuestService {
     public void leave(Guest guest) {
         int index = guests.indexOf(guest);
         if (index!=-1){
-            guest.setStateGuest(StateGuest.CHECK_OUT);
+            guest.setState(StateGuest.CHECK_OUT);
             try {
                 guestDao.deleteGuest(guest);
             } catch (NotExistObject notExistObject) {
@@ -85,11 +85,15 @@ public class GuestService implements IGuestService {
             logger.info("The guest does not exist");
     }
 
-    public ArrayList<Guest> getGuests() {
+    public List<Guest> getGuests() {
         if (guests.size()==0) {
             logger.info("no guests at the hotel");
         }
         return guests;
+    }
+
+    public void setGuestList(ArrayList<Guest> guestList) {
+        this.guests = guestList;
     }
 
     @Override

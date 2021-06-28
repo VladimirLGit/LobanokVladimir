@@ -116,10 +116,10 @@ public class GuestDao implements IGuestDao {
         //return idRoom into ?;
         try (Connection con = connector.getConnection()){
             PreparedStatement preparedStatement = con.prepareStatement(QUERY);
-            preparedStatement.setString(1, guest.getNameGuest());
+            preparedStatement.setString(1, guest.getName());
             preparedStatement.setDate(2, java.sql.Date.valueOf(guest.getDateOfCheckIn()));
             preparedStatement.setDate(3, java.sql.Date.valueOf(guest.getDateOfCheckOut()));
-            preparedStatement.setInt(4, guest.getStateGuest().ordinal());
+            preparedStatement.setInt(4, guest.getState().ordinal());
             preparedStatement.execute();
 
             // get the generated key for the id
@@ -127,7 +127,7 @@ public class GuestDao implements IGuestDao {
             int id;
             if (rs.next()) {
                 id = rs.getInt(1);
-                guest.setIdGuest(id);
+                guest.setId(id);
             }
             rs.close();
             preparedStatement.close();
@@ -142,10 +142,10 @@ public class GuestDao implements IGuestDao {
         //return idRoom into ?;
         try (Connection con = connector.getConnection()){
              PreparedStatement preparedStatement = con.prepareStatement(QUERY);
-            preparedStatement.setString(1, guest.getNameGuest());
-            preparedStatement.setDate(2, new java.sql.Date(DateUtils.asDate(guest.getDateOfCheckIn()).getTime()));
-            preparedStatement.setDate(3, new java.sql.Date(DateUtils.asDate(guest.getDateOfCheckOut()).getTime()));
-            preparedStatement.setInt(4, guest.getStateGuest().ordinal());
+            preparedStatement.setString(1, guest.getName());
+            preparedStatement.setDate(2, null);
+            preparedStatement.setDate(3, null);
+            preparedStatement.setInt(4, guest.getState().ordinal());
             preparedStatement.execute();
 
             // get the generated key for the id
@@ -153,7 +153,7 @@ public class GuestDao implements IGuestDao {
             int id;
             if (rs.next()) {
                 id = rs.getInt(1);
-                guest.setIdGuest(id);
+                guest.setId(id);
             }
             rs.close();
             preparedStatement.close();
@@ -164,12 +164,12 @@ public class GuestDao implements IGuestDao {
 
     @Override
     public void deleteGuest(Guest guest) throws NotExistObject {
-        final String QUERY = "Delete FROM guests WHERE idGuest = " + '"' + guest.getIdGuest() + '"';
+        final String QUERY = "Delete FROM guests WHERE idGuest = " + '"' + guest.getId() + '"';
         try (Connection con = connector.getConnection();
              Statement query =  con.createStatement()) {
             int execute = query.executeUpdate(QUERY);
             if (execute>0) {
-                System.out.println("Delete guest as " + guest.getNameGuest());
+                System.out.println("Delete guest as " + guest.getName());
                 addGuestIntoHistory(guest);
             } else {
                 throw new NotExistObject("The guest does not exist");
@@ -185,11 +185,11 @@ public class GuestDao implements IGuestDao {
         final String QUERY = "UPDATE guests SET `name`=?, `DateOfCheckIn`=?, `DateOfCheckOut`=?, `StateGuest`=? WHERE `idGuest`=?;";
         try (Connection con = connector.getConnection()) {
             PreparedStatement preparedStatement = con.prepareStatement(QUERY);
-            preparedStatement.setString(1, guest.getNameGuest());
+            preparedStatement.setString(1, guest.getName());
             preparedStatement.setDate(2, java.sql.Date.valueOf(guest.getDateOfCheckIn()));
             preparedStatement.setDate(3, java.sql.Date.valueOf(guest.getDateOfCheckOut()));
-            preparedStatement.setInt(4, guest.getStateGuest().ordinal());
-            preparedStatement.setInt(5, guest.getIdGuest());
+            preparedStatement.setInt(4, guest.getState().ordinal());
+            preparedStatement.setInt(5, guest.getId());
             preparedStatement.execute();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -209,8 +209,8 @@ public class GuestDao implements IGuestDao {
                 LocalDate localDateOut = DateUtils.asLocalDate(rs.getDate("DateOfCheckOut"));
                 StateGuest stateRoom = StateGuest.values()[rs.getInt("StateGuest")];
                 guest = new Guest(nameGuest);
-                guest.setIdGuest(idReadGuest);
-                guest.setStateGuest(stateRoom);
+                guest.setId(idReadGuest);
+                guest.setState(stateRoom);
                 guest.setDateOfCheckIn(localDateIn);
                 guest.setDateOfCheckOut(localDateOut);
             }
@@ -234,8 +234,8 @@ public class GuestDao implements IGuestDao {
                 LocalDate localDateOut = DateUtils.asLocalDate(rs.getDate("DateOfCheckOut"));
                 StateGuest stateRoom = StateGuest.values()[rs.getInt("StateGuest")];
                 Guest guest = new Guest(nameGuest);
-                guest.setIdGuest(idGuest);
-                guest.setStateGuest(stateRoom);
+                guest.setId(idGuest);
+                guest.setState(stateRoom);
                 guest.setDateOfCheckIn(localDateIn);
                 guest.setDateOfCheckOut(localDateOut);
                 guests.add(guest);
@@ -260,8 +260,8 @@ public class GuestDao implements IGuestDao {
                 LocalDate localDateOut = convertToLocalDateViaSqlDate(rs.getDate("DateOfCheckOut"));
                 StateGuest stateRoom = StateGuest.values()[rs.getInt("StateGuest")];
                 Guest guest = new Guest(nameGuest);
-                guest.setIdGuest(idGuest);
-                guest.setStateGuest(stateRoom);
+                guest.setId(idGuest);
+                guest.setState(stateRoom);
                 guest.setDateOfCheckIn(localDateIn);
                 guest.setDateOfCheckOut(localDateOut);
                 guests.add(guest);
@@ -304,7 +304,7 @@ public class GuestDao implements IGuestDao {
         final String QUERY = "select * from linkService WHERE idGuest = ?;";
         try (Connection con = connector.getConnection()) {
             PreparedStatement preparedStatement = con.prepareStatement(QUERY);
-            preparedStatement.setInt(1, guest.getIdGuest());
+            preparedStatement.setInt(1, guest.getId());
             ResultSet rs = preparedStatement.executeQuery();
             while(rs.next()){
                 int idService = rs.getInt("IDService");

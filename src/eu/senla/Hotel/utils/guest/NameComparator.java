@@ -7,6 +7,6 @@ import java.util.Comparator;
 public class NameComparator  implements Comparator,Cloneable  {
     @Override
     public int compare(Object o1, Object o2) {
-        return ((Guest) o1).getNameGuest().compareTo(((Guest) o2).getNameGuest());
+        return ((Guest) o1).getName().compareTo(((Guest) o2).getName());
     }
 }

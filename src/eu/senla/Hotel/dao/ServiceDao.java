@@ -130,7 +130,7 @@ public class ServiceDao implements IServiceDao {
         //return idRoom into ?;
         try (Connection con = connector.getConnection()){
             PreparedStatement preparedStatement = con.prepareStatement(QUERY);
-            preparedStatement.setInt(1, guest.getIdGuest());
+            preparedStatement.setInt(1, guest.getId());
             preparedStatement.setInt(2, service.getIdService());
             preparedStatement.execute();
             preparedStatement.close();
@@ -141,12 +141,12 @@ public class ServiceDao implements IServiceDao {
 
     public void deleteOrderGuest(Guest guest) throws NotExistObject{
         if (guest.getOrderedServices().size()>0) {
-            final String QUERY = "Delete FROM linkService WHERE idGuest = " + '"' + guest.getIdGuest() + '"';
+            final String QUERY = "Delete FROM linkService WHERE idGuest = " + '"' + guest.getId() + '"';
             try (Connection con = connector.getConnection();
                  Statement query = con.createStatement()) {
                 int execute = query.executeUpdate(QUERY);
                 if (execute > 0) {
-                    System.out.println("Delete orders as " + guest.getNameGuest());
+                    System.out.println("Delete orders as " + guest.getName());
                     guest.clearListOrder();
                 } else {
                     throw new NotExistObject("The orders does not exist");

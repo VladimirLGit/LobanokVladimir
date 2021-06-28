@@ -71,7 +71,7 @@ public class RoomDao implements IRoomDao {
         ArrayList<Integer> guests = new ArrayList<>();
         try(Connection con = connector.getConnection()) {
             PreparedStatement preparedStatement = con.prepareStatement(QUERY);
-            preparedStatement.setInt(1, room.getIdRoom());
+            preparedStatement.setInt(1, room.getId());
             ResultSet rs = preparedStatement.executeQuery(QUERY);
             while (rs.next()){
                 guests.add(rs.getInt(1));
@@ -101,11 +101,11 @@ public class RoomDao implements IRoomDao {
                     int numberOfGuest = rs2.getInt("NumberOfGuests");
                     int price = rs2.getInt("Price");
                     double rating = rs2.getDouble("rating");
-                    StateRoom stateRoom = StateRoom.values()[rs2.getInt("StateRoom")];
+                    StateRoom state = StateRoom.values()[rs2.getInt("StateRoom")];
                     TypeRoom typeRoom = TypeRoom.values()[rs2.getInt("TypeRoom")];
                     room = new Room(number, price, numberOfGuest, typeRoom);
-                    room.setIdRoom(idRoom);
-                    room.setStateRoom(stateRoom);
+                    room.setId(idRoom);
+                    room.setState(state);
                     room.setRating(rating);
                 }
                 rs2.close();
@@ -120,8 +120,8 @@ public class RoomDao implements IRoomDao {
         final String QUERY = "INSERT INTO linkTable (idRoom, idGuest) VALUES (?,?)";
         try (Connection con = connector.getConnection()){
             PreparedStatement preparedStatement = con.prepareStatement(QUERY);
-            preparedStatement.setInt(1, room.getIdRoom());
-            preparedStatement.setInt(2, guest.getIdGuest());
+            preparedStatement.setInt(1, room.getId());
+            preparedStatement.setInt(2, guest.getId());
             preparedStatement.execute();
             preparedStatement.close();
         } catch (SQLException throwables) {
@@ -139,8 +139,8 @@ public class RoomDao implements IRoomDao {
             preparedStatement.setInt(2, room.getNumberOfGuests());
             preparedStatement.setInt(3, room.getPrice());
             preparedStatement.setDouble(4, room.getRating());
-            preparedStatement.setInt(5, room.getStateRoom().ordinal());
-            preparedStatement.setInt(6, room.getTypeRoom().ordinal());
+            preparedStatement.setInt(5, room.getState().ordinal());
+            preparedStatement.setInt(6, room.getType().ordinal());
             preparedStatement.execute();
 
             // get the generated key for the id
@@ -148,7 +148,7 @@ public class RoomDao implements IRoomDao {
             int id;
             if (rs.next()) {
                 id = rs.getInt(1);
-                room.setIdRoom(id);
+                room.setId(id);
             }
             rs.close();
             preparedStatement.close();
@@ -159,7 +159,7 @@ public class RoomDao implements IRoomDao {
 
     @Override
     public void deleteRoom(Room room) throws NotExistObject{
-        final String QUERY = "Delete FROM rooms WHERE idRoom = " + '"' + room.getIdRoom() + '"';
+        final String QUERY = "Delete FROM rooms WHERE idRoom = " + '"' + room.getId() + '"';
         try (Connection con = connector.getConnection();
              Statement query =  con.createStatement()) {
             int execute = query.executeUpdate(QUERY);
@@ -183,9 +183,9 @@ public class RoomDao implements IRoomDao {
             preparedStatement.setInt(2, room.getNumberOfGuests());
             preparedStatement.setInt(3, room.getPrice());
             preparedStatement.setDouble(4, room.getRating());
-            preparedStatement.setInt(5, room.getStateRoom().ordinal());
-            preparedStatement.setInt(6, room.getTypeRoom().ordinal());
-            preparedStatement.setInt(7, room.getIdRoom());
+            preparedStatement.setInt(5, room.getState().ordinal());
+            preparedStatement.setInt(6, room.getType().ordinal());
+            preparedStatement.setInt(7, room.getId());
             preparedStatement.execute();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -211,8 +211,8 @@ public class RoomDao implements IRoomDao {
                 StateRoom stateRoom = StateRoom.values()[rs.getInt("StateRoom")];
                 TypeRoom typeRoom = TypeRoom.values()[rs.getInt("TypeRoom")];
                 Room room = new Room(number, price,numberOfGuest, typeRoom);
-                room.setIdRoom(idRoom);
-                room.setStateRoom(stateRoom);
+                room.setId(idRoom);
+                room.setState(stateRoom);
                 room.setRating(rating);
                 rooms.add(room);
             }

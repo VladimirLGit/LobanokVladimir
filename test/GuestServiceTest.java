@@ -182,7 +182,7 @@ public class GuestServiceTest {
         Random RANDOM = new Random();
         guests = guestDao.allGuests();
         Guest guestOut = guests.get(RANDOM.nextInt(guests.size()));
-        Room room = roomDao.checkGuest(guestOut.getIdGuest());
+        Room room = roomDao.checkGuest(guestOut.getId());
         guestOut.setRoom(room);
 
         roomService.checkOut(guestOut);
@@ -205,7 +205,7 @@ public class GuestServiceTest {
         Random RANDOM = new Random();
 
         for (Guest guest : guests) {
-            Room room = roomDao.checkGuest(guest.getIdGuest());
+            Room room = roomDao.checkGuest(guest.getId());
             guest.setRoom(room);
             ArrayList<Service> services = hotelService.getServices();
 
@@ -297,7 +297,7 @@ public class GuestServiceTest {
         String nameGuest = listNameGuests[RANDOM.nextInt(listNameGuests.length-1)];
         Guest guest = new Guest(nameGuest);
         guestService.enter(guest);
-        Assert.assertEquals(guest.getStateGuest(), StateGuest.CHECK_IN);
+        Assert.assertEquals(guest.getState(), StateGuest.CHECK_IN);
         roomService.checkIn(guest);
         Assert.assertNotEquals(guest.getDateOfCheckIn(),null);
         Assert.assertNotEquals(guest.getDateOfCheckOut(),null);
@@ -318,7 +318,7 @@ public class GuestServiceTest {
         if (guests.size()>0) {
             Guest guestGet = guests.get(RANDOM.nextInt(guests.size()));
             guestService.leave(guestGet);
-            Guest guest2 = guestDao.readGuest(guestGet.getIdGuest());
+            Guest guest2 = guestDao.readGuest(guestGet.getId());
             Assert.assertNull(guest2);
 
         }

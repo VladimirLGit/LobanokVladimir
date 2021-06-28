@@ -17,19 +17,11 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.logging.Level;
-import java.util.logging.LogManager;
 import java.util.logging.Logger;
 
 public class RoomService implements IRoomService {
     public static final Logger logger = Logger.getLogger(
             RoomService.class.getName());
-    static {
-        try {
-            LogManager.getLogManager().readConfiguration(new FileInputStream("src/eu/senla/Hotel/resources/logging.properties"));
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-    }
     private final RoomDao roomDao;
 
     private final ArrayList<Room> rooms;
@@ -64,7 +56,7 @@ public class RoomService implements IRoomService {
         try {
             freeRooms = listFreeRooms();
             Room room = freeRooms.get(RANDOM.nextInt(freeRooms.size()));
-            room.setStateRoom(StateRoom.CHECKED);
+            room.setState(StateRoom.CHECKED);
             room.addGuest(guest);
             roomDao.updateRoom(room);
             roomDao.addLinkGuestWithRoom(guest, room);
@@ -87,7 +79,7 @@ public class RoomService implements IRoomService {
         if (indexRoom>=0){
             room = rooms.get(indexRoom);
             room.setRating(RANDOM.nextInt(5));
-            room.setStateRoom(StateRoom.FREE);
+            room.setState(StateRoom.FREE);
             room.deleteGuest(guest);
             roomDao.updateRoom(room);
             guest.setRoom(null);
@@ -128,20 +120,20 @@ public class RoomService implements IRoomService {
 
     void addStateRoom(Room room, StateRoom stateRoom, ArrayList<Room> list)
     {
-        if (room.getStateRoom() == stateRoom){
+        if (room.getState() == stateRoom){
             list.add(room);
         }
     }
 
-    void addStateRoom(Room room, StateRoom stateRoom, LocalDate date, ArrayList<Room> list)
+    void addStateRoom(Room room, StateRoom state, LocalDate date, ArrayList<Room> list)
     {
         ArrayList<Guest> guests;
         LocalDate dateCheckOut = date;
-        if (room.getStateRoom() == stateRoom){
+        if (room.getState() == state){
             list.add(room);
         }
         else
-        if (room.getStateRoom() == StateRoom.CHECKED){
+        if (room.getState() == StateRoom.CHECKED){
             guests = room.getGuests();
             for (Guest guest : guests) {
                 LocalDate localDate = guest.getDateOfCheckOut();
@@ -202,9 +194,9 @@ public class RoomService implements IRoomService {
         return null;
     }
 
-    public void changeStateRoom(StateRoom stateRoom, Room room) {
+    public void changeStateRoom(StateRoom state, Room room) {
         System.out.println("До " + room);
-        room.setStateRoom(stateRoom);
+        room.setState(state);
         roomDao.updateRoom(room);
         System.out.println("После измениения статуса");
         System.out.println(room);

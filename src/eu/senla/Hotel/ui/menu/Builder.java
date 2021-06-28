@@ -25,10 +25,24 @@ public class Builder {
         rootMenu.addMenuItem(new MenuItem(2,"Дополнительные услуги", () -> {
             System.out.println("EXIT");
         }, createServiceMenu(rootMenu.getIndexMenu())));
-        rootMenu.addMenuItem(new MenuItem(3,"Выход из программы", () -> {
+
+        rootMenu.addMenuItem(new MenuItem(3,"Загрузка и сохранение объектов", () -> {
+            System.out.println("EXIT");
+        }, createSerializationsMenu(rootMenu.getIndexMenu())));
+        rootMenu.addMenuItem(new MenuItem(4,"Выход из программы", () -> {
             System.out.println("EXIT");
         }, null));
 
+    }
+
+    private Menu createSerializationsMenu(int indexMenu) {
+        Menu serializationsMenu = new Menu(indexMenu,"SerializationsMenu");
+        serializationsMenu.addMenuItem(new MenuItem(0,"Загрузить объекты", new DeserializationObject(), serializationsMenu));
+        serializationsMenu.addMenuItem(new MenuItem(1,"Сохранить объекты", new SerializationsObjects(), serializationsMenu));
+        serializationsMenu.addMenuItem(new MenuItem(2,"Выход в предыдущее меню", ()->{
+            System.out.println("Печать текста");
+        }, rootMenu));
+        return serializationsMenu;
     }
 
     public Menu getRootMenu() {

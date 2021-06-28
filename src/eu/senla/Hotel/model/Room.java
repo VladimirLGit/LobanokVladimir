@@ -1,33 +1,37 @@
 package eu.senla.Hotel.model;
 
+import javax.xml.bind.annotation.XmlRootElement;
 import java.util.ArrayList;
 import java.util.Objects;
 
+@XmlRootElement(name = "room")
 public class Room {
-    public void setIdRoom(int idRoom) {
-        this.idRoom = idRoom;
-    }
-
-    private int idRoom;
+    private int id;
     private int number;
     private int price;
-
     private double rating;
-
     private int numberOfGuests;
     private ArrayList<Guest> guests;
-    private StateRoom stateRoom;
-    private TypeRoom typeRoom;
+    private StateRoom state;
+    private TypeRoom type;
+
+    public Room() {
+    }
+
     public Room(int number, int price, int numberOfGuests, TypeRoom typeRoom) {
         this.number = number;
         this.price = price;
         this.numberOfGuests = numberOfGuests;
-        this.typeRoom = typeRoom;
-        this.stateRoom = StateRoom.FREE;
+        this.type = typeRoom;
+        this.state = StateRoom.FREE;
         guests = new ArrayList<>();
     }
-    public int getIdRoom() {
-        return idRoom;
+
+    public int getId() {
+        return id;
+    }
+    public void setId(int idRoom) {
+        this.id = idRoom;
     }
 
     public int getNumber() {
@@ -50,12 +54,12 @@ public class Room {
         this.price = price;
     }
 
-    public TypeRoom getTypeRoom() {
-        return typeRoom;
+    public TypeRoom getType() {
+        return type;
     }
 
-    public void setTypeRoom(TypeRoom typeRoom) {
-        this.typeRoom = typeRoom;
+    public void setType(TypeRoom typeRoom) {
+        this.type = typeRoom;
     }
 
     public int getNumberOfGuests() {
@@ -83,12 +87,12 @@ public class Room {
         if (index!=-1) guests.remove(index);
     }
 
-    public StateRoom getStateRoom() {
-        return stateRoom;
+    public StateRoom getState() {
+        return state;
     }
 
-    public void setStateRoom(StateRoom stateRoom) {
-        this.stateRoom = stateRoom;
+    public void setState(StateRoom stateRoom) {
+        this.state = stateRoom;
     }
 
     @Override
@@ -98,8 +102,8 @@ public class Room {
                 ", price=" + price +
                 ", rating=" + rating +
                 ", numberOfGuests=" + numberOfGuests +
-                ", stateRoom=" + stateRoom +
-                ", typeRoom=" + typeRoom +
+                ", state=" + state +
+                ", type=" + type +
                 '}';
     }
 
@@ -108,11 +112,11 @@ public class Room {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Room room = (Room) o;
-        return idRoom == room.idRoom && number == room.number && numberOfGuests == room.numberOfGuests && stateRoom == room.stateRoom && typeRoom == room.typeRoom;
+        return id == room.id && number == room.number && numberOfGuests == room.numberOfGuests && state == room.state && type == room.type;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(idRoom, number, numberOfGuests, stateRoom, typeRoom);
+        return Objects.hash(id, number, numberOfGuests, state, type);
     }
 }
