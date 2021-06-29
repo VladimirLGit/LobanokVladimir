@@ -191,7 +191,30 @@ public class RoomDao implements IRoomDao {
             throwables.printStackTrace();
         }
     }
-
+    public Room getRoomForId(int id) {
+        Room room = null;
+        final String QUERY = "select * from rooms WHERE idRoom = " + '"' + id + '"';
+        try (Connection con = connector.getConnection();
+            Statement query =  con.createStatement()) {
+            ResultSet rs = query.executeQuery(QUERY);
+            while(rs.next()){
+                int idRoom = rs.getInt("IDRoom");
+                int number = rs.getInt("Number");
+                int numberOfGuest = rs.getInt("NumberOfGuests");
+                int price = rs.getInt("Price");
+                double rating = rs.getDouble("rating");
+                StateRoom stateRoom = StateRoom.values()[rs.getInt("StateRoom")];
+                TypeRoom typeRoom = TypeRoom.values()[rs.getInt("TypeRoom")];
+                room = new Room(number, price,numberOfGuest, typeRoom);
+                room.setId(idRoom);
+                room.setState(stateRoom);
+                room.setRating(rating);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return room;
+    }
 
 
     @Override

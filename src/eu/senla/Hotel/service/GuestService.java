@@ -7,7 +7,6 @@ import eu.senla.Hotel.model.Guest;
 import eu.senla.Hotel.model.Service;
 import eu.senla.Hotel.model.StateGuest;
 
-import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
@@ -26,7 +25,7 @@ public class GuestService implements IGuestService {
     private final GuestDao guestDao;
     @XmlElementWrapper(name = "guestList")
     // XmlElement sets the name of the entities
-    @XmlElement(name = "Guest")
+    //@XmlElement(name = "Guests")
     private List<Guest> guests;
 
     public GuestService() {

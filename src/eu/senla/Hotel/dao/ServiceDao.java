@@ -49,8 +49,8 @@ public class ServiceDao implements IServiceDao {
         //return idRoom into ?;
         try (Connection con = connector.getConnection()){
             PreparedStatement preparedStatement = con.prepareStatement(QUERY);
-            preparedStatement.setString(1, service.getNameService());
-            preparedStatement.setInt(2, service.getPriceService());
+            preparedStatement.setString(1, service.getName());
+            preparedStatement.setInt(2, service.getPrice());
             preparedStatement.execute();
 
             // get the generated key for the id
@@ -58,7 +58,7 @@ public class ServiceDao implements IServiceDao {
             int id;
             if (rs.next()) {
                 id = rs.getInt(1);
-                service.setIdService(id);
+                service.setId(id);
             }
             rs.close();
             preparedStatement.close();
@@ -69,13 +69,13 @@ public class ServiceDao implements IServiceDao {
 
     @Override
     public void deleteService(Service service) {
-        final String QUERY = "Delete FROM services WHERE idService = " + '"' + service.getIdService() + '"';
+        final String QUERY = "Delete FROM services WHERE idService = " + '"' + service.getId() + '"';
         try (Connection con = connector.getConnection();
              Statement query =  con.createStatement()) {
             int execute = query.executeUpdate(QUERY);
             query.close();
             if (execute>0) {
-                System.out.println("Delete service as " + service.getNameService());
+                System.out.println("Delete service as " + service.getName());
             } else {
                 System.out.println("The service does not exist");
             }
@@ -90,9 +90,9 @@ public class ServiceDao implements IServiceDao {
         final String QUERY = "UPDATE services name = ?, price = ? WHERE idService = ?";
         try (Connection con = connector.getConnection()) {
             PreparedStatement preparedStatement = con.prepareStatement(QUERY);
-            preparedStatement.setString(1, service.getNameService());
-            preparedStatement.setInt(2, service.getPriceService());
-            preparedStatement.setInt(3, service.getIdService());
+            preparedStatement.setString(1, service.getName());
+            preparedStatement.setInt(2, service.getPrice());
+            preparedStatement.setInt(3, service.getId());
             preparedStatement.execute();
             preparedStatement.close();
         } catch (SQLException throwables) {
@@ -114,7 +114,7 @@ public class ServiceDao implements IServiceDao {
                 String nameService = rs.getString("Name");
                 int price = rs.getInt("Price");
                 Service service = new Service(nameService, price);
-                service.setIdService(idService);
+                service.setId(idService);
                 services.add(service);
             }
 
@@ -131,7 +131,7 @@ public class ServiceDao implements IServiceDao {
         try (Connection con = connector.getConnection()){
             PreparedStatement preparedStatement = con.prepareStatement(QUERY);
             preparedStatement.setInt(1, guest.getId());
-            preparedStatement.setInt(2, service.getIdService());
+            preparedStatement.setInt(2, service.getId());
             preparedStatement.execute();
             preparedStatement.close();
         } catch (SQLException throwables) {

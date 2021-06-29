@@ -1,37 +1,38 @@
 package eu.senla.Hotel.model;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlElementWrapper;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
+import eu.senla.Hotel.utils.guest.LocalDateAdapter;
+
+import javax.xml.bind.annotation.*;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Objects;
 
 
 
-@XmlRootElement(name = "guest")
-/*
+
+
 @XmlType(propOrder={
         "id",
         "name",
         "dateOfCheckIn",
         "dateOfCheckOut",
         "state",
-        "room",
+        "idRoom",
         "orderedServices"})
-*/
-public class Guest {
 
+@XmlRootElement(name = "guest")
+public class Guest {
     private int id;
     private String name;
     private LocalDate dateOfCheckIn;
     private LocalDate dateOfCheckOut;
     private StateGuest state;
-    private Room room;
+    private int idRoom;
     @XmlElementWrapper(name = "orderedServices")
-    @XmlElement(name = "Service")
+    @XmlElement(name="service")
     private ArrayList<Service> orderedServices;
 
     public Guest() {
@@ -39,7 +40,7 @@ public class Guest {
 
     public Guest(String nameGuest) {
         this.name = nameGuest;
-        this.room = null;
+        this.idRoom = 0;
         this.state = StateGuest.NO_STATE;
         orderedServices = new ArrayList<>();
     }
@@ -56,29 +57,28 @@ public class Guest {
     public int getId() {
         return id;
     }
-    public void setId(int idGuest) {
-        this.id = idGuest;
+    public void setId(int id) {
+        this.id = id;
     }
-
+    public String getName() {
+        return name;
+    }
+    public void setName(String name) {
+        this.name = name;
+    }
+    @XmlJavaTypeAdapter(type= LocalDate.class, value=LocalDateAdapter.class)
     public LocalDate getDateOfCheckIn() {
         return dateOfCheckIn;
     }
     public void setDateOfCheckIn(LocalDate dateOfCheckIn) {
         this.dateOfCheckIn = dateOfCheckIn;
     }
-
+    @XmlJavaTypeAdapter(type= LocalDate.class, value=LocalDateAdapter.class)
     public LocalDate getDateOfCheckOut() {
         return dateOfCheckOut;
     }
     public void setDateOfCheckOut(LocalDate dateOfCheckOut) {
         this.dateOfCheckOut = dateOfCheckOut;
-    }
-
-    public String getName() {
-        return name;
-    }
-    public void setName(String name) {
-        this.name = name;
     }
 
     public StateGuest getState() {
@@ -87,12 +87,11 @@ public class Guest {
     public void setState(StateGuest stateGuest) {
         this.state = stateGuest;
     }
-
-    public Room getRoom() {
-        return room;
+    public int getIdRoom() {
+        return idRoom;
     }
-    public void setRoom(Room room) {
-        this.room = room;
+    public void setIdRoom(int idRoom) {
+        this.idRoom = idRoom;
     }
 
     @Override

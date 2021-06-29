@@ -1,43 +1,54 @@
 package eu.senla.Hotel.model;
 
+import javax.xml.bind.annotation.*;
+
+@XmlType(propOrder={
+        "id",
+        "name",
+        "price"})
+@XmlRootElement(name = "service")
 public class Service {
-    private int idService;
-    private String nameService;
-    private int priceService;
+    private int id;
+    private String name;
+    private int price;
+
     public Service(String nameService, int priceService) {
-        this.nameService = nameService;
-        this.priceService = priceService;
+        this.name = nameService;
+        this.price = priceService;
     }
 
-    public int getIdService() {
-        return idService;
+    public Service() {
     }
 
-    public void setIdService(int idService) {
-        this.idService = idService;
+    public int getId() {
+        return id;
     }
 
-    public String getNameService() {
-        return nameService;
+    public void setId(int idService) {
+        this.id = idService;
     }
 
-    public void setNameService(String nameService) {
-        this.nameService = nameService;
+    public String getName() {
+        return name;
     }
 
-    public int getPriceService() {
-        return priceService;
+    public void setName(String nameService) {
+        this.name = nameService;
     }
 
-    public void setPriceService(int priceService) {
-        this.priceService = priceService;
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int priceService) {
+        this.price = priceService;
     }
 
     @Override
     public String toString() {
         return "Service{" +
-                "nameService='" + nameService + '\'' +
-                ", priceService=" + priceService +
+                "name='" + name + '\'' +
+                ", price=" + price +
                 '}';
     }
 }

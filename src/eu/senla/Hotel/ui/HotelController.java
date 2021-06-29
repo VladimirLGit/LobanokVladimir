@@ -127,6 +127,7 @@ public class HotelController {
         Random RANDOM = new Random();
         String nameGuest = listNameGuests[RANDOM.nextInt(listNameGuests.length-1)];
         Guest guest = new Guest(nameGuest);
+        guest.setDateOfCheckIn(LocalDate.of(2016, 3, 30));
         guestService.addGuest(guest);
     }
     public void deleteGuest(int indexGuest) {
@@ -136,13 +137,11 @@ public class HotelController {
 
     public void viewRooms() {
         roomService.listNumber();
-        //ArrayList<Room> rooms = roomService.getRooms();
-        //rooms.forEach(System.out::println);
     }
 
     public void changePriceRoom(int newPrice, int indexRoom) {
         Random RANDOM = new Random();
-        ArrayList<Room> rooms = roomService.getRooms();
+        List<Room> rooms = roomService.getRooms();
         if (rooms.size()>0) {
             roomService.changePriceRoom(newPrice, rooms.get(RANDOM.nextInt(rooms.size() - 1)));
         }
@@ -175,16 +174,15 @@ public class HotelController {
     }
 
     public void checkInGuest() {
-        List<Guest> guests = null;
+        List<Guest> guests;
         guests = guestService.getGuests();
-        for (int i = 0; i < guests.size(); i++) {
-            Guest guest = guests.get(i);
-            if (guest.getState()==StateGuest.NO_STATE) {
-                LocalDate today = LocalDate.now();
+        for (Guest guest : guests) {
+            if (guest.getState() == StateGuest.NO_STATE) {
+                LocalDate today = LocalDate.of(2016, 3, 30);// LocalDate.now();
                 guest.setState(StateGuest.CHECK_IN);
                 guest.setDateOfCheckIn(today);
                 Random RANDOM = new Random();
-                guest.setDateOfCheckOut(today.plusDays(RANDOM.nextInt(5)+1));
+                guest.setDateOfCheckOut(today.plusDays(RANDOM.nextInt(5) + 1));
                 roomService.checkIn(guest);
                 guestService.updateGuest(guest);
                 break;
@@ -207,10 +205,22 @@ public class HotelController {
         guestService.listGuests();
     }
 
+    public void callService() {
+        Random RANDOM = new Random();
+        List<Guest> guests = guestService.getGuests();
+        List<Service> services = hotelService.getServices();
+        Service service = services.get(RANDOM.nextInt(services.size() - 1));
+        Guest guest = guests.get(RANDOM.nextInt(guests.size() - 1));
+        guest.addOrderedService(service);
+        serviceDao.addOrderGuest(guest,service);
+    }
+
     public void serializationMarshal(){
         final String GUESTS_XML = "src/eu/senla/Hotel/resources/guests-jaxb.xml";
+        final String ROOMS_XML = "src/eu/senla/Hotel/resources/rooms-jaxb.xml";
+        final String SERVICES_XML = "src/eu/senla/Hotel/resources/services-jaxb.xml";
         //создание объекта Marshaller, который выполняет сериализацию
-        JAXBContext context = null;
+        JAXBContext context;
         try {
             context = JAXBContext.newInstance(GuestService.class);
             Marshaller marshaller = context.createMarshaller();
@@ -218,13 +228,15 @@ public class HotelController {
             // сама сериализация
             // Write to File
             marshaller.marshal(guestService, new File(GUESTS_XML));
+            marshaller.marshal(roomService, new File(ROOMS_XML));
+            marshaller.marshal(hotelService, new File(SERVICES_XML));
+            marshaller.marshal(guestService, System.out);
 
         } catch (JAXBException e) {
             e.printStackTrace();
         }
 
     }
-
     public void serializationsData(){
         final ObjectMapper mapper = new ObjectMapper(new YAMLFactory()
                 .configure(YAMLGenerator.Feature.WRITE_DOC_START_MARKER, false)
@@ -249,6 +261,7 @@ public class HotelController {
             e.printStackTrace();
         }
     }
+
     public void serializationsObjects() {
         List<Guest> guests = guestService.getGuests();
         List<Room> rooms = roomService.getRooms();
@@ -286,4 +299,5 @@ public class HotelController {
             e.printStackTrace();
         }
     }
+
 }

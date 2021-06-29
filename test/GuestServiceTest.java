@@ -20,6 +20,7 @@ import org.junit.Test;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class GuestServiceTest {
@@ -84,6 +85,7 @@ public class GuestServiceTest {
         guestService = new GuestService();
         createRooms();
         roomService = new RoomService();
+        roomService.setRooms(roomDao.allRooms());
         hotelService = new HotelService();
         createServices();
     }
@@ -178,12 +180,12 @@ public class GuestServiceTest {
         addGuest();
         //addGuest();
         addGuest();
-        ArrayList<Guest> guests;
+        List<Guest> guests;
         Random RANDOM = new Random();
         guests = guestDao.allGuests();
         Guest guestOut = guests.get(RANDOM.nextInt(guests.size()));
         Room room = roomDao.checkGuest(guestOut.getId());
-        guestOut.setRoom(room);
+        guestOut.setIdRoom(room.getId());
 
         roomService.checkOut(guestOut);
         try {
@@ -206,8 +208,8 @@ public class GuestServiceTest {
 
         for (Guest guest : guests) {
             Room room = roomDao.checkGuest(guest.getId());
-            guest.setRoom(room);
-            ArrayList<Service> services = hotelService.getServices();
+            guest.setIdRoom(room.getId());
+            List<Service> services = hotelService.getServices();
 
             for (int i = 0; i < 3; i++) {
                 Service service = services.get(RANDOM.nextInt(services.size()));
@@ -220,7 +222,7 @@ public class GuestServiceTest {
             ArrayList<Service> orderedServices = guest.getOrderedServices();
             int priceServices = 0;
             for (Service service : orderedServices) {
-                priceServices += service.getPriceService();
+                priceServices += service.getPrice();
             }
             try {
                 serviceDao.deleteOrderGuest(guest);
@@ -231,7 +233,7 @@ public class GuestServiceTest {
             Assert.assertTrue(orderedServices.isEmpty());
             guestService.leave(guest);
             System.out.println("К оплате = " + priceServices + "$ за все услуги");
-            
+
         }
     }
 
@@ -259,8 +261,8 @@ public class GuestServiceTest {
     @Test
     public void sortRooms(){
         checkOutAndDeleteOrderGuests();
-        ArrayList<Guest> guests;
-        ArrayList<Room> rooms;
+        List<Guest> guests;
+        List<Room> rooms;
         addGuest();
         addGuest();
         addGuest();
@@ -301,7 +303,7 @@ public class GuestServiceTest {
         roomService.checkIn(guest);
         Assert.assertNotEquals(guest.getDateOfCheckIn(),null);
         Assert.assertNotEquals(guest.getDateOfCheckOut(),null);
-        Assert.assertNotEquals(guest.getRoom(),null);
+        Assert.assertNotEquals(guest.getIdRoom(),-1);
 
         guestDao.updateGuest(guest);
     }

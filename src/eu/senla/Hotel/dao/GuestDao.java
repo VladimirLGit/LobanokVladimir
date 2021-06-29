@@ -290,7 +290,7 @@ public class GuestDao implements IGuestDao {
                 String nameService = rs.getString("Name");
                 int price = rs.getInt("Price");
                 service = new Service(nameService, price);
-                service.setIdService(id);
+                service.setId(id);
             }
 
         } catch (SQLException e) {

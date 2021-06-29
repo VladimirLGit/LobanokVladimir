@@ -17,20 +17,20 @@ public class Builder {
     public void buildMenu() {
         rootMenu = new Menu(0,"RootMenu");
         rootMenu.addMenuItem(new MenuItem(0,"Обслуживание номеров", () -> {
-            System.out.println("EXIT");
+            System.out.println("----");
         }, createRoomMenu(rootMenu.getIndexMenu())));
         rootMenu.addMenuItem(new MenuItem(1,"Обслуживание гостей", () -> {
-            System.out.println("EXIT");
+            System.out.println("----");
         }, createGuestMenu(rootMenu.getIndexMenu())));
         rootMenu.addMenuItem(new MenuItem(2,"Дополнительные услуги", () -> {
-            System.out.println("EXIT");
+            System.out.println("----");
         }, createServiceMenu(rootMenu.getIndexMenu())));
 
         rootMenu.addMenuItem(new MenuItem(3,"Загрузка и сохранение объектов", () -> {
-            System.out.println("EXIT");
+            System.out.println("----");
         }, createSerializationsMenu(rootMenu.getIndexMenu())));
         rootMenu.addMenuItem(new MenuItem(4,"Выход из программы", () -> {
-            System.out.println("EXIT");
+            System.out.println("----");
         }, null));
 
     }
@@ -40,7 +40,7 @@ public class Builder {
         serializationsMenu.addMenuItem(new MenuItem(0,"Загрузить объекты", new DeserializationObject(), serializationsMenu));
         serializationsMenu.addMenuItem(new MenuItem(1,"Сохранить объекты", new SerializationsObjects(), serializationsMenu));
         serializationsMenu.addMenuItem(new MenuItem(2,"Выход в предыдущее меню", ()->{
-            System.out.println("Печать текста");
+            System.out.println("----");
         }, rootMenu));
         return serializationsMenu;
     }
@@ -57,7 +57,7 @@ public class Builder {
         roomMenu.addMenuItem(new MenuItem(3,"Изменить стоимость комнаты",new ChangePriceRoom(), roomMenu));
         roomMenu.addMenuItem(new MenuItem(4,"Изменить статус комнаты", new ChangeStateRoom(), roomMenu));
         roomMenu.addMenuItem(new MenuItem(5,"Выход в предыдущее меню", ()->{
-            System.out.println("Печать текста");
+            System.out.println("----");
         }, rootMenu));
 
         return roomMenu;
@@ -70,7 +70,7 @@ public class Builder {
         serviceMenu.addMenuItem(new MenuItem(2,"Вывести услуги", new ViewServices(), serviceMenu));
         serviceMenu.addMenuItem(new MenuItem(3,"Изменить стоимость услуги", new ChangePriceService(), serviceMenu));
         serviceMenu.addMenuItem(new MenuItem(4,"Выход в предыдущее меню", ()->{
-            System.out.println("Печать текста");
+            System.out.println("----");
         }, rootMenu));
 
         return serviceMenu;
@@ -81,9 +81,10 @@ public class Builder {
         guestMenu.addMenuItem(new MenuItem(0,"Добавить(Создать) гостя", new AddGuest(), guestMenu));
         guestMenu.addMenuItem(new MenuItem(1,"Заселить гостя в свободный номер", new CheckInGuest(), guestMenu));
         guestMenu.addMenuItem(new MenuItem(2,"Выселить гостя из номера", new CheckOutGuest(), guestMenu));
-        guestMenu.addMenuItem(new MenuItem(3,"Список всех постояльцев", new ViewGuestsHotel(), guestMenu));
-        guestMenu.addMenuItem(new MenuItem(4,"Выход в предыдущее меню", ()->{
-            System.out.println("Печать текста");
+        guestMenu.addMenuItem(new MenuItem(3,"Заказать услугу", new CallService(), guestMenu));
+        guestMenu.addMenuItem(new MenuItem(4,"Список всех постояльцев", new ViewGuestsHotel(), guestMenu));
+        guestMenu.addMenuItem(new MenuItem(5,"Выход в предыдущее меню", ()->{
+            System.out.println("----");
         }, rootMenu));
 
         return guestMenu;
