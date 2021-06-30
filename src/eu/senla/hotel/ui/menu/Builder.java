@@ -18,21 +18,19 @@ public class Builder {
         rootMenu = new Menu(0,"RootMenu");
         rootMenu.addMenuItem(new MenuItem(0,"Обслуживание номеров", () -> {
             System.out.println("----");
-        }, createRoomMenu(rootMenu.getIndexMenu())));
+        }, createRoomMenu(0)));
         rootMenu.addMenuItem(new MenuItem(1,"Обслуживание гостей", () -> {
             System.out.println("----");
-        }, createGuestMenu(rootMenu.getIndexMenu())));
+        }, createGuestMenu(1)));
         rootMenu.addMenuItem(new MenuItem(2,"Дополнительные услуги", () -> {
             System.out.println("----");
-        }, createServiceMenu(rootMenu.getIndexMenu())));
-
+        }, createServiceMenu(2)));
         rootMenu.addMenuItem(new MenuItem(3,"Загрузка и сохранение объектов", () -> {
             System.out.println("----");
-        }, createSerializationsMenu(rootMenu.getIndexMenu())));
+        }, createSerializationsMenu(3)));
         rootMenu.addMenuItem(new MenuItem(4,"Выход из программы", () -> {
             System.out.println("----");
         }, null));
-
     }
 
     private Menu createSerializationsMenu(int indexMenu) {

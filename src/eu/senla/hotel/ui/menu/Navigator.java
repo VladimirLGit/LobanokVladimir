@@ -26,7 +26,7 @@ public class Navigator {
         if (currentMenu != null) {
             System.out.println(currentMenu.toString());
             List<MenuItem> items = currentMenu.getMenuItems();
-            items.stream().map(item -> currentMenu.getIndexMenu() + 1 + "." + item).forEach(System.out::println);
+            items.stream().map(item -> (currentMenu.getIndexMenu() + 1) + "." + item).forEach(System.out::println);
 
         }
     }

@@ -12,6 +12,7 @@ import eu.senla.hotel.service.RoomService;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
+import javax.xml.bind.Unmarshaller;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -164,7 +165,7 @@ public class HotelController {
         guests = guestService.getGuests();
         for (Guest guest : guests) {
             if (guest.getState() == StateGuest.NO_STATE) {
-                LocalDate today = LocalDate.of(2016, 3, 30);// LocalDate.now();
+                LocalDate today = LocalDate.now();
                 guest.setState(StateGuest.CHECK_IN);
                 guest.setDateOfCheckIn(today);
                 Random RANDOM = new Random();
@@ -229,7 +230,34 @@ public class HotelController {
 
     }
     public void deserializationObjects() {
+        final String GUESTS_XML = "src/eu/senla/hotel/resources/guests-jaxb.xml";
+        final String ROOMS_XML = "src/eu/senla/hotel/resources/rooms-jaxb.xml";
+        final String SERVICES_XML = "src/eu/senla/hotel/resources/services-jaxb.xml";
+        //создание объекта Marshaller, который выполняет десериализацию
+        JAXBContext context;
+        try {
+            context = JAXBContext.newInstance(GuestService.class);
+            Unmarshaller unmarshaller = context.createUnmarshaller();
+            // сама десериализация
+            GuestService guestService2 = (GuestService) unmarshaller.unmarshal(new File(GUESTS_XML));
 
+            context = JAXBContext.newInstance(RoomService.class);
+            unmarshaller = context.createUnmarshaller();
+            RoomService roomService2 = (RoomService) unmarshaller.unmarshal(new File(ROOMS_XML));
+
+            context = JAXBContext.newInstance(HotelService.class);
+            unmarshaller = context.createUnmarshaller();
+            HotelService hotelService2 = (HotelService) unmarshaller.unmarshal(new File(SERVICES_XML));
+
+            guestService2.listGuests();
+            roomService2.listNumber();
+            hotelService2.listOrder();
+
+
+
+        } catch (JAXBException e) {
+            e.printStackTrace();
+        }
     }
     /*
     public void serializationsData(){

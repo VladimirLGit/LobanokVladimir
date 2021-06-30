@@ -7,14 +7,15 @@ import java.util.Objects;
 @XmlRootElement(name = "room")
 public class Room {
     private int id;
+
     private int number;
+
     private int price;
     private double rating;
     private int numberOfGuests;
     private ArrayList<Guest> guests;
     private StateRoom state;
     private TypeRoom type;
-
     public Room() {
     }
 
@@ -30,12 +31,15 @@ public class Room {
     public int getId() {
         return id;
     }
+
     public void setId(int idRoom) {
         this.id = idRoom;
     }
-
     public int getNumber() {
         return number;
+    }
+    public void setNumber(int number) {
+        this.number = number;
     }
 
     public double getRating() {
