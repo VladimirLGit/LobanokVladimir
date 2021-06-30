@@ -29,12 +29,6 @@
       </library>
     </orderEntry>
     <orderEntry type="library" name="junit:junit:4.13" level="project" />
-    <orderEntry type="library" name="mysql-connector-java-5.1.5-bin" level="project" />
-    <orderEntry type="library" name="jackson-dataformat-yaml-2.12.3" level="project" />
-    <orderEntry type="library" name="jackson-databind-2.6.7.5" level="project" />
-    <orderEntry type="library" name="jackson-datatype-jsr310-2.12.3" level="project" />
-    <orderEntry type="library" name="jackson-core-2.12.3" level="project" />
-    <orderEntry type="library" name="jackson-annotations-2.12.3" level="project" />
-    <orderEntry type="library" name="snakeyaml-1.29" level="project" />
+    <orderEntry type="library" name="mysql-connector-java-5.1.40" level="project" />
   </component>
 </module>
