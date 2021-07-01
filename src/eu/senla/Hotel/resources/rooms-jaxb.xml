@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<roomService>
+    <roomList>
+        <Room>
+            <guests>
+                <id>6</id>
+                <name>Rose</name>
+                <dateOfCheckIn>2016-03-30</dateOfCheckIn>
+                <dateOfCheckOut>2016-04-02</dateOfCheckOut>
+                <state>CHECK_IN</state>
+                <idRoom>7</idRoom>
+                <orderedServices>
+                    <service>
+                        <id>11</id>
+                        <name>Заказ еды в номер</name>
+                        <price>79</price>
+                    </service>
+                    <service>
+                        <id>10</id>
+                        <name>Заказ еды в номер</name>
+                        <price>40</price>
+                    </service>
+                </orderedServices>
+            </guests>
+            <id>7</id>
+            <numberOfGuests>5</numberOfGuests>
+            <price>130</price>
+            <rating>0.0</rating>
+            <state>CHECKED</state>
+            <type>BED_ROOM</type>
+        </Room>
+        <Room>
+            <guests>
+                <id>9</id>
+                <name>Jack</name>
+                <dateOfCheckIn>2016-03-30</dateOfCheckIn>
+                <dateOfCheckOut>2016-04-03</dateOfCheckOut>
+                <state>CHECK_IN</state>
+                <idRoom>8</idRoom>
+                <orderedServices/>
+            </guests>
+            <id>8</id>
+            <numberOfGuests>1</numberOfGuests>
+            <price>30</price>
+            <rating>0.0</rating>
+            <state>CHECKED</state>
+            <type>BED_ROOM</type>
+        </Room>
+        <Room>
+            <guests>
+                <id>7</id>
+                <name>Jack</name>
+                <dateOfCheckIn>2016-03-30</dateOfCheckIn>
+                <dateOfCheckOut>2016-04-03</dateOfCheckOut>
+                <state>CHECK_IN</state>
+                <idRoom>9</idRoom>
+                <orderedServices>
+                    <service>
+                        <id>9</id>
+                        <name>Чистка одежды</name>
+                        <price>62</price>
+                    </service>
+                    <service>
+                        <id>10</id>
+                        <name>Заказ еды в номер</name>
+                        <price>40</price>
+                    </service>
+                    <service>
+                        <id>13</id>
+                        <name>Уборка номера</name>
+                        <price>2</price>
+                    </service>
+                    <service>
+                        <id>10</id>
+                        <name>Заказ еды в номер</name>
+                        <price>40</price>
+                    </service>
+                    <service>
+                        <id>12</id>
+                        <name>Чистка одежды</name>
+                        <price>1</price>
+                    </service>
+                    <service>
+                        <id>13</id>
+                        <name>Уборка номера</name>
+                        <price>2</price>
+                    </service>
+                </orderedServices>
+            </guests>
+            <id>9</id>
+            <numberOfGuests>3</numberOfGuests>
+            <price>120</price>
+            <rating>0.0</rating>
+            <state>CHECKED</state>
+            <type>STANDARD</type>
+        </Room>
+        <Room>
+            <guests>
+                <id>8</id>
+                <name>Jack</name>
+                <dateOfCheckIn>2016-03-30</dateOfCheckIn>
+                <dateOfCheckOut>2016-04-01</dateOfCheckOut>
+                <state>CHECK_IN</state>
+                <idRoom>10</idRoom>
+                <orderedServices>
+                    <service>
+                        <id>9</id>
+                        <name>Чистка одежды</name>
+                        <price>62</price>
+                    </service>
+                    <service>
+                        <id>12</id>
+                        <name>Чистка одежды</name>
+                        <price>1</price>
+                    </service>
+                    <service>
+                        <id>9</id>
+                        <name>Чистка одежды</name>
+                        <price>62</price>
+                    </service>
+                </orderedServices>
+            </guests>
+            <id>10</id>
+            <numberOfGuests>1</numberOfGuests>
+            <price>70</price>
+            <rating>0.0</rating>
+            <state>CHECKED</state>
+            <type>FAMILY_ROOM</type>
+        </Room>
+    </roomList>
+</roomService>

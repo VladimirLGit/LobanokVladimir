@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<hotelService>
+    <serviceList>
+        <Service>
+            <id>9</id>
+            <name>Чистка одежды</name>
+            <price>62</price>
+        </Service>
+        <Service>
+            <id>10</id>
+            <name>Заказ еды в номер</name>
+            <price>40</price>
+        </Service>
+        <Service>
+            <id>11</id>
+            <name>Заказ еды в номер</name>
+            <price>79</price>
+        </Service>
+        <Service>
+            <id>12</id>
+            <name>Чистка одежды</name>
+            <price>1</price>
+        </Service>
+        <Service>
+            <id>13</id>
+            <name>Уборка номера</name>
+            <price>2</price>
+        </Service>
+        <Service>
+            <id>14</id>
+            <name>Чистка одежды</name>
+            <price>21</price>
+        </Service>
+    </serviceList>
+</hotelService>
