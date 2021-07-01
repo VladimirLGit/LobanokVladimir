@@ -37,6 +37,6 @@ public class Menu {
 
     @Override
     public String toString() {
-        return Integer.toString(indexMenu + 1) + ". " + name + "->";
+        return Integer.toString(indexMenu + 1) + " " + name + "->";
     }
 }

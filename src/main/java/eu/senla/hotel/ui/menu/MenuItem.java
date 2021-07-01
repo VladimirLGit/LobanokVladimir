@@ -25,6 +25,6 @@ public class MenuItem {
 
     @Override
     public String toString() {
-        return indexItem + 1 + ". " + title;
+        return indexItem + 1 + " " + title;
     }
 }
