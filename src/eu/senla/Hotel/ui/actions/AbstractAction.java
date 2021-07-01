@@ -1,6 +1,6 @@
-package eu.senla.Hotel.ui.actions;
+package eu.senla.hotel.ui.actions;
 
-import eu.senla.Hotel.ui.HotelController;
+import eu.senla.hotel.ui.HotelController;
 
 public abstract class AbstractAction {
     protected HotelController hotelController = HotelController.getInstance();

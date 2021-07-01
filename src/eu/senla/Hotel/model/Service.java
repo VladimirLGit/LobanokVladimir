@@ -1,43 +1,43 @@
-package eu.senla.Hotel.model;
+package eu.senla.hotel.model;
 
 public class Service {
-    private int idService;
-    private String nameService;
-    private int priceService;
-    public Service(String nameService, int priceService) {
-        this.nameService = nameService;
-        this.priceService = priceService;
+    private int id;
+    private String name;
+    private int price;
+    public Service(String name, int price) {
+        this.name = name;
+        this.price = price;
     }
 
     public int getIdService() {
-        return idService;
+        return id;
     }
 
     public void setIdService(int idService) {
-        this.idService = idService;
+        this.id = idService;
     }
 
     public String getNameService() {
-        return nameService;
+        return name;
     }
 
     public void setNameService(String nameService) {
-        this.nameService = nameService;
+        this.name = nameService;
     }
 
     public int getPriceService() {
-        return priceService;
+        return price;
     }
 
     public void setPriceService(int priceService) {
-        this.priceService = priceService;
+        this.price = priceService;
     }
 
     @Override
     public String toString() {
         return "Service{" +
-                "nameService='" + nameService + '\'' +
-                ", priceService=" + priceService +
+                "nameService='" + name + '\'' +
+                ", priceService=" + price +
                 '}';
     }
 }

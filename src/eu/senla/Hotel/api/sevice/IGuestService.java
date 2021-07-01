@@ -1,9 +1,9 @@
-package eu.senla.Hotel.api.sevice;
+package eu.senla.hotel.api.sevice;
 
-import eu.senla.Hotel.model.Guest;
-import eu.senla.Hotel.model.Service;
+import eu.senla.hotel.model.Guest;
+import eu.senla.hotel.model.Service;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public interface IGuestService {
     void addGuest(Guest guest);
@@ -12,7 +12,7 @@ public interface IGuestService {
     void enter(Guest guest);
     void leave(Guest guest);
     void orderService(Guest guest, Service service);
-    ArrayList<Guest> last3Guests();
+    List<Guest> last3Guests();
     int amountGuests();
 
 

@@ -1,33 +1,32 @@
-package eu.senla.Hotel.model;
+package eu.senla.hotel.model;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class Room {
-    public void setIdRoom(int idRoom) {
-        this.idRoom = idRoom;
-    }
-
-    private int idRoom;
+    private int id;
     private int number;
     private int price;
-
     private double rating;
-
     private int numberOfGuests;
-    private ArrayList<Guest> guests;
-    private StateRoom stateRoom;
+    private List<Guest> guests;
+    private StateRoom state;
     private TypeRoom typeRoom;
+
     public Room(int number, int price, int numberOfGuests, TypeRoom typeRoom) {
         this.number = number;
         this.price = price;
         this.numberOfGuests = numberOfGuests;
         this.typeRoom = typeRoom;
-        this.stateRoom = StateRoom.FREE;
+        this.state = StateRoom.FREE;
         guests = new ArrayList<>();
     }
     public int getIdRoom() {
-        return idRoom;
+        return id;
+    }
+    public void setIdRoom(int id) {
+        this.id = id;
     }
 
     public int getNumber() {
@@ -66,7 +65,7 @@ public class Room {
         this.numberOfGuests = numberOfGuests;
     }
 
-    public ArrayList<Guest> getGuests() {
+    public List<Guest> getGuests() {
         return guests;
     }
 
@@ -84,11 +83,11 @@ public class Room {
     }
 
     public StateRoom getStateRoom() {
-        return stateRoom;
+        return state;
     }
 
     public void setStateRoom(StateRoom stateRoom) {
-        this.stateRoom = stateRoom;
+        this.state = stateRoom;
     }
 
     @Override
@@ -98,7 +97,7 @@ public class Room {
                 ", price=" + price +
                 ", rating=" + rating +
                 ", numberOfGuests=" + numberOfGuests +
-                ", stateRoom=" + stateRoom +
+                ", stateRoom=" + state +
                 ", typeRoom=" + typeRoom +
                 '}';
     }
@@ -108,11 +107,11 @@ public class Room {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Room room = (Room) o;
-        return idRoom == room.idRoom && number == room.number && numberOfGuests == room.numberOfGuests && stateRoom == room.stateRoom && typeRoom == room.typeRoom;
+        return id == room.id && number == room.number && numberOfGuests == room.numberOfGuests && state == room.state && typeRoom == room.typeRoom;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(idRoom, number, numberOfGuests, stateRoom, typeRoom);
+        return Objects.hash(id, number, numberOfGuests, state, typeRoom);
     }
 }

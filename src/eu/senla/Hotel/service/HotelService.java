@@ -1,15 +1,16 @@
-package eu.senla.Hotel.service;
+package eu.senla.hotel.service;
 
-import eu.senla.Hotel.api.sevice.IServiceService;
-import eu.senla.Hotel.dao.ServiceDao;
-import eu.senla.Hotel.model.Guest;
-import eu.senla.Hotel.model.Service;
+import eu.senla.hotel.api.sevice.IServiceService;
+import eu.senla.hotel.dao.ServiceDao;
+import eu.senla.hotel.model.Guest;
+import eu.senla.hotel.model.Service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class HotelService implements IServiceService {
     private ServiceDao serviceDao;
-    private ArrayList<Service> services;
+    private List<Service> services;
 
     public HotelService() {
         serviceDao = new ServiceDao();
@@ -31,7 +32,7 @@ public class HotelService implements IServiceService {
         services.remove(service);
     }
 
-    public ArrayList<Service> getServices() {
+    public List<Service> getServices() {
         return services;
     }
 

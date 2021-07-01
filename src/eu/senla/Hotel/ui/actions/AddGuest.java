@@ -1,4 +1,4 @@
-package eu.senla.Hotel.ui.actions;
+package eu.senla.hotel.ui.actions;
 
 public class AddGuest extends AbstractAction implements IAction{
     @Override

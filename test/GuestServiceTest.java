@@ -1,16 +1,17 @@
-import eu.senla.Hotel.dao.GuestDao;
-import eu.senla.Hotel.dao.RoomDao;
-import eu.senla.Hotel.dao.ServiceDao;
-import eu.senla.Hotel.model.*;
-import eu.senla.Hotel.service.GuestService;
-import eu.senla.Hotel.service.HotelService;
-import eu.senla.Hotel.service.RoomService;
-import eu.senla.Hotel.utils.guest.CheckOutComparator;
-import eu.senla.Hotel.utils.guest.NameComparator;
-import eu.senla.Hotel.utils.room.NumberComparator;
-import eu.senla.Hotel.utils.room.NumberOfGuestsComparator;
-import eu.senla.Hotel.utils.room.PriceComparator;
-import eu.senla.Hotel.utils.room.RatingComparator;
+import eu.senla.hotel.dao.GuestDao;
+import eu.senla.hotel.dao.MainDao;
+import eu.senla.hotel.dao.RoomDao;
+import eu.senla.hotel.dao.ServiceDao;
+import eu.senla.hotel.model.*;
+import eu.senla.hotel.service.GuestService;
+import eu.senla.hotel.service.HotelService;
+import eu.senla.hotel.service.RoomService;
+import eu.senla.hotel.utils.guest.CheckOutComparator;
+import eu.senla.hotel.utils.guest.NameComparator;
+import eu.senla.hotel.utils.room.NumberComparator;
+import eu.senla.hotel.utils.room.NumberOfGuestsComparator;
+import eu.senla.hotel.utils.room.PriceComparator;
+import eu.senla.hotel.utils.room.RatingComparator;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -18,6 +19,7 @@ import org.junit.Test;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class GuestServiceTest {
@@ -29,6 +31,7 @@ public class GuestServiceTest {
             "Oscar",
             "Leo",
             "John"};
+    private MainDao mainDao;
     private GuestDao guestDao;
     private RoomDao roomDao;
     private ServiceDao serviceDao;
@@ -37,6 +40,7 @@ public class GuestServiceTest {
     private HotelService hotelService;
 
     private void createDao(){
+        mainDao = new MainDao();
         guestDao = new GuestDao();
         roomDao = new RoomDao();
         serviceDao = new ServiceDao();
@@ -71,14 +75,14 @@ public class GuestServiceTest {
     @Before
     public void setUp() {
         createDao();
-        guestDao.createHotelBase();
-        guestDao.createTableGuests();
-        guestDao.createLinkTableServices();
-        guestDao.createTableHistoryGuests();
+        mainDao.createHotelBase();
+        mainDao.createTableGuests();
+        mainDao.createLinkTableServices();
+        mainDao.createTableHistoryGuests();
 
-        roomDao.createTableRooms();
-        roomDao.createLinkTableRooms();
-        serviceDao.createTableServices();
+        mainDao.createTableRooms();
+        mainDao.createLinkTableRooms();
+        mainDao.createTableServices();
         guestService = new GuestService();
         createRooms();
         roomService = new RoomService();
@@ -88,12 +92,12 @@ public class GuestServiceTest {
 
     @After
     public void tearDown() {
-        guestDao.deleteTableGuests();
-        guestDao.deleteTableHistoryGuests();
-        guestDao.deleteLinkTableServices();
-        roomDao.deleteTableRooms();
-        roomDao.deleteLinkTableRooms();
-        serviceDao.deleteTableServices();
+        mainDao.deleteTableGuests();
+        mainDao.deleteTableHistoryGuests();
+        mainDao.deleteLinkTableServices();
+        mainDao.deleteTableRooms();
+        mainDao.deleteLinkTableRooms();
+        mainDao.deleteTableServices();
     }
 
     @Test
@@ -111,7 +115,7 @@ public class GuestServiceTest {
 
     @Test
     public void viewListGuestsAndSort(){
-        ArrayList<Guest> guests;
+        List<Guest> guests;
         addGuest();
         addGuest();
         addGuest();
@@ -137,7 +141,7 @@ public class GuestServiceTest {
 
     @Test
     public void viewListFreeRoomAndSort(){
-        ArrayList<Room> rooms;
+        List<Room> rooms;
         addGuest();
         addGuest();
         addGuest();
@@ -171,7 +175,7 @@ public class GuestServiceTest {
         addGuest();
         //addGuest();
         addGuest();
-        ArrayList<Guest> guests;
+        List<Guest> guests;
         Random RANDOM = new Random();
         guests = guestDao.allGuests();
         Guest guestOut = guests.get(RANDOM.nextInt(guests.size()));
@@ -189,14 +193,14 @@ public class GuestServiceTest {
 
     @Test
     public void checkOutAndDeleteOrderGuests() {
-        ArrayList<Guest> guests;
+        List<Guest> guests;
         guests = guestDao.allGuests();
         Random RANDOM = new Random();
 
         for (Guest guest : guests) {
             Room room = roomDao.checkGuest(guest.getIdGuest());
             guest.setRoom(room);
-            ArrayList<Service> services = hotelService.getServices();
+            List<Service> services = hotelService.getServices();
 
             for (int i = 0; i < 3; i++) {
                 Service service = services.get(RANDOM.nextInt(services.size()));
@@ -206,7 +210,7 @@ public class GuestServiceTest {
             roomService.checkOut(guest);
             System.out.println(guest);
 
-            ArrayList<Service> orderedServices = guest.getOrderedServices();
+            List<Service> orderedServices = guest.getOrderedServices();
             int priceServices = 0;
             for (Service service : orderedServices) {
                 priceServices += service.getPriceService();
@@ -222,13 +226,13 @@ public class GuestServiceTest {
 
     @Test
     public void willBeFreeInTheFuture(){
-        ArrayList<Room> rooms;
+        List<Room> rooms;
         addGuest();
         addGuest();
         addGuest();
         addGuest();
         addGuest();
-        ArrayList<Guest> guests = guestDao.allGuests();
+        List<Guest> guests = guestDao.allGuests();
         System.out.println("Список гостей");
         for (Guest guest : guests) {
             System.out.println(guest);
@@ -244,8 +248,8 @@ public class GuestServiceTest {
     @Test
     public void sortRooms(){
         checkOutAndDeleteOrderGuests();
-        ArrayList<Guest> guests;
-        ArrayList<Room> rooms;
+        List<Guest> guests;
+        List<Room> rooms;
         addGuest();
         addGuest();
         addGuest();
@@ -293,7 +297,7 @@ public class GuestServiceTest {
 
     @Test
     public void deleteGuest() {
-        ArrayList<Guest> guests;
+        List<Guest> guests;
         Random RANDOM = new Random();
         Guest guest = new Guest("Tom");
         guestService.enter(guest);

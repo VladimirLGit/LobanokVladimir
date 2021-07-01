@@ -1,41 +1,43 @@
-package eu.senla.Hotel.model;
+package eu.senla.hotel.model;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class Guest {
-    private int idGuest;
-
-    private String nameGuest;
-
+    private int id;
+    private String name;
     private LocalDate dateOfCheckIn;
     private LocalDate dateOfCheckOut;
-    private StateGuest stateGuest;
+    private StateGuest state;
     private Room room;
-    private ArrayList<Service> orderedServices;
+    private List<Service> orderedServices;
 
-    public Guest(String nameGuest) {
-        this.nameGuest = nameGuest;
+    public Guest(String name) {
+        this.name = name;
         this.room = null;
         orderedServices = new ArrayList<>();
     }
-    public void clearListOrder(){
+
+    public void clearListOrder() {
         orderedServices.clear();
     }
-    public void addOrderedService(Service service){
+
+    public void addOrderedService(Service service) {
         orderedServices.add(service);
     }
-    public ArrayList<Service> getOrderedServices() {
+
+    public List<Service> getOrderedServices() {
         return orderedServices;
     }
 
     public int getIdGuest() {
-        return idGuest;
+        return id;
     }
 
-    public void setIdGuest(int idGuest) {
-        this.idGuest = idGuest;
+    public void setIdGuest(int id) {
+        this.id = id;
     }
 
     public LocalDate getDateOfCheckIn() {
@@ -55,15 +57,15 @@ public class Guest {
     }
 
     public String getNameGuest() {
-        return nameGuest;
+        return name;
     }
 
     public StateGuest getStateGuest() {
-        return stateGuest;
+        return state;
     }
 
-    public void setStateGuest(StateGuest stateGuest) {
-        this.stateGuest = stateGuest;
+    public void setStateGuest(StateGuest state) {
+        this.state = state;
     }
 
     public Room getRoom() {
@@ -77,10 +79,10 @@ public class Guest {
     @Override
     public String toString() {
         return "Guest{" +
-                "nameGuest='" + nameGuest + '\'' +
+                "nameGuest='" + name + '\'' +
                 ", dateOfCheckIn=" + dateOfCheckIn +
                 ", dateOfCheckOut=" + dateOfCheckOut +
-                ", stateGuest=" + stateGuest +
+                ", stateGuest=" + state +
                 '}';
     }
 
@@ -89,11 +91,11 @@ public class Guest {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Guest guest = (Guest) o;
-        return idGuest == guest.idGuest && Objects.equals(nameGuest, guest.nameGuest) && Objects.equals(dateOfCheckIn, guest.dateOfCheckIn);
+        return id == guest.id && Objects.equals(name, guest.name) && Objects.equals(dateOfCheckIn, guest.dateOfCheckIn);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(idGuest, nameGuest, dateOfCheckIn);
+        return Objects.hash(id, name, dateOfCheckIn);
     }
 }

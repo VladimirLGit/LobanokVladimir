@@ -1,4 +1,4 @@
-package eu.senla.Hotel.model;
+package eu.senla.hotel.model;
 
 public enum StateRoom {
     FREE, CHECKED, SERVED, REPAIR

@@ -1,4 +1,4 @@
-package eu.senla.Hotel.dao;
+package eu.senla.hotel.dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -17,11 +17,11 @@ public class Connector {
         Connection con = null;
         try {
             // load the Driver Class
-            props.setProperty("password"         , PASSWORD);
-            props.setProperty("user"             , USERNAME);
-            props.setProperty("url"              , DB_URL  );
-            props.setProperty("useUnicode"       , "true"  );
-            props.setProperty("characterEncoding", "utf8"  );
+            props.setProperty("password", PASSWORD);
+            props.setProperty("user", USERNAME);
+            props.setProperty("url", DB_URL);
+            props.setProperty("useUnicode", "true");
+            props.setProperty("characterEncoding", "utf8");
             Class.forName(driver);
 
             // create the connection now
@@ -29,7 +29,7 @@ public class Connector {
                     props.getProperty("user"),
                     props.getProperty("password"));
         } catch (ClassNotFoundException | SQLException e) {
-             e.printStackTrace();
+            e.printStackTrace();
         }
         return con;
     }

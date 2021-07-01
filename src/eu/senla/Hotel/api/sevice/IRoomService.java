@@ -1,11 +1,10 @@
-package eu.senla.Hotel.api.sevice;
+package eu.senla.hotel.api.sevice;
 
-import eu.senla.Hotel.model.Guest;
-import eu.senla.Hotel.model.Room;
+import eu.senla.hotel.model.Guest;
+import eu.senla.hotel.model.Room;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.List;
 
 public interface IRoomService {
     void addRoom(Room room);
@@ -13,9 +12,9 @@ public interface IRoomService {
     void checkIn(Guest guest);
     void checkOut(Guest guest);
     void listNumber();
-    ArrayList<Room> listFreeRooms();
-    ArrayList<Room> listCheckedRooms();
+    List<Room> listFreeRooms();
+    List<Room> listCheckedRooms();
     int amountFreeRooms();
-    ArrayList<Room> listFreeRoomsForDate(LocalDate date);
+    List<Room> listFreeRoomsForDate(LocalDate date);
     Room viewRoom(int indexRoom);
 }

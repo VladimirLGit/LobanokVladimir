@@ -1,20 +1,20 @@
-package eu.senla.Hotel.service;
+package eu.senla.hotel.service;
 
-import eu.senla.Hotel.api.sevice.IGuestService;
-import eu.senla.Hotel.dao.GuestDao;
-import eu.senla.Hotel.model.Guest;
-import eu.senla.Hotel.model.Room;
-import eu.senla.Hotel.model.Service;
-import eu.senla.Hotel.model.StateGuest;
+import eu.senla.hotel.api.sevice.IGuestService;
+import eu.senla.hotel.dao.GuestDao;
+import eu.senla.hotel.model.Guest;
+import eu.senla.hotel.model.Service;
+import eu.senla.hotel.model.StateGuest;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class GuestService implements IGuestService {
     private final GuestDao guestDao;
 
-    private final ArrayList<Guest> guests;
+    private final List<Guest> guests;
 
     public GuestService() {
         guestDao = new GuestDao();
@@ -62,7 +62,7 @@ public class GuestService implements IGuestService {
         }
     }
 
-    public ArrayList<Guest> getGuests() {
+    public List<Guest> getGuests() {
         return guests;
     }
 
@@ -73,8 +73,8 @@ public class GuestService implements IGuestService {
     }
 
     @Override
-    public ArrayList<Guest> last3Guests() {
-        ArrayList<Guest> last3Guest = new ArrayList<>();
+    public List<Guest> last3Guests() {
+        List<Guest> last3Guest = new ArrayList<>();
         for (int i = guests.size()-1; i >= 0; i--) {
            last3Guest.add(guests.get(i));
            if (last3Guest.size()==3) break;
@@ -82,7 +82,7 @@ public class GuestService implements IGuestService {
 
         if (last3Guest.size()<3) {
             //если не хватает или нет гостей в списке, тогда последние из истории
-            ArrayList<Guest> last3GuestHistory = guestDao.last3Guests();
+            List<Guest> last3GuestHistory = guestDao.last3Guests();
             if (last3GuestHistory.size()>0)
                 while ((last3Guest.size()!=3) && (last3GuestHistory.size()>0)){
                     last3Guest.add(last3GuestHistory.remove(0));

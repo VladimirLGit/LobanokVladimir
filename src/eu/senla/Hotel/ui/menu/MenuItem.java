@@ -1,6 +1,6 @@
-package eu.senla.Hotel.ui.menu;
+package eu.senla.hotel.ui.menu;
 
-import eu.senla.Hotel.ui.actions.IAction;
+import eu.senla.hotel.ui.actions.IAction;
 
 public class MenuItem {
     private int indexItem;

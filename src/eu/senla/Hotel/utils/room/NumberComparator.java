@@ -1,6 +1,6 @@
-package eu.senla.Hotel.utils.room;
+package eu.senla.hotel.utils.room;
 
-import eu.senla.Hotel.model.Room;
+import eu.senla.hotel.model.Room;
 
 import java.util.Comparator;
 

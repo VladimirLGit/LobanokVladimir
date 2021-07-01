@@ -1,15 +1,17 @@
-package eu.senla.Hotel.ui;
+package eu.senla.hotel.ui;
 
-import eu.senla.Hotel.dao.GuestDao;
-import eu.senla.Hotel.dao.RoomDao;
-import eu.senla.Hotel.dao.ServiceDao;
-import eu.senla.Hotel.model.*;
-import eu.senla.Hotel.service.GuestService;
-import eu.senla.Hotel.service.HotelService;
-import eu.senla.Hotel.service.RoomService;
+import eu.senla.hotel.dao.GuestDao;
+import eu.senla.hotel.dao.MainDao;
+import eu.senla.hotel.dao.RoomDao;
+import eu.senla.hotel.dao.ServiceDao;
+import eu.senla.hotel.model.*;
+import eu.senla.hotel.service.GuestService;
+import eu.senla.hotel.service.HotelService;
+import eu.senla.hotel.service.RoomService;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class HotelController {
@@ -29,6 +31,7 @@ public class HotelController {
             "Покупка сувениров",
             "Тренажерный зал"};
     private static HotelController instance;
+    private MainDao mainDao;
     private GuestDao guestDao;
     private RoomDao roomDao;
     private ServiceDao serviceDao;
@@ -49,6 +52,7 @@ public class HotelController {
     }
 
     private void createDao(){
+        mainDao = new MainDao();
         guestDao = new GuestDao();
         roomDao = new RoomDao();
         serviceDao = new ServiceDao();
@@ -56,14 +60,14 @@ public class HotelController {
 
     public void setUp() {
         createDao();
-        guestDao.createHotelBase();
-        guestDao.createTableGuests();
-        guestDao.createLinkTableServices();
-        guestDao.createTableHistoryGuests();
+        mainDao.createHotelBase();
+        mainDao.createTableGuests();
+        mainDao.createLinkTableServices();
+        mainDao.createTableHistoryGuests();
 
-        roomDao.createTableRooms();
-        roomDao.createLinkTableRooms();
-        serviceDao.createTableServices();
+        mainDao.createTableRooms();
+        mainDao.createLinkTableRooms();
+        mainDao.createTableServices();
         guestService = new GuestService();
         roomService = new RoomService();
         hotelService = new HotelService();
@@ -110,13 +114,13 @@ public class HotelController {
 
     public void changePriceRoom(int newPrice, int indexRoom) {
         Random RANDOM = new Random();
-        ArrayList<Room> rooms = roomService.getRooms();
+        List<Room> rooms = roomService.getRooms();
         roomService.changePriceRoom(newPrice, rooms.get(RANDOM.nextInt(rooms.size() - 1)));
     }
 
     public void changeStateRoom(StateRoom stateRoom, int indexRoom) {
         Random RANDOM = new Random();
-        ArrayList<Room> rooms = roomService.getRooms();
+        List<Room> rooms = roomService.getRooms();
         roomService.changeStateRoom(stateRoom, rooms.get(RANDOM.nextInt(rooms.size() - 1)));
     }
 
@@ -126,12 +130,12 @@ public class HotelController {
 
     public void changePriceService(int newPrice, int indexService) {
         Random RANDOM = new Random();
-        ArrayList<Service> services = hotelService.getServices();
+        List<Service> services = hotelService.getServices();
         hotelService.changePriceOrder(RANDOM.nextInt(services.size() - 1), newPrice);
     }
 
     public void checkInGuest() {
-        ArrayList<Guest> guests = guestService.getGuests();
+        List<Guest> guests = guestService.getGuests();
         for (int i = 0; i < guests.size(); i++) {
             Guest guest = guests.get(i);
             if (guest.getStateGuest()==StateGuest.NO_STATE) {
@@ -149,7 +153,7 @@ public class HotelController {
     }
 
     public void checkOutGuest() {
-        ArrayList<Guest> guests = guestService.getGuests();
+        List<Guest> guests = guestService.getGuests();
         for (int i = 0; i < guests.size(); i++) {
             Guest guest = guests.get(i);
             if (guest.getStateGuest() == StateGuest.CHECK_IN) {

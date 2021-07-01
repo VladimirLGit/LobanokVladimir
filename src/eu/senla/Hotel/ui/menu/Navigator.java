@@ -1,4 +1,4 @@
-package eu.senla.Hotel.ui.menu;
+package eu.senla.hotel.ui.menu;
 
 import java.util.List;
 

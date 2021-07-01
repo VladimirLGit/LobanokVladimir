@@ -1,4 +1,4 @@
-package eu.senla.Hotel.ui.actions;
+package eu.senla.hotel.ui.actions;
 
 public interface IAction {
     void execute();

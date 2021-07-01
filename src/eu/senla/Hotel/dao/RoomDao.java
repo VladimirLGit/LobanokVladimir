@@ -1,10 +1,11 @@
-package eu.senla.Hotel.dao;
+package eu.senla.hotel.dao;
 
-import eu.senla.Hotel.api.dao.IRoomDao;
-import eu.senla.Hotel.model.*;
+import eu.senla.hotel.api.dao.IRoomDao;
+import eu.senla.hotel.model.*;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.List;
 
 public class RoomDao implements IRoomDao {
     private final Connector connector;
@@ -13,66 +14,14 @@ public class RoomDao implements IRoomDao {
         connector = new Connector();
     }
 
-    public void createTableRooms(){
-        final String QUERY ="CREATE TABLE IF NOT EXISTS rooms (\n" +
-                " idRoom int(10) NOT NULL AUTO_INCREMENT,\n" +
-                " number int(10) NOT NULL,\n" +
-                " numberOfGuests int(10) NOT NULL,\n" +
-                " price int(10) NOT NULL,\n" +
-                " rating double NOT NULL,\n" +
-                " stateRoom int(10) NOT NULL,\n" +
-                " typeRoom int(10) NOT NULL,\n" +
-                " PRIMARY KEY (idRoom)\n" +
-                ");";
-        try(Connection con = connector.getConnection();
-            Statement stmt = con.createStatement()) {
-            stmt.execute(QUERY);
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-    }
-
-    public void deleteTableRooms(){
-        final String QUERY ="DROP TABLE rooms;";
-        try(Connection con = connector.getConnection();
-            Statement stmt = con.createStatement()) {
-            stmt.execute(QUERY);
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-    }
-
-    public void createLinkTableRooms(){
-        final String QUERY ="CREATE TABLE IF NOT EXISTS linkTable (\n" +
-                " idRoom int(10) NOT NULL,\n" +
-                " idGuest int(10) NOT NULL\n" +
-                ");";
-        try(Connection con = connector.getConnection();
-            Statement stmt = con.createStatement()) {
-            stmt.execute(QUERY);
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-    }
-
-    public void deleteLinkTableRooms(){
-        final String QUERY ="DROP TABLE linkTable;";
-        try(Connection con = connector.getConnection();
-            Statement stmt = con.createStatement()) {
-            stmt.execute(QUERY);
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-    }
-
-    public ArrayList<Integer> checkInGuests(Room room){
+    public List<Integer> checkInGuests(Room room) {
         final String QUERY = "select IDGuest from linkTable where IDRoom = ?";
-        ArrayList<Integer> guests = new ArrayList<>();
-        try(Connection con = connector.getConnection()) {
+        List<Integer> guests = new ArrayList<>();
+        try (Connection con = connector.getConnection()) {
             PreparedStatement preparedStatement = con.prepareStatement(QUERY);
             preparedStatement.setInt(1, room.getIdRoom());
             ResultSet rs = preparedStatement.executeQuery(QUERY);
-            while (rs.next()){
+            while (rs.next()) {
                 guests.add(rs.getInt(1));
             }
         } catch (SQLException throwables) {
@@ -81,15 +30,15 @@ public class RoomDao implements IRoomDao {
         return guests;
     }
 
-    public Room checkGuest(int idGuest){
+    public Room checkGuest(int idGuest) {
         int idRoom = 0;
         Room room = null;
         //final String QUERY = "select idRoom from linkTable where idGuest=?;";
         final String QUERY = "select idRoom FROM linkTable WHERE idGuest = " + '"' + idGuest + '"';
-        try(Connection con = connector.getConnection();
-            Statement query = con.createStatement()) {
+        try (Connection con = connector.getConnection();
+             Statement query = con.createStatement()) {
             ResultSet rs = query.executeQuery(QUERY);
-            while (rs.next()){
+            while (rs.next()) {
                 idRoom = rs.getInt(1);
                 final String QUERY2 = "select * FROM rooms WHERE idRoom = " + '"' + idRoom + '"';
                 Statement query2 = con.createStatement();
@@ -117,7 +66,7 @@ public class RoomDao implements IRoomDao {
 
     public void addLinkGuestWithRoom(Guest guest, Room room) {
         final String QUERY = "INSERT INTO linkTable (idRoom, idGuest) VALUES (?,?)";
-        try (Connection con = connector.getConnection()){
+        try (Connection con = connector.getConnection()) {
             PreparedStatement preparedStatement = con.prepareStatement(QUERY);
             preparedStatement.setInt(1, room.getIdRoom());
             preparedStatement.setInt(2, guest.getIdGuest());
@@ -132,7 +81,7 @@ public class RoomDao implements IRoomDao {
     public void addRoom(Room room) {
         final String QUERY = "INSERT INTO rooms (number, numberOfGuests, price, rating, stateRoom, typeRoom) VALUES (?,?,?,?,?,?);";
         //return idRoom into ?;
-        try (Connection con = connector.getConnection()){
+        try (Connection con = connector.getConnection()) {
             PreparedStatement preparedStatement = con.prepareStatement(QUERY);
             preparedStatement.setInt(1, room.getNumber());
             preparedStatement.setInt(2, room.getNumberOfGuests());
@@ -160,9 +109,9 @@ public class RoomDao implements IRoomDao {
     public void deleteRoom(Room room) {
         final String QUERY = "Delete FROM rooms WHERE idRoom = " + '"' + room.getIdRoom() + '"';
         try (Connection con = connector.getConnection();
-             Statement query =  con.createStatement()) {
+             Statement query = con.createStatement()) {
             int execute = query.executeUpdate(QUERY);
-            if (execute>0) {
+            if (execute > 0) {
                 System.out.println("Delete room as " + room.getNumber());
             } else {
                 System.out.println("The room does not exist");
@@ -191,16 +140,15 @@ public class RoomDao implements IRoomDao {
     }
 
 
-
     @Override
-    public ArrayList<Room> allRooms() {
+    public List<Room> allRooms() {
         final String QUERY = "select * from rooms";
-        ArrayList<Room> rooms = new ArrayList<>();
-        try(Connection con = connector.getConnection();
-            Statement stmt = con.createStatement();
-            ResultSet rs = stmt.executeQuery(QUERY)) {
+        List<Room> rooms = new ArrayList<>();
+        try (Connection con = connector.getConnection();
+             Statement stmt = con.createStatement();
+             ResultSet rs = stmt.executeQuery(QUERY)) {
 
-            while(rs.next()){
+            while (rs.next()) {
                 int idRoom = rs.getInt("IDRoom");
                 int number = rs.getInt("Number");
                 int numberOfGuest = rs.getInt("NumberOfGuests");
@@ -208,7 +156,7 @@ public class RoomDao implements IRoomDao {
                 double rating = rs.getDouble("rating");
                 StateRoom stateRoom = StateRoom.values()[rs.getInt("StateRoom")];
                 TypeRoom typeRoom = TypeRoom.values()[rs.getInt("TypeRoom")];
-                Room room = new Room(number, price,numberOfGuest, typeRoom);
+                Room room = new Room(number, price, numberOfGuest, typeRoom);
                 room.setIdRoom(idRoom);
                 room.setStateRoom(stateRoom);
                 room.setRating(rating);

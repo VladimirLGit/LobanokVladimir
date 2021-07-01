@@ -9,10 +9,11 @@ import eu.senla.task1.factory.AssemblyLine;
 import eu.senla.task1.factory.Product;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Main {
     public static void main(String[] args) throws InterruptedException {
-        ArrayList<Product> arrayList = new ArrayList<>();
+        List<Product> arrayList = new ArrayList<>();
         AssemblyLine aLine = new AssemblyLine();
         for (int i = 0; i < 10; i++) {
             arrayList.add((Product) aLine.assemblyProduct(new Product()));

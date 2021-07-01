@@ -1,22 +1,23 @@
-package eu.senla.Hotel.service;
+package eu.senla.hotel.service;
 
-import eu.senla.Hotel.api.sevice.IRoomService;
-import eu.senla.Hotel.dao.RoomDao;
-import eu.senla.Hotel.model.Guest;
-import eu.senla.Hotel.model.Room;
-import eu.senla.Hotel.model.Service;
-import eu.senla.Hotel.model.StateRoom;
+import eu.senla.hotel.api.sevice.IRoomService;
+import eu.senla.hotel.dao.RoomDao;
+import eu.senla.hotel.model.Guest;
+import eu.senla.hotel.model.Room;
+import eu.senla.hotel.model.Service;
+import eu.senla.hotel.model.StateRoom;
 
 import static java.time.temporal.ChronoUnit.DAYS;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class RoomService implements IRoomService {
     private final RoomDao roomDao;
 
-    private final ArrayList<Room> rooms;
+    private final List<Room> rooms;
 
     public RoomService() {
         roomDao = new RoomDao();
@@ -38,7 +39,7 @@ public class RoomService implements IRoomService {
     @Override
     public void checkIn(Guest guest) {
         Random RANDOM = new Random();
-        ArrayList<Room> freeRooms;
+        List<Room> freeRooms;
         freeRooms = listFreeRooms();
         Room room = freeRooms.get(RANDOM.nextInt(freeRooms.size()));
         room.setStateRoom(StateRoom.CHECKED);
@@ -74,7 +75,7 @@ public class RoomService implements IRoomService {
         System.out.println("К оплате = " + amountOfDaysOfStay*priceRoom + "$ за проживание");
     }
 
-    public ArrayList<Room> getRooms() {
+    public List<Room> getRooms() {
         return rooms;
     }
 
@@ -101,7 +102,7 @@ public class RoomService implements IRoomService {
 
     void addStateRoom(Room room, StateRoom stateRoom, LocalDate date, ArrayList<Room> list)
     {
-        ArrayList<Guest> guests;
+        List<Guest> guests;
         LocalDate dateCheckOut = date;
         if (room.getStateRoom() == stateRoom){
             list.add(room);
@@ -122,14 +123,14 @@ public class RoomService implements IRoomService {
     }
 
     @Override
-    public ArrayList<Room> listFreeRooms() {
+    public List<Room> listFreeRooms() {
         ArrayList<Room> freeRooms = new ArrayList<>();
         rooms.forEach(room -> addStateRoom(room, StateRoom.FREE, freeRooms));
         return freeRooms;
     }
 
     @Override
-    public ArrayList<Room> listCheckedRooms() {
+    public List<Room> listCheckedRooms() {
         ArrayList<Room> checkedRooms = new ArrayList<>();
         rooms.forEach(room -> addStateRoom(room, StateRoom.CHECKED, checkedRooms));
         return checkedRooms;
@@ -141,7 +142,7 @@ public class RoomService implements IRoomService {
     }
 
     @Override
-    public ArrayList<Room> listFreeRoomsForDate(LocalDate date) {
+    public List<Room> listFreeRoomsForDate(LocalDate date) {
         ArrayList<Room> freeRooms = new ArrayList<>();
         rooms.forEach(room -> addStateRoom(room, StateRoom.FREE, date, freeRooms));
         return freeRooms;

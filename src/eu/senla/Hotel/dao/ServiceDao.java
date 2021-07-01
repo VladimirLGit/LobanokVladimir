@@ -1,13 +1,14 @@
-package eu.senla.Hotel.dao;
+package eu.senla.hotel.dao;
 
-import eu.senla.Hotel.api.dao.IServiceDao;
-import eu.senla.Hotel.model.Guest;
-import eu.senla.Hotel.model.Service;
+import eu.senla.hotel.api.dao.IServiceDao;
+import eu.senla.hotel.model.Guest;
+import eu.senla.hotel.model.Service;
 
 
 import java.sql.*;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ServiceDao implements IServiceDao {
     private final Connector connector;
@@ -16,37 +17,12 @@ public class ServiceDao implements IServiceDao {
         connector = new Connector();
     }
 
-    public void createTableServices(){
-        final String QUERY ="CREATE TABLE IF NOT EXISTS services (\n" +
-                " idService int(10) NOT NULL AUTO_INCREMENT,\n" +
-                " name varchar(20) NOT NULL,\n" +
-                " price int(10) NOT NULL,\n" +
-                " PRIMARY KEY (idService)\n" +
-                ");";
-        try(Connection con = connector.getConnection();
-            Statement stmt = con.createStatement()) {
-            stmt.execute(QUERY);
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-    }
-
-    public void deleteTableServices(){
-        final String QUERY ="DROP TABLE services;";
-        try(Connection con = connector.getConnection();
-            Statement stmt = con.createStatement()) {
-            stmt.execute(QUERY);
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-    }
-
 
     @Override
     public void addService(Service service) {
         final String QUERY = "INSERT INTO services (Name, Price) VALUES (?,?)";
         //return idRoom into ?;
-        try (Connection con = connector.getConnection()){
+        try (Connection con = connector.getConnection()) {
             PreparedStatement preparedStatement = con.prepareStatement(QUERY);
             preparedStatement.setString(1, service.getNameService());
             preparedStatement.setInt(2, service.getPriceService());
@@ -70,10 +46,10 @@ public class ServiceDao implements IServiceDao {
     public void deleteService(Service service) {
         final String QUERY = "Delete FROM services WHERE idService = " + '"' + service.getIdService() + '"';
         try (Connection con = connector.getConnection();
-             Statement query =  con.createStatement()) {
+             Statement query = con.createStatement()) {
             int execute = query.executeUpdate(QUERY);
             query.close();
-            if (execute>0) {
+            if (execute > 0) {
                 System.out.println("Delete service as " + service.getNameService());
             } else {
                 System.out.println("The service does not exist");
@@ -101,14 +77,14 @@ public class ServiceDao implements IServiceDao {
 
 
     @Override
-    public ArrayList<Service> allServices() {
+    public List<Service> allServices() {
         final String QUERY = "select * from services";
-        ArrayList<Service> services = new ArrayList<>();
-        try(Connection con = connector.getConnection();
-            Statement stmt = con.createStatement();
-            ResultSet rs = stmt.executeQuery(QUERY)) {
+        List<Service> services = new ArrayList<>();
+        try (Connection con = connector.getConnection();
+             Statement stmt = con.createStatement();
+             ResultSet rs = stmt.executeQuery(QUERY)) {
             stmt.close();
-            while(rs.next()){
+            while (rs.next()) {
                 int idService = rs.getInt("IDService");
                 String nameService = rs.getString("Name");
                 int price = rs.getInt("Price");
@@ -127,7 +103,7 @@ public class ServiceDao implements IServiceDao {
     public void addOrderGuest(Guest guest, Service service) {
         final String QUERY = "INSERT INTO linkService (idGuest, idService) VALUES (?,?)";
         //return idRoom into ?;
-        try (Connection con = connector.getConnection()){
+        try (Connection con = connector.getConnection()) {
             PreparedStatement preparedStatement = con.prepareStatement(QUERY);
             preparedStatement.setInt(1, guest.getIdGuest());
             preparedStatement.setInt(2, service.getIdService());
@@ -141,9 +117,9 @@ public class ServiceDao implements IServiceDao {
     public void deleteOrderGuest(Guest guest) {
         final String QUERY = "Delete FROM linkService WHERE idGuest = " + '"' + guest.getIdGuest() + '"';
         try (Connection con = connector.getConnection();
-             Statement query =  con.createStatement()) {
+             Statement query = con.createStatement()) {
             int execute = query.executeUpdate(QUERY);
-            if (execute>0) {
+            if (execute > 0) {
                 System.out.println("Delete orders as " + guest.getNameGuest());
                 guest.clearListOrder();
             } else {

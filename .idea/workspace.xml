@@ -2,37 +2,83 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="af7225b5-2888-44e3-9144-22fb3da50a06" name="Default Changelist" comment="Created functions for data base">
-      <change afterPath="$PROJECT_DIR$/src/eu/senla/Hotel/ui/actions/AddGuest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/eu/senla/Hotel/ui/actions/AddService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/eu/senla/Hotel/ui/actions/ChangePriceRoom.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/eu/senla/Hotel/ui/actions/ChangePriceService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/eu/senla/Hotel/ui/actions/ChangeStateRoom.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/eu/senla/Hotel/ui/actions/CheckInGuest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/eu/senla/Hotel/ui/actions/CheckOutGuest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/eu/senla/Hotel/ui/actions/DeleteGuest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/eu/senla/Hotel/ui/actions/DeleteRoom.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/eu/senla/Hotel/ui/actions/DeleteService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/eu/senla/Hotel/ui/actions/ViewGuestsHotel.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/eu/senla/Hotel/ui/actions/ViewRooms.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/eu/senla/Hotel/ui/actions/ViewServices.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/eu/senla/Hotel/dao/MainDao.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ProjectEE/eu/senla/Hotel/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ProjectEE/eu/senla/Hotel/Main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ProjectEE/eu/senla/Hotel/api/dao/IGuestDao.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ProjectEE/eu/senla/Hotel/api/dao/IGuestDao.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ProjectEE/eu/senla/Hotel/api/dao/IRoomDao.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ProjectEE/eu/senla/Hotel/api/dao/IRoomDao.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ProjectEE/eu/senla/Hotel/api/dao/IServiceDao.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ProjectEE/eu/senla/Hotel/api/dao/IServiceDao.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/ProjectEE/eu/senla/Hotel/api/sevice/IGuestService.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ProjectEE/eu/senla/Hotel/api/sevice/IGuestService.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/ProjectEE/eu/senla/Hotel/api/sevice/IRoomService.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ProjectEE/eu/senla/Hotel/api/sevice/IRoomService.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/ProjectEE/eu/senla/Hotel/api/sevice/IServiceService.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ProjectEE/eu/senla/Hotel/api/sevice/IServiceService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ProjectEE/eu/senla/Hotel/dao/Connector.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ProjectEE/eu/senla/Hotel/dao/Connector.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ProjectEE/eu/senla/Hotel/dao/GuestDao.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ProjectEE/eu/senla/Hotel/dao/GuestDao.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ProjectEE/eu/senla/Hotel/dao/RoomDao.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ProjectEE/eu/senla/Hotel/dao/RoomDao.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ProjectEE/eu/senla/Hotel/dao/ServiceDao.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ProjectEE/eu/senla/Hotel/dao/ServiceDao.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ProjectEE/eu/senla/Hotel/model/Guest.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ProjectEE/eu/senla/Hotel/model/Guest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ProjectEE/eu/senla/Hotel/model/Room.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ProjectEE/eu/senla/Hotel/model/Room.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ProjectEE/eu/senla/Hotel/model/Service.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ProjectEE/eu/senla/Hotel/model/Service.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ProjectEE/eu/senla/Hotel/model/StateGuest.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ProjectEE/eu/senla/Hotel/model/StateGuest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ProjectEE/eu/senla/Hotel/model/StateRoom.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ProjectEE/eu/senla/Hotel/model/StateRoom.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ProjectEE/eu/senla/Hotel/model/TypeRoom.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ProjectEE/eu/senla/Hotel/model/TypeRoom.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/ProjectEE/eu/senla/Hotel/service/GuestService.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ProjectEE/eu/senla/Hotel/service/GuestService.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/ProjectEE/eu/senla/Hotel/service/HotelService.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ProjectEE/eu/senla/Hotel/service/HotelService.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/ProjectEE/eu/senla/Hotel/service/RoomService.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ProjectEE/eu/senla/Hotel/service/RoomService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ProjectEE/eu/senla/Hotel/utils/DateUtils.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ProjectEE/eu/senla/Hotel/utils/DateUtils.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ProjectEE/eu/senla/task1/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ProjectEE/eu/senla/task1/Main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/test/ProjectEE/GuestServiceTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/test/ProjectEE/GuestServiceTest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/eu/senla/Hotel/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/eu/senla/Hotel/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/eu/senla/Hotel/api/dao/IGuestDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/eu/senla/Hotel/api/dao/IGuestDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/eu/senla/Hotel/api/dao/IRoomDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/eu/senla/Hotel/api/dao/IRoomDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/eu/senla/Hotel/api/dao/IServiceDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/eu/senla/Hotel/api/dao/IServiceDao.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/eu/senla/Hotel/api/sevice/IGuestService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/eu/senla/Hotel/api/sevice/IGuestService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/eu/senla/Hotel/api/sevice/IRoomService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/eu/senla/Hotel/api/sevice/IRoomService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/eu/senla/Hotel/api/sevice/IServiceService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/eu/senla/Hotel/api/sevice/IServiceService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/eu/senla/Hotel/dao/Connector.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/eu/senla/Hotel/dao/Connector.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/eu/senla/Hotel/dao/GuestDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/eu/senla/Hotel/dao/GuestDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/eu/senla/Hotel/dao/RoomDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/eu/senla/Hotel/dao/RoomDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/eu/senla/Hotel/dao/ServiceDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/eu/senla/Hotel/dao/ServiceDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/eu/senla/Hotel/model/Guest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/eu/senla/Hotel/model/Guest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/eu/senla/Hotel/model/Room.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/eu/senla/Hotel/model/Room.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/eu/senla/Hotel/model/Service.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/eu/senla/Hotel/model/Service.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/eu/senla/Hotel/model/StateGuest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/eu/senla/Hotel/model/StateGuest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/eu/senla/Hotel/model/StateRoom.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/eu/senla/Hotel/model/StateRoom.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/eu/senla/Hotel/model/TypeRoom.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/eu/senla/Hotel/model/TypeRoom.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/eu/senla/Hotel/service/GuestService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/eu/senla/Hotel/service/GuestService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/eu/senla/Hotel/service/HotelService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/eu/senla/Hotel/service/HotelService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/eu/senla/Hotel/service/RoomService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/eu/senla/Hotel/service/RoomService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/eu/senla/Hotel/ui/HotelController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/eu/senla/Hotel/ui/HotelController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/eu/senla/Hotel/ui/actions/AbstractAction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/eu/senla/Hotel/ui/actions/AbstractAction.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/eu/senla/Hotel/ui/actions/AddGuest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/eu/senla/Hotel/ui/actions/AddGuest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/eu/senla/Hotel/ui/actions/AddRoom.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/eu/senla/Hotel/ui/actions/AddRoom.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/eu/senla/Hotel/ui/actions/AddService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/eu/senla/Hotel/ui/actions/AddService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/eu/senla/Hotel/ui/actions/ChangePriceRoom.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/eu/senla/Hotel/ui/actions/ChangePriceRoom.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/eu/senla/Hotel/ui/actions/ChangePriceService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/eu/senla/Hotel/ui/actions/ChangePriceService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/eu/senla/Hotel/ui/actions/ChangeStateRoom.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/eu/senla/Hotel/ui/actions/ChangeStateRoom.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/eu/senla/Hotel/ui/actions/CheckInGuest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/eu/senla/Hotel/ui/actions/CheckInGuest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/eu/senla/Hotel/ui/actions/CheckOutGuest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/eu/senla/Hotel/ui/actions/CheckOutGuest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/eu/senla/Hotel/ui/actions/DeleteGuest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/eu/senla/Hotel/ui/actions/DeleteGuest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/eu/senla/Hotel/ui/actions/DeleteRoom.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/eu/senla/Hotel/ui/actions/DeleteRoom.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/eu/senla/Hotel/ui/actions/DeleteService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/eu/senla/Hotel/ui/actions/DeleteService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/eu/senla/Hotel/ui/actions/IAction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/eu/senla/Hotel/ui/actions/IAction.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/eu/senla/Hotel/ui/actions/ViewGuestsHotel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/eu/senla/Hotel/ui/actions/ViewGuestsHotel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/eu/senla/Hotel/ui/actions/ViewRooms.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/eu/senla/Hotel/ui/actions/ViewRooms.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/eu/senla/Hotel/ui/actions/ViewServices.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/eu/senla/Hotel/ui/actions/ViewServices.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/eu/senla/Hotel/ui/menu/Builder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/eu/senla/Hotel/ui/menu/Builder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/eu/senla/Hotel/ui/menu/Menu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/eu/senla/Hotel/ui/menu/Menu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/eu/senla/Hotel/ui/menu/MenuController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/eu/senla/Hotel/ui/menu/MenuController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/eu/senla/Hotel/ui/menu/MenuItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/eu/senla/Hotel/ui/menu/MenuItem.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/eu/senla/Hotel/ui/menu/Navigator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/eu/senla/Hotel/ui/menu/Navigator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/eu/senla/Hotel/utils/DateUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/eu/senla/Hotel/utils/DateUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/eu/senla/Hotel/utils/guest/CheckOutComparator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/eu/senla/Hotel/utils/guest/CheckOutComparator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/eu/senla/Hotel/utils/guest/NameComparator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/eu/senla/Hotel/utils/guest/NameComparator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/eu/senla/Hotel/utils/room/NumberComparator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/eu/senla/Hotel/utils/room/NumberComparator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/eu/senla/Hotel/utils/room/NumberOfGuestsComparator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/eu/senla/Hotel/utils/room/NumberOfGuestsComparator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/eu/senla/Hotel/utils/room/PriceComparator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/eu/senla/Hotel/utils/room/PriceComparator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/eu/senla/Hotel/utils/room/RatingComparator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/eu/senla/Hotel/utils/room/RatingComparator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/eu/senla/task1/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/eu/senla/task1/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/GuestServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/GuestServiceTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -45,17 +91,18 @@
         <option value="Enum" />
         <option value="JUnit5 Test Class" />
         <option value="Interface" />
+        <option value="package-info" />
         <option value="Class" />
       </list>
     </option>
   </component>
   <component name="Git.Merge.Settings">
-    <option name="BRANCH" value="DaoDB" />
+    <option name="BRANCH" value="ui.task" />
   </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="main" />
+        <entry key="$PROJECT_DIR$" value="Serialization" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -77,6 +124,7 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="Downloaded.Files.Path.Enabled" value="false" />
     <property name="Repository.Attach.Annotations" value="false" />
     <property name="Repository.Attach.JavaDocs" value="false" />
@@ -87,7 +135,7 @@
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit5" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5" value="" />
     <property name="create.test.in.the.same.root" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../mysql-connector-java-5.1.5-bin.jar/mysql-connector-java-5.1.5-bin.jar" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/eu/senla/hotel/jar/mysql-connector-java-5.1.40.jar" />
     <property name="project.structure.last.edited" value="Libraries" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.26431182" />
@@ -96,6 +144,7 @@
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
       <recent name="eu.senla.Hotel.ui.actions" />
+      <recent name="eu.senla.Hotel.exception" />
     </key>
     <key name="CreateTestDialog.Recents.Supers">
       <recent name="" />
@@ -117,16 +166,25 @@
       <command value="cmd" />
     </option>
   </component>
-  <component name="RunManager" selected="Application.Main">
+  <component name="RunManager" selected="JUnit.GuestServiceTest">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="eu.senla.Hotel.Main" />
+      <option name="MAIN_CLASS_NAME" value="eu.senla.hotel.Main" />
       <module name="ProjectEE" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="eu.senla.Hotel.*" />
+          <option name="PATTERN" value="eu.senla.hotel.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="GuestServiceTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="ProjectEE" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="GuestServiceTest" />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -136,16 +194,6 @@
       <option name="PACKAGE_NAME" value="" />
       <option name="MAIN_CLASS_NAME" value="GuestServiceTest" />
       <option name="METHOD_NAME" value="viewListFreeRoomAndSort" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="GuestServiceTest.viewListGuestsAndSort" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="ProjectEE" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="GuestServiceTest" />
-      <option name="METHOD_NAME" value="viewListGuestsAndSort" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -173,11 +221,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.GuestServiceTest" />
         <item itemvalue="Application.Main" />
         <item itemvalue="JUnit.GuestServiceTest.viewListLastGuest" />
         <item itemvalue="JUnit.GuestServiceTest.willBeFreeInTheFuture" />
         <item itemvalue="JUnit.GuestServiceTest.viewListFreeRoomAndSort" />
-        <item itemvalue="JUnit.GuestServiceTest.viewListGuestsAndSort" />
       </list>
     </recent_temporary>
   </component>
@@ -267,7 +315,21 @@
       <option name="project" value="LOCAL" />
       <updated>1623620601770</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="Add logger and custom exceptions;">
+      <created>1624224027624</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1624224027624</updated>
+    </task>
+    <task id="LOCAL-00013" summary="Used marshal">
+      <created>1624917787288</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1624917787288</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -293,22 +355,16 @@
     <MESSAGE value="viewListGuestsAndSort&#10;viewListLastGuest&#10;willBeFreeInTheFuture" />
     <MESSAGE value="Commit change" />
     <MESSAGE value="Create UI" />
-    <option name="LAST_COMMIT_MESSAGE" value="Create UI" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/eu/senla/Hotel/ui/HotelController.java</url>
-          <line>105</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+    <MESSAGE value="Add logger and custom exceptions;" />
+    <MESSAGE value="Used marshal" />
+    <option name="LAST_COMMIT_MESSAGE" value="Used marshal" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/ProjectEE$GuestServiceTest_sortRooms.ic" NAME="GuestServiceTest.sortRooms Coverage Results" MODIFIED="1622881908402" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
     <SUITE FILE_PATH="coverage/ProjectEE$Main__1_.ic" NAME="Main (1) Coverage Results" MODIFIED="1622483232825" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>eu.senla.Hotel.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/ProjectEE$Main.ic" NAME="Main Coverage Results" MODIFIED="1624142788898" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>eu.senla.Hotel.*</FILTER>
     </SUITE>
   </component>

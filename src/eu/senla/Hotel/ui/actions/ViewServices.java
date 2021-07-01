@@ -1,4 +1,4 @@
-package eu.senla.Hotel.ui.actions;
+package eu.senla.hotel.ui.actions;
 
 public class ViewServices extends AbstractAction implements IAction {
     @Override
