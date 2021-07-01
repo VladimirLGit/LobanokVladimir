@@ -1,30 +1,36 @@
-import eu.senla.hotel.dao.GuestDao;
-import eu.senla.hotel.dao.RoomDao;
-import eu.senla.hotel.dao.ServiceDao;
-import eu.senla.hotel.exception.NoFreeRoomInTheHotel;
-import eu.senla.hotel.exception.NotExistObject;
-import eu.senla.hotel.model.*;
-import eu.senla.hotel.service.GuestService;
-import eu.senla.hotel.service.HotelService;
-import eu.senla.hotel.service.RoomService;
-import eu.senla.hotel.utils.guest.CheckOutComparator;
-import eu.senla.hotel.utils.guest.NameComparator;
-import eu.senla.hotel.utils.room.NumberComparator;
-import eu.senla.hotel.utils.room.NumberOfGuestsComparator;
-import eu.senla.hotel.utils.room.PriceComparator;
-import eu.senla.hotel.utils.room.RatingComparator;
+import main.java.eu.senla.hotel.api.dao.IGuestDao;
+import main.java.eu.senla.hotel.api.dao.IRoomDao;
+import main.java.eu.senla.hotel.api.dao.IServiceDao;
+import main.java.eu.senla.hotel.api.sevice.IGuestService;
+import main.java.eu.senla.hotel.api.sevice.IRoomService;
+import main.java.eu.senla.hotel.api.sevice.IServiceService;
+import main.java.eu.senla.hotel.dao.GuestDao;
+import main.java.eu.senla.hotel.dao.MainDao;
+import main.java.eu.senla.hotel.dao.RoomDao;
+import main.java.eu.senla.hotel.dao.ServiceDao;
+import main.java.eu.senla.hotel.exception.NoFreeRoomInTheHotel;
+import main.java.eu.senla.hotel.exception.NotExistObject;
+import main.java.eu.senla.hotel.model.*;
+import main.java.eu.senla.hotel.service.GuestService;
+import main.java.eu.senla.hotel.service.HotelService;
+import main.java.eu.senla.hotel.service.RoomService;
+import main.java.eu.senla.hotel.utils.guest.CheckOutComparator;
+import main.java.eu.senla.hotel.utils.guest.NameComparator;
+import main.java.eu.senla.hotel.utils.room.NumberComparator;
+import main.java.eu.senla.hotel.utils.room.NumberOfGuestsComparator;
+import main.java.eu.senla.hotel.utils.room.PriceComparator;
+import main.java.eu.senla.hotel.utils.room.RatingComparator;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 public class GuestServiceTest {
-    private String[] listNameGuests = new String[]{
+    private final String[] listNameGuests = new String[]{
             "Tom",
             "Jack",
             "Rose",
@@ -32,14 +38,16 @@ public class GuestServiceTest {
             "Oscar",
             "Leo",
             "John"};
-    private GuestDao guestDao;
-    private RoomDao roomDao;
-    private ServiceDao serviceDao;
-    private GuestService guestService;
-    private RoomService roomService;
-    private HotelService hotelService;
+    private MainDao mainDao;
+    private IGuestDao guestDao;
+    private IRoomDao roomDao;
+    private IServiceDao serviceDao;
+    private IGuestService guestService;
+    private IRoomService roomService;
+    private IServiceService hotelService;
 
     private void createDao(){
+        mainDao = new MainDao();
         guestDao = new GuestDao();
         roomDao = new RoomDao();
         serviceDao = new ServiceDao();
@@ -52,7 +60,7 @@ public class GuestServiceTest {
                               (i+1)*10,
                     RANDOM.nextInt(5)+1,
                     TypeRoom.values()[RANDOM.nextInt(TypeRoom.values().length)]);
-            roomDao.addRoom(room);
+            roomService.addRoom(room);//setRooms(roomDao.allRooms());
         }
     }
 
@@ -74,30 +82,29 @@ public class GuestServiceTest {
     @Before
     public void setUp() {
         createDao();
-        guestDao.createHotelBase();
-        guestDao.createTableGuests();
-        guestDao.createLinkTableServices();
-        guestDao.createTableHistoryGuests();
+        mainDao.createHotelBase();
+        mainDao.createTableGuests();
+        mainDao.createLinkTableServices();
+        mainDao.createTableHistoryGuests();
 
-        roomDao.createTableRooms();
-        roomDao.createLinkTableRooms();
-        serviceDao.createTableServices();
+        mainDao.createTableRooms();
+        mainDao.createLinkTableRooms();
+        mainDao.createTableServices();
         guestService = new GuestService();
-        createRooms();
         roomService = new RoomService();
-        roomService.setRooms(roomDao.allRooms());
+        createRooms();
         hotelService = new HotelService();
         createServices();
     }
 
     @After
     public void tearDown() {
-        guestDao.deleteTableGuests();
-        guestDao.deleteTableHistoryGuests();
-        guestDao.deleteLinkTableServices();
-        roomDao.deleteTableRooms();
-        roomDao.deleteLinkTableRooms();
-        serviceDao.deleteTableServices();
+        mainDao.deleteTableGuests();
+        mainDao.deleteTableHistoryGuests();
+        mainDao.deleteLinkTableServices();
+        mainDao.deleteTableRooms();
+        mainDao.deleteLinkTableRooms();
+        mainDao.deleteTableServices();
     }
 
     @Test
@@ -105,7 +112,11 @@ public class GuestServiceTest {
         Guest guest = new Guest("Tom");
         guestService.enter(guest);
         roomService.checkIn(guest);
-        guestDao.updateGuest(guest);
+        try {
+            guestDao.updateGuest(guest);
+        } catch (NotExistObject notExistObject) {
+            notExistObject.printStackTrace();
+        }
         Service service = new Service("Заказ еды в номер",15);
         guestService.orderService(guest, service);
         Assert.assertFalse(guest.getOrderedServices().isEmpty());
@@ -115,7 +126,7 @@ public class GuestServiceTest {
 
     @Test
     public void viewListGuestsAndSort(){
-        ArrayList<Guest> guests;
+        List<Guest> guests;
         addGuest();
         addGuest();
         addGuest();
@@ -141,7 +152,7 @@ public class GuestServiceTest {
 
     @Test
     public void viewListFreeRoomAndSort(){
-        ArrayList<Room> rooms;
+        List<Room> rooms;
         addGuest();
         addGuest();
         addGuest();
@@ -202,7 +213,7 @@ public class GuestServiceTest {
 
     @Test
     public void checkOutAndDeleteOrderGuests() {
-        ArrayList<Guest> guests;
+        List<Guest> guests;
         guests = guestDao.allGuests();
         Random RANDOM = new Random();
 
@@ -219,9 +230,10 @@ public class GuestServiceTest {
             roomService.checkOut(guest);
             System.out.println(guest);
 
-            ArrayList<Service> orderedServices = guest.getOrderedServices();
+            List<Integer> orderedServices = guest.getOrderedServices();
             int priceServices = 0;
-            for (Service service : orderedServices) {
+            for (Integer idService : orderedServices) {
+                Service service = serviceDao.readService(idService);
                 priceServices += service.getPrice();
             }
             try {
@@ -239,13 +251,13 @@ public class GuestServiceTest {
 
     @Test
     public void willBeFreeInTheFuture(){
-        ArrayList<Room> rooms;
+        List<Room> rooms;
         addGuest();
         addGuest();
         addGuest();
         addGuest();
         addGuest();
-        ArrayList<Guest> guests = guestDao.allGuests();
+        List<Guest> guests = guestDao.allGuests();
         System.out.println("Список гостей");
         for (Guest guest : guests) {
             System.out.println(guest);
@@ -303,19 +315,28 @@ public class GuestServiceTest {
         roomService.checkIn(guest);
         Assert.assertNotEquals(guest.getDateOfCheckIn(),null);
         Assert.assertNotEquals(guest.getDateOfCheckOut(),null);
-        Assert.assertNotEquals(guest.getIdRoom(),-1);
+        Assert.assertNotEquals(java.util.Optional.ofNullable(guest.getIdRoom()),-1);
 
-        guestDao.updateGuest(guest);
+        try {
+            guestDao.updateGuest(guest);
+        } catch (NotExistObject notExistObject) {
+
+
+        }
     }
 
     @Test
     public void deleteGuest() {
-        ArrayList<Guest> guests;
+        List<Guest> guests;
         Random RANDOM = new Random();
         Guest guest = new Guest("Tom");
         guestService.enter(guest);
         roomService.checkIn(guest);
-        guestDao.updateGuest(guest);
+        try {
+            guestDao.updateGuest(guest);
+        } catch (NotExistObject notExistObject) {
+            notExistObject.printStackTrace();
+        }
         guests = guestDao.allGuests();
         if (guests.size()>0) {
             Guest guestGet = guests.get(RANDOM.nextInt(guests.size()));
