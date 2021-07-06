@@ -6,16 +6,17 @@ import main.java.eu.senla.hotel.model.Guest;
 import main.java.eu.senla.hotel.model.Service;
 
 
+import javax.sql.DataSource;
 import java.sql.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ServiceDao implements IServiceDao {
-    private final Connector connector;
+    private final DataSource connector;
 
-    public ServiceDao() {
-        connector = new Connector();
+    public ServiceDao(DataSource ds) {
+        connector = ds;
     }
 
     @Override

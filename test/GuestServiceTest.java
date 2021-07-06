@@ -8,6 +8,7 @@ import main.java.eu.senla.hotel.dao.GuestDao;
 import main.java.eu.senla.hotel.dao.MainDao;
 import main.java.eu.senla.hotel.dao.RoomDao;
 import main.java.eu.senla.hotel.dao.ServiceDao;
+import main.java.eu.senla.hotel.dao.ds.DataSourceFactory;
 import main.java.eu.senla.hotel.exception.NoFreeRoomInTheHotel;
 import main.java.eu.senla.hotel.exception.NotExistObject;
 import main.java.eu.senla.hotel.model.*;
@@ -25,6 +26,8 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import javax.sql.DataSource;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Random;
@@ -46,11 +49,11 @@ public class GuestServiceTest {
     private IRoomService roomService;
     private IServiceService hotelService;
 
-    private void createDao(){
-        mainDao = new MainDao();
-        guestDao = new GuestDao();
-        roomDao = new RoomDao();
-        serviceDao = new ServiceDao();
+    private void createDao(DataSource ds) {
+        mainDao = new MainDao(ds);
+        guestDao = new GuestDao(ds);
+        roomDao = new RoomDao(ds);
+        serviceDao = new ServiceDao(ds);
     }
 
     private void createRooms(){
@@ -81,7 +84,13 @@ public class GuestServiceTest {
 
     @Before
     public void setUp() {
-        createDao();
+        DataSource ds = null;
+        try {
+            ds = DataSourceFactory.getDataSource();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        createDao(ds);
         mainDao.createHotelBase();
         mainDao.createTableGuests();
         mainDao.createLinkTableServices();
@@ -90,10 +99,10 @@ public class GuestServiceTest {
         mainDao.createTableRooms();
         mainDao.createLinkTableRooms();
         mainDao.createTableServices();
-        guestService = new GuestService();
-        roomService = new RoomService();
+        guestService = new GuestService(ds);
+        roomService = new RoomService(ds);
         createRooms();
-        hotelService = new HotelService();
+        hotelService = new HotelService(ds);
         createServices();
     }
 

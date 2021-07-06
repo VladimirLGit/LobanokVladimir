@@ -7,6 +7,7 @@ import main.java.eu.senla.hotel.model.Service;
 import main.java.eu.senla.hotel.model.StateGuest;
 import main.java.eu.senla.hotel.utils.DateUtils;
 
+import javax.sql.DataSource;
 import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -15,10 +16,10 @@ import java.util.List;
 
 
 public class GuestDao implements IGuestDao {
-    private final Connector connector;
+    private final DataSource connector;
 
-    public GuestDao() {
-        connector = new Connector();
+    public GuestDao(DataSource ds) {
+        connector = ds;
     }
 
     private LocalDate convertToLocalDateViaSqlDate(Date dateToConvert) {

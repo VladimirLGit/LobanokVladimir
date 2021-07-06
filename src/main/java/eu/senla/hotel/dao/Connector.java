@@ -1,29 +1,49 @@
 package main.java.eu.senla.hotel.dao;
 
+import main.java.eu.senla.hotel.annotations.ConfigApplication;
+import main.java.eu.senla.hotel.utils.ConfigConnector;
+
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.lang.annotation.Annotation;
+import java.lang.reflect.Field;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
 
 public class Connector {
-    private final String driver = "com.mysql.jdbc.Driver";
+    ConfigConnector configConnector;
+    private final String driver = "com.mysql.cj.jdbc.Driver";
     private String USERNAME = "root";
     private String PASSWORD = "root";
     private String DB_URL = "jdbc:mysql://127.0.0.1:3306/hotelBase";
 
+
+
     public Connector() {
-        Properties properties = new Properties();
+        /*configConnector = new ConfigConnector();
+        DB_URL = configConnector.getDbUrl();
+        USERNAME = configConnector.getUserName();
+        PASSWORD = configConnector.getPassword();*/
+        Class mClassObject = ConfigConnector.class;
+        Field fieldDbUrl = null;
+        Field fieldUserName = null;
+        Field fieldPassword = null;
         try {
-            FileInputStream fileInputStream = new FileInputStream("src/main/java/resources/config.properties");
-            properties.load(fileInputStream);
-            DB_URL = properties.getProperty("db.host");
-            USERNAME = properties.getProperty("db.login");
-            PASSWORD = properties.getProperty("db.password");
-        } catch (IOException e) {
+            fieldDbUrl = mClassObject.getDeclaredField("dbUrl");
+            fieldUserName = mClassObject.getDeclaredField("userName");
+            fieldPassword = mClassObject.getDeclaredField("password");
+        } catch (NoSuchFieldException e) {
             e.printStackTrace();
         }
+        ConfigApplication annotation;
+        annotation = fieldDbUrl.getAnnotation(ConfigApplication.class);
+        DB_URL = annotation.value();
+        annotation = fieldUserName.getAnnotation(ConfigApplication.class);
+        USERNAME = annotation.value();
+        annotation = fieldPassword.getAnnotation(ConfigApplication.class);
+        PASSWORD = annotation.value();
     }
 
     public Connection getConnection() {

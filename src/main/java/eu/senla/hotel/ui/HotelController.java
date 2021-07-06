@@ -11,17 +11,20 @@ import main.java.eu.senla.hotel.dao.GuestDao;
 import main.java.eu.senla.hotel.dao.MainDao;
 import main.java.eu.senla.hotel.dao.RoomDao;
 import main.java.eu.senla.hotel.dao.ServiceDao;
+import main.java.eu.senla.hotel.dao.ds.DataSourceFactory;
 import main.java.eu.senla.hotel.model.*;
 import main.java.eu.senla.hotel.service.GuestService;
 import main.java.eu.senla.hotel.service.HotelService;
 import main.java.eu.senla.hotel.service.RoomService;
 
+import javax.sql.DataSource;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 import java.io.File;
 import java.io.FileInputStream;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.*;
 import java.util.logging.LogManager;
@@ -64,8 +67,15 @@ public class HotelController {
 
 
     private HotelController() {
-        setUp();
+        DataSource ds = null;
+        try {
+            ds = DataSourceFactory.getDataSource();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        setUp(ds);
     }
+
 
     public static HotelController getInstance() {
         if(instance == null){		//если объект еще не создан
@@ -74,15 +84,15 @@ public class HotelController {
         return instance;		// вернуть ранее созданный объект
     }
 
-    private void createDao(){
-        mainDao = new MainDao();
-        guestDao = new GuestDao();
-        roomDao = new RoomDao();
-        serviceDao = new ServiceDao();
+    private void createDao(DataSource ds){
+        mainDao = new MainDao(ds);
+        guestDao = new GuestDao(ds);
+        roomDao = new RoomDao(ds);
+        serviceDao = new ServiceDao(ds);
     }
 
-    public void setUp() {
-        createDao();
+    public void setUp(DataSource ds) {
+        createDao(ds);
         mainDao.createHotelBase();
         mainDao.createTableGuests();
         mainDao.createLinkTableServices();
@@ -91,9 +101,9 @@ public class HotelController {
         mainDao.createTableRooms();
         mainDao.createLinkTableRooms();
         mainDao.createTableServices();
-        guestService = new GuestService();
-        roomService = new RoomService();
-        hotelService = new HotelService();
+        guestService = new GuestService(ds);
+        roomService = new RoomService(ds);
+        hotelService = new HotelService(ds);
     }
 
     public void addRoom() {

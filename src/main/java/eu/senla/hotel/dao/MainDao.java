@@ -1,14 +1,15 @@
 package main.java.eu.senla.hotel.dao;
 
+import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 
 public class MainDao {
-    private final Connector connector;
+    private final DataSource connector;
 
-    public MainDao() {
-        connector = new Connector();
+    public MainDao(DataSource ds) {
+        connector = ds;
     }
 
     public void createHotelBase() {

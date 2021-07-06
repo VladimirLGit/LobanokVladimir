@@ -1,7 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="af7225b5-2888-44e3-9144-22fb3da50a06" name="Default Changelist" comment="Created functions for data base" />
+    <list default="true" id="af7225b5-2888-44e3-9144-22fb3da50a06" name="Default Changelist" comment="Created functions for data base">
+      <change afterPath="$PROJECT_DIR$/src/main/java/eu/senla/hotel/annotations/ConfigApplication.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/eu/senla/hotel/dao/ds/DataSourceFactory.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/eu/senla/hotel/utils/ConfigConnector.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/mysql_connector_java_5_1_40.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectEE.iml" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectEE.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/eu/senla/hotel/dao/Connector.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/eu/senla/hotel/dao/Connector.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/eu/senla/hotel/dao/GuestDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/eu/senla/hotel/dao/GuestDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/eu/senla/hotel/dao/MainDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/eu/senla/hotel/dao/MainDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/eu/senla/hotel/dao/RoomDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/eu/senla/hotel/dao/RoomDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/eu/senla/hotel/dao/ServiceDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/eu/senla/hotel/dao/ServiceDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/eu/senla/hotel/service/GuestService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/eu/senla/hotel/service/GuestService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/eu/senla/hotel/service/HotelService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/eu/senla/hotel/service/HotelService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/eu/senla/hotel/service/RoomService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/eu/senla/hotel/service/RoomService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/eu/senla/hotel/ui/HotelController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/eu/senla/hotel/ui/HotelController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/resources/config.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/resources/config.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/GuestServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/GuestServiceTest.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -14,6 +33,7 @@
         <option value="JUnit5 Test Class" />
         <option value="Interface" />
         <option value="package-info" />
+        <option value="AnnotationType" />
         <option value="Class" />
       </list>
     </option>
@@ -46,7 +66,8 @@
   </component>
   <component name="PropertiesComponent">
     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
-    <property name="Downloaded.Files.Path.Enabled" value="false" />
+    <property name="Downloaded.Files.Path" value="C:\Users\1077c\IdeaProjects\LobanokVladimir\libs" />
+    <property name="Downloaded.Files.Path.Enabled" value="true" />
     <property name="Repository.Attach.Annotations" value="false" />
     <property name="Repository.Attach.JavaDocs" value="false" />
     <property name="Repository.Attach.Sources" value="false" />
@@ -256,7 +277,14 @@
       <option name="project" value="LOCAL" />
       <updated>1624917787288</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="merge main">
+      <created>1625176810988</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1625176810988</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -284,15 +312,16 @@
     <MESSAGE value="Create UI" />
     <MESSAGE value="Add logger and custom exceptions;" />
     <MESSAGE value="Used marshal" />
-    <option name="LAST_COMMIT_MESSAGE" value="Used marshal" />
+    <MESSAGE value="merge main" />
+    <option name="LAST_COMMIT_MESSAGE" value="merge main" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/ProjectEE$GuestServiceTest_sortRooms.ic" NAME="GuestServiceTest.sortRooms Coverage Results" MODIFIED="1622881908402" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
     <SUITE FILE_PATH="coverage/ProjectEE$Main__1_.ic" NAME="Main (1) Coverage Results" MODIFIED="1622483232825" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>eu.senla.Hotel.*</FILTER>
     </SUITE>
     <SUITE FILE_PATH="coverage/ProjectEE$Main.ic" NAME="Main Coverage Results" MODIFIED="1624142788898" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>eu.senla.Hotel.*</FILTER>
     </SUITE>
+    <SUITE FILE_PATH="coverage/ProjectEE$GuestServiceTest_sortRooms.ic" NAME="GuestServiceTest.sortRooms Coverage Results" MODIFIED="1622881908402" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
   </component>
 </project>

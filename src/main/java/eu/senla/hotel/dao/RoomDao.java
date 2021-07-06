@@ -7,15 +7,16 @@ import main.java.eu.senla.hotel.model.Room;
 import main.java.eu.senla.hotel.model.StateRoom;
 import main.java.eu.senla.hotel.model.TypeRoom;
 
+import javax.sql.DataSource;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class RoomDao implements IRoomDao {
-    private final Connector connector;
+    private final DataSource connector;
 
-    public RoomDao() {
-        connector = new Connector();
+    public RoomDao(DataSource ds) {
+        connector = ds;
     }
 
     public List<Integer> checkInGuests(Room room){

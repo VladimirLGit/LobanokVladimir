@@ -8,6 +8,7 @@ import main.java.eu.senla.hotel.model.Guest;
 import main.java.eu.senla.hotel.model.Room;
 import main.java.eu.senla.hotel.model.StateRoom;
 
+import javax.sql.DataSource;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -33,8 +34,8 @@ public class RoomService implements IRoomService {
     @XmlElement(name = "Rooms")
     private List<Room> rooms;
 
-    public RoomService() {
-        roomDao = new RoomDao();
+    public RoomService(DataSource ds) {
+        roomDao = new RoomDao(ds);
         rooms = new ArrayList<>(); //roomDao.allRooms();
     }
 

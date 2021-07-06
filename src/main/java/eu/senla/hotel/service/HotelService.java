@@ -5,6 +5,7 @@ import main.java.eu.senla.hotel.dao.ServiceDao;
 import main.java.eu.senla.hotel.model.Guest;
 import main.java.eu.senla.hotel.model.Service;
 
+import javax.sql.DataSource;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -25,8 +26,8 @@ public class HotelService implements IServiceService {
     @XmlElement(name = "Service")
     private List<Service> services;
 
-    public HotelService() {
-        serviceDao = new ServiceDao();
+    public HotelService(DataSource ds) {
+        serviceDao = new ServiceDao(ds);
         services = new ArrayList<>();
     }
 

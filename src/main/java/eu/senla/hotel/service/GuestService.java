@@ -7,6 +7,7 @@ import main.java.eu.senla.hotel.model.Guest;
 import main.java.eu.senla.hotel.model.Service;
 import main.java.eu.senla.hotel.model.StateGuest;
 
+import javax.sql.DataSource;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -29,8 +30,8 @@ public class GuestService implements IGuestService {
     @XmlElement(name = "Guests")
     private List<Guest> guests;
 
-    public GuestService() {
-        guestDao = new GuestDao();
+    public GuestService(DataSource ds) {
+        guestDao = new GuestDao(ds);
         guests = new ArrayList<>(); //guestDao.allGuests();
     }
 
