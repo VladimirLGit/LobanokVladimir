@@ -1,25 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="af7225b5-2888-44e3-9144-22fb3da50a06" name="Default Changelist" comment="Created functions for data base">
-      <change afterPath="$PROJECT_DIR$/src/main/java/eu/senla/hotel/annotations/ConfigApplication.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/eu/senla/hotel/dao/ds/DataSourceFactory.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/eu/senla/hotel/utils/ConfigConnector.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/mysql_connector_java_5_1_40.xml" beforeDir="false" />
+    <list default="true" id="af7225b5-2888-44e3-9144-22fb3da50a06" name="Default Changelist" comment="Reflection and Dependency injection">
+      <change afterPath="$PROJECT_DIR$/DependencyInjection/DependencyInjection.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DependencyInjection/src/main/java/eu/senla/injaction/ApplicationContext.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DependencyInjection/src/main/java/eu/senla/injaction/DependencyInjector.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DependencyInjection/src/main/java/eu/senla/injaction/ScannerAnnotation.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DependencyInjection/src/main/java/eu/senla/injaction/annotation/Autowired.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DependencyInjection/src/main/java/eu/senla/injaction/annotation/Component.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DependencyInjection/src/module-info.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectEE.iml" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectEE.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/eu/senla/hotel/dao/Connector.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/eu/senla/hotel/dao/Connector.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/eu/senla/hotel/dao/GuestDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/eu/senla/hotel/dao/GuestDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/eu/senla/hotel/dao/MainDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/eu/senla/hotel/dao/MainDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/eu/senla/hotel/dao/RoomDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/eu/senla/hotel/dao/RoomDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/eu/senla/hotel/dao/ServiceDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/eu/senla/hotel/dao/ServiceDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/eu/senla/hotel/service/GuestService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/eu/senla/hotel/service/GuestService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/eu/senla/hotel/service/HotelService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/eu/senla/hotel/service/HotelService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/eu/senla/hotel/service/RoomService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/eu/senla/hotel/service/RoomService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/eu/senla/hotel/ui/HotelController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/eu/senla/hotel/ui/HotelController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/resources/config.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/resources/config.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/GuestServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/GuestServiceTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,9 +24,10 @@
         <option value="Enum" />
         <option value="JUnit5 Test Class" />
         <option value="Interface" />
-        <option value="package-info" />
-        <option value="AnnotationType" />
         <option value="Class" />
+        <option value="package-info" />
+        <option value="module-info" />
+        <option value="AnnotationType" />
       </list>
     </option>
   </component>
@@ -78,7 +71,7 @@
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5" value="" />
     <property name="create.test.in.the.same.root" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/src/eu/senla/hotel/jar/mysql-connector-java-5.1.40.jar" />
-    <property name="project.structure.last.edited" value="Libraries" />
+    <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.26431182" />
     <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
@@ -92,6 +85,10 @@
       <recent name="" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\1077c\IdeaProjects\LobanokVladimir\DependencyInjection\src\main\java\eu\senla" />
+      <recent name="C:\Users\1077c\IdeaProjects\LobanokVladimir\DependencyInjection" />
+      <recent name="C:\Users\1077c\IdeaProjects\LobanokVladimir\src\main\java\eu\senla\hotel" />
+      <recent name="C:\Users\1077c\IdeaProjects\LobanokVladimir\src\main\java\eu\senla\hotel\dependencyInjection" />
       <recent name="C:\Users\1077c\IdeaProjects\LobanokVladimir\src\main\java\libs" />
     </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
@@ -284,7 +281,14 @@
       <option name="project" value="LOCAL" />
       <updated>1625176810988</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="Reflection and Dependency injection">
+      <created>1625605311537</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1625605311537</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -313,7 +317,8 @@
     <MESSAGE value="Add logger and custom exceptions;" />
     <MESSAGE value="Used marshal" />
     <MESSAGE value="merge main" />
-    <option name="LAST_COMMIT_MESSAGE" value="merge main" />
+    <MESSAGE value="Reflection and Dependency injection" />
+    <option name="LAST_COMMIT_MESSAGE" value="Reflection and Dependency injection" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/ProjectEE$Main__1_.ic" NAME="Main (1) Coverage Results" MODIFIED="1622483232825" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">

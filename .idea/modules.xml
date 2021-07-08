@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/DependencyInjection/DependencyInjection.iml" filepath="$PROJECT_DIR$/DependencyInjection/DependencyInjection.iml" />
       <module fileurl="file://$PROJECT_DIR$/ProjectEE.iml" filepath="$PROJECT_DIR$/ProjectEE.iml" />
     </modules>
   </component>
