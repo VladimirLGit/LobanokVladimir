@@ -1,4 +1,6 @@
-package main.java.eu.senla.hotel.ui.menu;
+package eu.senla.hotel.ui.menu;
+
+import eu.senla.hotel.dao.Connector;
 
 import java.util.Scanner;
 
@@ -20,6 +22,7 @@ public class MenuController {
     }
 
     public void run() {
+        Connector c = new Connector();
         Scanner scanner = new Scanner(System.in);
         navigator.setCurrentMenu(builder.getRootMenu());
         navigator.printMenu();

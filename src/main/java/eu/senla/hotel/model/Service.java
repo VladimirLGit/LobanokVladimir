@@ -1,4 +1,4 @@
-package main.java.eu.senla.hotel.model;
+package eu.senla.hotel.model;
 
 import javax.xml.bind.annotation.*;
 

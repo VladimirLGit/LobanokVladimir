@@ -1,4 +1,4 @@
-package main.java.eu.senla.hotel.dao;
+package eu.senla.hotel.dao;
 
 import java.sql.Connection;
 import java.sql.SQLException;

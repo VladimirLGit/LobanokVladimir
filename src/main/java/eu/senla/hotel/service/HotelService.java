@@ -1,9 +1,9 @@
-package main.java.eu.senla.hotel.service;
+package eu.senla.hotel.service;
 
-import main.java.eu.senla.hotel.api.sevice.IServiceService;
-import main.java.eu.senla.hotel.dao.ServiceDao;
-import main.java.eu.senla.hotel.model.Guest;
-import main.java.eu.senla.hotel.model.Service;
+import eu.senla.hotel.api.sevice.IServiceService;
+import eu.senla.hotel.dao.ServiceDao;
+import eu.senla.hotel.model.Guest;
+import eu.senla.hotel.model.Service;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;

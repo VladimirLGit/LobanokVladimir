@@ -1,4 +1,4 @@
-package main.java.eu.senla.hotel.model;
+package eu.senla.hotel.model;
 
 public enum StateGuest {
     NO_STATE, CHECK_IN, CHECK_OUT

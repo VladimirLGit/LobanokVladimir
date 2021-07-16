@@ -1,6 +1,6 @@
-package main.java.eu.senla.hotel.model;
+package eu.senla.hotel.model;
 
-import main.java.eu.senla.hotel.utils.guest.LocalDateAdapter;
+import eu.senla.hotel.utils.guest.LocalDateAdapter;
 
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;

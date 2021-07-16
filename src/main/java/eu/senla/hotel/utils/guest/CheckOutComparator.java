@@ -1,6 +1,6 @@
-package main.java.eu.senla.hotel.utils.guest;
+package eu.senla.hotel.utils.guest;
 
-import main.java.eu.senla.hotel.model.Guest;
+import eu.senla.hotel.model.Guest;
 
 import java.util.Comparator;
 

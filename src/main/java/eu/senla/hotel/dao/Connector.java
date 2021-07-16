@@ -1,7 +1,8 @@
-package main.java.eu.senla.hotel.dao;
+package eu.senla.hotel.dao;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -16,8 +17,9 @@ public class Connector {
     public Connector() {
         Properties properties = new Properties();
         try {
-            FileInputStream fileInputStream = new FileInputStream("src/main/java/resources/config.properties");
-            properties.load(fileInputStream);
+            InputStream inputStream =
+                    this.getClass().getClassLoader().getResourceAsStream("config.properties");
+            properties.load(inputStream);
             DB_URL = properties.getProperty("db.host");
             USERNAME = properties.getProperty("db.login");
             PASSWORD = properties.getProperty("db.password");
