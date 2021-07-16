@@ -2,16 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="af7225b5-2888-44e3-9144-22fb3da50a06" name="Default Changelist" comment="Reflection and Dependency injection">
-      <change afterPath="$PROJECT_DIR$/DependencyInjection/DependencyInjection.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/DependencyInjection/src/main/java/eu/senla/injaction/ApplicationContext.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/DependencyInjection/src/main/java/eu/senla/injaction/DependencyInjector.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/DependencyInjection/src/main/java/eu/senla/injaction/ScannerAnnotation.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/DependencyInjection/src/main/java/eu/senla/injaction/annotation/Autowired.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/DependencyInjection/src/main/java/eu/senla/injaction/annotation/Component.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/DependencyInjection/src/module-info.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/eu/senla/multithread/task2/Main.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/eu/senla/multithread/task4/ScheduledTask.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/eu/senla/multithread/task4/SchedulerThread.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/eu/senla/multithread/MThread.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/eu/senla/multithread/task1/MThread.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/eu/senla/multithread/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/eu/senla/multithread/task1/Main.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,10 +20,10 @@
         <option value="Enum" />
         <option value="JUnit5 Test Class" />
         <option value="Interface" />
-        <option value="Class" />
         <option value="package-info" />
         <option value="module-info" />
         <option value="AnnotationType" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -37,7 +33,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="main" />
+        <entry key="$PROJECT_DIR$" value="Reflection" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -70,7 +66,7 @@
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit5" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5" value="" />
     <property name="create.test.in.the.same.root" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/eu/senla/hotel/jar/mysql-connector-java-5.1.40.jar" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../Task" />
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.26431182" />
@@ -99,6 +95,8 @@
       <recent name="eu.senla.junit" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="main.java.eu.senla.multithread.task2" />
+      <recent name="main.java.eu.senla.multithread" />
       <recent name="eu.senla.Hotel" />
       <recent name="eu.senla.Hotel.dao" />
     </key>
@@ -108,7 +106,7 @@
       <command value="cmd" />
     </option>
   </component>
-  <component name="RunManager" selected="Application.Main (1)">
+  <component name="RunManager" selected="Application.SchedulerThread">
     <configuration name="Main (1)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="main.java.eu.senla.hotel.Main" />
       <module name="ProjectEE" />
@@ -122,12 +120,38 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="eu.senla.hotel.Main" />
+    <configuration name="Main (2)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="main.java.eu.senla.multithread.task2.Main" />
       <module name="ProjectEE" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="eu.senla.hotel.*" />
+          <option name="PATTERN" value="main.java.eu.senla.multithread.task2.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="main.java.eu.senla.multithread.task1.Main" />
+      <module name="ProjectEE" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="main.java.eu.senla.multithread.task1.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="SchedulerThread" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="main.java.eu.senla.multithread.task4.SchedulerThread" />
+      <module name="ProjectEE" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="main.java.eu.senla.multithread.task4.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -154,23 +178,13 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="GuestServiceTest.viewListLastGuest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="ProjectEE" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="GuestServiceTest" />
-      <option name="METHOD_NAME" value="viewListLastGuest" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.SchedulerThread" />
+        <item itemvalue="Application.Main (2)" />
+        <item itemvalue="Application.Main (2)" />
         <item itemvalue="Application.Main (1)" />
         <item itemvalue="JUnit.GuestServiceTest" />
-        <item itemvalue="JUnit.GuestServiceTest.deleteGuest" />
-        <item itemvalue="Application.Main" />
-        <item itemvalue="JUnit.GuestServiceTest.viewListLastGuest" />
       </list>
     </recent_temporary>
   </component>
@@ -288,7 +302,14 @@
       <option name="project" value="LOCAL" />
       <updated>1625605311537</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="Multithread">
+      <created>1626444572878</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1626444572878</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -318,7 +339,8 @@
     <MESSAGE value="Used marshal" />
     <MESSAGE value="merge main" />
     <MESSAGE value="Reflection and Dependency injection" />
-    <option name="LAST_COMMIT_MESSAGE" value="Reflection and Dependency injection" />
+    <MESSAGE value="Multithread" />
+    <option name="LAST_COMMIT_MESSAGE" value="Multithread" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/ProjectEE$Main__1_.ic" NAME="Main (1) Coverage Results" MODIFIED="1622483232825" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
