@@ -1,0 +1,9 @@
+1. Создать конструкторы сервисов с параметром dao
+    guestService = new GuestService(guestDao);
+
+    public GuestService(IGuestDao guestDao) {
+        this.guestDao = guestDao;
+    }
+
+
+2.
