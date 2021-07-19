@@ -1,4 +1,4 @@
-package main.java.eu.senla.hotel.exception;
+package eu.senla.hotel.exception;
 
 public class NotExistObject extends Exception{
 

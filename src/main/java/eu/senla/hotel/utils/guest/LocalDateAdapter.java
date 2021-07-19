@@ -1,4 +1,4 @@
-package main.java.eu.senla.hotel.utils.guest;
+package eu.senla.hotel.utils.guest;
 
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 import java.time.LocalDate;

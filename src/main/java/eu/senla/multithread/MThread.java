@@ -1,4 +1,4 @@
-package main.java.eu.senla.multithread;
+package eu.senla.multithread;
 
 public class MThread implements Runnable
 {

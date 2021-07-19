@@ -1,7 +1,7 @@
-package main.java.eu.senla.hotel.api.dao;
+package eu.senla.hotel.api.dao;
 
-import main.java.eu.senla.hotel.exception.NotExistObject;
-import main.java.eu.senla.hotel.model.Room;
+import eu.senla.hotel.exception.NotExistObject;
+import eu.senla.hotel.model.Room;
 
 import java.util.ArrayList;
 import java.util.List;

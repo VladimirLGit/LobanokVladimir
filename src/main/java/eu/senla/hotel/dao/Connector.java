@@ -1,7 +1,7 @@
-package main.java.eu.senla.hotel.dao;
+package eu.senla.hotel.dao;
 
-import main.java.eu.senla.hotel.annotations.ConfigApplication;
-import main.java.eu.senla.hotel.utils.ConfigConnector;
+import eu.senla.hotel.annotations.ConfigApplication;
+import eu.senla.hotel.utils.ConfigConnector;
 
 import java.io.FileInputStream;
 import java.io.IOException;

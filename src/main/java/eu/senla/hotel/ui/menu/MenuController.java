@@ -1,4 +1,4 @@
-package main.java.eu.senla.hotel.ui.menu;
+package eu.senla.hotel.ui.menu;
 
 import java.util.Scanner;
 

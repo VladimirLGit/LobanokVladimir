@@ -1,6 +1,6 @@
-package main.java.eu.senla.hotel.ui.menu;
+package eu.senla.hotel.ui.menu;
 
-import main.java.eu.senla.hotel.ui.actions.*;
+import eu.senla.hotel.ui.actions.*;
 
 public class Builder {
     private static Builder instance;

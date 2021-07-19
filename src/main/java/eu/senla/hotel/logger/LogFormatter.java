@@ -1,4 +1,4 @@
-package main.java.eu.senla.hotel.logger;
+package eu.senla.hotel.logger;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;

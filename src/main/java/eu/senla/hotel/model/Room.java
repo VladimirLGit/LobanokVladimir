@@ -1,6 +1,6 @@
-package main.java.eu.senla.hotel.model;
+package eu.senla.hotel.model;
 
-import main.java.eu.senla.hotel.utils.guest.LocalDateAdapter;
+import eu.senla.hotel.utils.guest.LocalDateAdapter;
 
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
@@ -150,7 +150,7 @@ public class Room {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Room room = (Room) o;
-        return id == room.id && number == room.number && numberOfGuests == room.numberOfGuests && state == room.state && type == room.type;
+        return id.equals(room.id) && number == room.number && numberOfGuests == room.numberOfGuests && state == room.state && type == room.type;
     }
 
     @Override

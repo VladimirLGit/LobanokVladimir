@@ -1,4 +1,4 @@
-package main.java.eu.senla.hotel.annotations;
+package eu.senla.hotel.annotations;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

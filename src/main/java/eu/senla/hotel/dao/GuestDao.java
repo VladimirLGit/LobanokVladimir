@@ -1,11 +1,10 @@
-package main.java.eu.senla.hotel.dao;
+package eu.senla.hotel.dao;
 
-import main.java.eu.senla.hotel.api.dao.IGuestDao;
-import main.java.eu.senla.hotel.exception.NotExistObject;
-import main.java.eu.senla.hotel.model.Guest;
-import main.java.eu.senla.hotel.model.Service;
-import main.java.eu.senla.hotel.model.StateGuest;
-import main.java.eu.senla.hotel.utils.DateUtils;
+import eu.senla.hotel.api.dao.IGuestDao;
+import eu.senla.hotel.exception.NotExistObject;
+import eu.senla.hotel.model.Guest;
+import eu.senla.hotel.model.StateGuest;
+import eu.senla.hotel.utils.DateUtils;
 
 import javax.sql.DataSource;
 import java.sql.*;
@@ -17,15 +16,12 @@ import java.util.List;
 
 public class GuestDao implements IGuestDao {
     private final DataSource connector;
-
     public GuestDao(DataSource ds) {
         connector = ds;
     }
-
     private LocalDate convertToLocalDateViaSqlDate(Date dateToConvert) {
         return new java.sql.Date(dateToConvert.getTime()).toLocalDate();
     }
-
     public void addGuestIntoHistory(Guest guest) {
         final String QUERY = "INSERT INTO historyGuests (Name, DateOfCheckIn, DateOfCheckOut, StateGuest) VALUES (?,?,?,?)";
         //return idRoom into ?;
@@ -54,7 +50,6 @@ public class GuestDao implements IGuestDao {
             preparedStatement.setDate(3, null);
             preparedStatement.setInt(4, guest.getState().ordinal());
             preparedStatement.execute();
-
             // get the generated key for the id
             ResultSet rs = preparedStatement.getGeneratedKeys();
             int id;

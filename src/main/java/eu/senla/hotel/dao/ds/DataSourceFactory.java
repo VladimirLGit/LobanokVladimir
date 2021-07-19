@@ -1,8 +1,8 @@
-package main.java.eu.senla.hotel.dao.ds;
+package eu.senla.hotel.dao.ds;
 
 import com.mysql.cj.jdbc.MysqlDataSource;
-import main.java.eu.senla.hotel.annotations.ConfigApplication;
-import main.java.eu.senla.hotel.utils.ConfigConnector;
+import eu.senla.hotel.annotations.ConfigApplication;
+import eu.senla.hotel.utils.ConfigConnector;
 
 import javax.sql.DataSource;
 import java.lang.reflect.Field;

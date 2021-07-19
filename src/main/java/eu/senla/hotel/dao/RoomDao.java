@@ -1,11 +1,11 @@
-package main.java.eu.senla.hotel.dao;
+package eu.senla.hotel.dao;
 
-import main.java.eu.senla.hotel.api.dao.IRoomDao;
-import main.java.eu.senla.hotel.exception.NotExistObject;
-import main.java.eu.senla.hotel.model.Guest;
-import main.java.eu.senla.hotel.model.Room;
-import main.java.eu.senla.hotel.model.StateRoom;
-import main.java.eu.senla.hotel.model.TypeRoom;
+import eu.senla.hotel.api.dao.IRoomDao;
+import eu.senla.hotel.exception.NotExistObject;
+import eu.senla.hotel.model.Guest;
+import eu.senla.hotel.model.Room;
+import eu.senla.hotel.model.StateRoom;
+import eu.senla.hotel.model.TypeRoom;
 
 import javax.sql.DataSource;
 import java.sql.*;

@@ -1,21 +1,21 @@
-package main.java.eu.senla.hotel.ui;
+package eu.senla.hotel.ui;
 
 
-import main.java.eu.senla.hotel.api.dao.IGuestDao;
-import main.java.eu.senla.hotel.api.dao.IRoomDao;
-import main.java.eu.senla.hotel.api.dao.IServiceDao;
-import main.java.eu.senla.hotel.api.sevice.IGuestService;
-import main.java.eu.senla.hotel.api.sevice.IRoomService;
-import main.java.eu.senla.hotel.api.sevice.IServiceService;
-import main.java.eu.senla.hotel.dao.GuestDao;
-import main.java.eu.senla.hotel.dao.MainDao;
-import main.java.eu.senla.hotel.dao.RoomDao;
-import main.java.eu.senla.hotel.dao.ServiceDao;
-import main.java.eu.senla.hotel.dao.ds.DataSourceFactory;
-import main.java.eu.senla.hotel.model.*;
-import main.java.eu.senla.hotel.service.GuestService;
-import main.java.eu.senla.hotel.service.HotelService;
-import main.java.eu.senla.hotel.service.RoomService;
+import eu.senla.hotel.api.dao.IGuestDao;
+import eu.senla.hotel.api.dao.IRoomDao;
+import eu.senla.hotel.api.dao.IServiceDao;
+import eu.senla.hotel.api.sevice.IGuestService;
+import eu.senla.hotel.api.sevice.IRoomService;
+import eu.senla.hotel.api.sevice.IServiceService;
+import eu.senla.hotel.dao.GuestDao;
+import eu.senla.hotel.dao.MainDao;
+import eu.senla.hotel.dao.RoomDao;
+import eu.senla.hotel.dao.ServiceDao;
+import eu.senla.hotel.dao.ds.DataSourceFactory;
+import eu.senla.hotel.model.*;
+import eu.senla.hotel.service.GuestService;
+import eu.senla.hotel.service.HotelService;
+import eu.senla.hotel.service.RoomService;
 
 import javax.sql.DataSource;
 import javax.xml.bind.JAXBContext;
@@ -23,7 +23,6 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 import java.io.File;
-import java.io.FileInputStream;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.*;
@@ -32,15 +31,9 @@ import java.util.logging.Logger;
 
 
 public class HotelController {
-    public static final Logger logger = Logger.getLogger(
+    public final Logger logger = Logger.getLogger(
             HotelController.class.getName());
-    static {
-        try {
-            LogManager.getLogManager().readConfiguration(new FileInputStream("src/main/java/resources/logging.properties"));
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-    }
+
     private String[] listNameGuests = new String[]{
             "Tom",
             "Jack",
@@ -68,6 +61,12 @@ public class HotelController {
 
     private HotelController() {
         DataSource ds = null;
+        try {
+            LogManager.getLogManager().readConfiguration(HotelController.class.getResourceAsStream("/logging.properties"));
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
         try {
             ds = DataSourceFactory.getDataSource();
         } catch (SQLException throwables) {
@@ -287,7 +286,7 @@ public class HotelController {
                 .withCreatorVisibility(JsonAutoDetect.Visibility.NONE)
                 .withIsGetterVisibility(JsonAutoDetect.Visibility.NONE));
         List<Guest> guests = guestService.getGuests();
-        File guestsOutput = new File("src/main.java.eu/senla/Hotel/resources/guests.yaml");
+        File guestsOutput = new File("src/eu/senla/Hotel/resources/guests.yaml");
         try {
             mapper.writeValue(guestsOutput, guests);
         }
@@ -307,7 +306,7 @@ public class HotelController {
         ObjectMapper mapper = new ObjectMapper(new YAMLFactory().disable(Feature.WRITE_DOC_START_MARKER));
         //mapper.findAndRegisterModules();
         //mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
-        File guestsOutput = new File("src/main.java.eu/senla/Hotel/resources/guests.yaml");
+        File guestsOutput = new File("src/eu/senla/Hotel/resources/guests.yaml");
 
         try {
             mapper.writeValue(guestsOutput, guestService);
@@ -327,7 +326,7 @@ public class HotelController {
                 .withSetterVisibility(JsonAutoDetect.Visibility.NONE)
                 .withCreatorVisibility(JsonAutoDetect.Visibility.NONE)
                 .withIsGetterVisibility(JsonAutoDetect.Visibility.NONE));
-        File guestsOutput = new File("src/main.java.eu/senla/Hotel/resources/guests.yaml");
+        File guestsOutput = new File("src/eu/senla/Hotel/resources/guests.yaml");
         try {
             mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
             GuestService guestService1 = mapper.readValue(guestsOutput, GuestService.class);

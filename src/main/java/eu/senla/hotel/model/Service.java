@@ -1,4 +1,4 @@
-package main.java.eu.senla.hotel.model;
+package eu.senla.hotel.model;
 
 import javax.xml.bind.annotation.*;
 
@@ -8,7 +8,7 @@ import javax.xml.bind.annotation.*;
         "price"})
 @XmlRootElement(name = "service")
 public class Service {
-    private int id;
+    private Integer id;
     private String name;
     private int price;
 
@@ -20,11 +20,11 @@ public class Service {
     public Service() {
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int idService) {
+    public void setId(Integer idService) {
         this.id = idService;
     }
 

@@ -2,7 +2,7 @@
 
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-package main.java.eu.senla.multithread;
+package eu.senla.multithread;
 
 
 public class Main implements Runnable{

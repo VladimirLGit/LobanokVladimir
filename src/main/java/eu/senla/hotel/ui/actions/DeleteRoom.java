@@ -1,4 +1,4 @@
-package main.java.eu.senla.hotel.ui.actions;
+package eu.senla.hotel.ui.actions;
 
 public class DeleteRoom extends AbstractAction implements IAction{
     @Override

@@ -1,4 +1,4 @@
-package main.java.eu.senla.multithread.task4;
+package eu.senla.multithread.task4;
 
 import java.util.Date;
 import java.util.TimerTask;

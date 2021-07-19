@@ -1,6 +1,6 @@
-package main.java.eu.senla.hotel.ui.menu;
+package eu.senla.hotel.ui.menu;
 
-import main.java.eu.senla.hotel.ui.actions.IAction;
+import eu.senla.hotel.ui.actions.IAction;
 
 public class MenuItem {
     private int indexItem;

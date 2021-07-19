@@ -1,9 +1,9 @@
-package main.java.eu.senla.hotel.api.sevice;
+package eu.senla.hotel.api.sevice;
 
-import main.java.eu.senla.hotel.exception.NoFreeRoomInTheHotel;
-import main.java.eu.senla.hotel.model.Guest;
-import main.java.eu.senla.hotel.model.Room;
-import main.java.eu.senla.hotel.model.StateRoom;
+import eu.senla.hotel.exception.NoFreeRoomInTheHotel;
+import eu.senla.hotel.model.Guest;
+import eu.senla.hotel.model.Room;
+import eu.senla.hotel.model.StateRoom;
 
 import java.time.LocalDate;
 import java.util.ArrayList;

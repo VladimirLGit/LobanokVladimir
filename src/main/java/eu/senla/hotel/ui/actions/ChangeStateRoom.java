@@ -1,6 +1,6 @@
-package main.java.eu.senla.hotel.ui.actions;
+package eu.senla.hotel.ui.actions;
 
-import main.java.eu.senla.hotel.model.StateRoom;
+import eu.senla.hotel.model.StateRoom;
 
 public class ChangeStateRoom extends AbstractAction implements IAction {
     @Override

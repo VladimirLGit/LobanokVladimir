@@ -2,7 +2,7 @@
 
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-package main.java.eu.senla.multithread.task2;
+package eu.senla.multithread.task2;
 
 
 import static java.lang.Thread.sleep;

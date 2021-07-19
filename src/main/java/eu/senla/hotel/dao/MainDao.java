@@ -1,4 +1,4 @@
-package main.java.eu.senla.hotel.dao;
+package eu.senla.hotel.dao;
 
 import javax.sql.DataSource;
 import java.sql.Connection;

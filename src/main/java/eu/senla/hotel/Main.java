@@ -2,9 +2,9 @@
 
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-package main.java.eu.senla.hotel;
+package eu.senla.hotel;
 
-import main.java.eu.senla.hotel.ui.menu.MenuController;
+import eu.senla.hotel.ui.menu.MenuController;
 
 public class Main {
     public static void main(String[] args) {
