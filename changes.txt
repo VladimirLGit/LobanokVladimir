@@ -1,0 +1,23 @@
+1. Создать конструкторы сервисов с параметром dao
+    guestService = new GuestService(guestDao);
+
+    public GuestService(IGuestDao guestDao) {
+        this.guestDao = guestDao;
+    }
+
+
+2. Проверь в модели сравнение объектов == или equals
+
+3. connector singleton
+
++     private final Connector connector;
+
+      public GuestDao(Connector connector) {
+          this.connector = connector;
+      }
+
+4. HotelController.logger не обязательно static -> перенести в блок инициализации
+
+5. getConnection() метод много раз перещаписывает Property
+
+6. https://docs.oracle.com/javase/specs/jls/se8/html/jls-14.html

@@ -1,5 +1,6 @@
 # Compiled class file
 *.class
+*.iml
 
 # Log file
 *.log
@@ -8,7 +9,7 @@
 *.ctxt
 
 /out/
-/.idea/
+.idea/
 
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
