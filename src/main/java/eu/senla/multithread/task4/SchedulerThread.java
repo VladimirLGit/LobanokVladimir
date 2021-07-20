@@ -7,10 +7,10 @@ public class SchedulerThread {
 
         Timer time = new Timer();
         ScheduledTask st = new ScheduledTask();
-        time.schedule(st, 0, 1000); // Создаем задачу с повторением через 1 сек.
+        time.schedule(st, 0, 3000); // Создаем задачу с повторением через 1 сек.
 
         for (int i = 0; i <= 5; i++) {
-            Thread.sleep(2000);
+            Thread.sleep(6000);
             System.out.println("Execution in Main Thread. #" + i);
             if (i == 5) {
                 System.out.println("Application Terminates");
