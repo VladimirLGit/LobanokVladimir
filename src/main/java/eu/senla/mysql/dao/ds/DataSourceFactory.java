@@ -13,10 +13,10 @@ public class DataSourceFactory {
     public static DataSource getDataSource() throws SQLException {
         String USERNAME = "root";
         String PASSWORD = "root";
-        String DB_URL = "jdbc:mysql://127.0.0.1:3306/hotelBase";
+        String DB_URL = "jdbc:mysql://127.0.0.1:3306/marketBase";
         MysqlDataSource dataSource = new MysqlDataSource();
 
-        dataSource.setDatabaseName("hotelBase");
+        dataSource.setDatabaseName("marketBase");
         dataSource.setServerName("localhost");
         dataSource.setPort(3306);
         dataSource.setUser(USERNAME);

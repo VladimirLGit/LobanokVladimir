@@ -1,11 +1,13 @@
 package eu.senla.mysql.api;
 
+import eu.senla.mysql.exception.NotExistObject;
+
 import java.util.List;
 
-public interface ItemDao<T> {
+public interface ItemDao<T,S> {
     void add(T item);
-    void delete(T item);
-    void update(T item);
-    T get(int index);
+    void delete(T item) throws NotExistObject;
+    void update(T item) throws NotExistObject;
+    T get(S index);
     List<T> listItem();
 }
