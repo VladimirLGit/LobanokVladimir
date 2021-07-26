@@ -73,4 +73,18 @@ public class Laptop {
     public void setScreen(byte screen) {
         this.screen = screen;
     }
+
+    @Override
+    public String toString() {
+        return "Laptop{" +
+                "code=" + code +
+                ", model='" + model + '\'' +
+                ", maker='" + maker + '\'' +
+                ", speed=" + speed +
+                ", ram=" + ram +
+                ", hd=" + hd +
+                ", price=" + price +
+                ", screen=" + screen +
+                '}';
+    }
 }

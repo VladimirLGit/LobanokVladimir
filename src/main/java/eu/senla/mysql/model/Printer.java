@@ -56,4 +56,16 @@ public class Printer {
     public void setPrice(Integer price) {
         this.price = price;
     }
+
+    @Override
+    public String toString() {
+        return "Printer{" +
+                "code=" + code +
+                ", model='" + model + '\'' +
+                ", maker='" + maker + '\'' +
+                ", color=" + color +
+                ", type='" + type + '\'' +
+                ", price=" + price +
+                '}';
+    }
 }

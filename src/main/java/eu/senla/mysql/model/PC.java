@@ -75,4 +75,18 @@ public class PC {
     public void setPrice(Integer price) {
         this.price = price;
     }
+
+    @Override
+    public String toString() {
+        return "PC{" +
+                "code=" + code +
+                ", model='" + model + '\'' +
+                ", maker='" + maker + '\'' +
+                ", speed=" + speed +
+                ", ram=" + ram +
+                ", hd=" + hd +
+                ", cd=" + cd +
+                ", price=" + price +
+                '}';
+    }
 }

@@ -24,7 +24,7 @@ public class MainDao {
 
 
     public void createTableProducts() {
-        final String QUERY = "CREATE TABLE `products` (\n" +
+        final String QUERY = "CREATE TABLE IF NOT EXISTS `products` (\n" +
                 " `maker` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL,\n" +
                 " `model` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL,\n" +
                 " `type` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL\n" +
@@ -38,7 +38,7 @@ public class MainDao {
     }
 
     public void createTablePCs() {
-        final String QUERY = "CREATE TABLE `pcs` (\n" +
+        final String QUERY = "CREATE TABLE IF NOT EXISTS `pcs` (\n" +
                 " `code` int(11) NOT NULL AUTO_INCREMENT,\n" +
                 " `model` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL,\n" +
                 " `speed` int(11) NOT NULL,\n" +
@@ -57,7 +57,7 @@ public class MainDao {
     }
 
     public void createTableLaptops() {
-        final String QUERY = "CREATE TABLE `laptops` (\n" +
+        final String QUERY = "CREATE TABLE IF NOT EXISTS `laptops` (\n" +
                 " `code` int(11) NOT NULL AUTO_INCREMENT,\n" +
                 " `model` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL,\n" +
                 " `speed` int(11) NOT NULL,\n" +
@@ -76,7 +76,7 @@ public class MainDao {
     }
 
     public void createTablePrinters() {
-        final String QUERY = "CREATE TABLE `printers` (\n" +
+        final String QUERY = "CREATE TABLE IF NOT EXISTS `printers` (\n" +
                 " `code` int(11) NOT NULL AUTO_INCREMENT,\n" +
                 " `model` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL,\n" +
                 " `color` tinyint(4) NOT NULL,\n" +

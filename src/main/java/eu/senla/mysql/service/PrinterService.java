@@ -3,6 +3,8 @@ package eu.senla.mysql.service;
 import eu.senla.mysql.dao.PrinterDao;
 import eu.senla.mysql.dao.ProductDao;
 import eu.senla.mysql.exception.NotExistObject;
+import eu.senla.mysql.model.Laptop;
+import eu.senla.mysql.model.PC;
 import eu.senla.mysql.model.Printer;
 import eu.senla.mysql.model.Product;
 
@@ -10,6 +12,7 @@ import javax.sql.DataSource;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 public class PrinterService {
     public static final Logger logger = Logger.getLogger(
@@ -22,6 +25,7 @@ public class PrinterService {
         this.printerDao = new PrinterDao(ds);
         this.productDao = new ProductDao(ds);
         this.printerList = new ArrayList<>();
+        printerList.addAll(getAllPrinters());
     }
 
     public void addPrinter(Printer item) {
@@ -52,6 +56,18 @@ public class PrinterService {
     }
 
     public List<Printer> getPrinters() {
-            return printerList;
-        }
+        return printerList;
+    }
+
+    private List<Printer> getAllPrinters() {
+        List<Printer> allPrinter = printerDao.listItem();
+        allPrinter.forEach(printer -> printer.setMaker(productDao.get(printer.getModel()).getMaker()));
+        return allPrinter;
+    }
+
+    public List<Printer> getPrintersFilterForPrice(int price) {
+        return printerList.stream()
+                .filter(printer -> printer.getPrice() > price)
+                .collect(Collectors.toList());
+    }
 }

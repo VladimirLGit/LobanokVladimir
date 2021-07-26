@@ -12,9 +12,12 @@ import eu.senla.mysql.service.PrinterService;
 
 import javax.sql.DataSource;
 import java.sql.SQLException;
+import java.util.List;
+import java.util.Objects;
 import java.util.Random;
 import java.util.logging.LogManager;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 public class MarketController {
     public final Logger logger = Logger.getLogger(
@@ -55,7 +58,10 @@ public class MarketController {
             throwables.printStackTrace();
         }
         setUp(ds);
-        generationData();
+        //generationData();
+        printerService.getPrintersFilterForPrice(1600).forEach(System.out::println);
+        pcService.getPCsFilterForPrice(1600).forEach(System.out::println);
+        laptopService.getLaptopsFilterForPrice(1600).forEach(System.out::println);
     }
 
     public static MarketController getInstance() {
@@ -106,4 +112,83 @@ public class MarketController {
         }
 
     }
+
+    public void task1() {
+        pcService.getPCsFilterForPrice(600).forEach(System.out::println);
+    }
+    public void task2() {
+        printerService.getPrinters().forEach(printer -> System.out.println(printer.getMaker()));
+    }
+    public void task3() {
+        pcService.getPCsFilterForPrice(1000).forEach(System.out::println);
+    }
+    public void task4() {
+        printerService.getPrinters()
+                .stream()
+                .filter(printer -> printer.getColor() > 0)
+                .collect(Collectors.toList())
+                .forEach(System.out::println);
+    }
+    public void task5() {
+        pcService.getPCs()
+                .stream()
+                .filter(pc -> (pc.getPrice() < 600) && ((pc.getCd() == 12) || (pc.getCd() == 24)))
+                .collect(Collectors.toList())
+                .forEach(System.out::println);
+    }
+    public void task6() {
+        pcService.getPCs()
+                .stream()
+                .filter(pc -> pc.getHd()>=10)
+                .collect(Collectors.toList())
+                .forEach(System.out::println);
+    }
+    public void task7() {
+        Random RANDOM = new Random();
+        String findMaker = listMakers[RANDOM.nextInt(listMakers.length - 1)];
+        pcService.getPCs()
+                .stream()
+                .filter(pc -> pc.getMaker().equals(findMaker))
+                .collect(Collectors.toList())
+                .forEach(System.out::println);
+
+        laptopService.getLaptops()
+                .stream()
+                .filter(laptop -> laptop.getMaker().equals(findMaker))
+                .collect(Collectors.toList())
+                .forEach(System.out::println);
+        printerService.getPrinters()
+                .stream()
+                .filter(printer -> printer.getMaker().equals(findMaker))
+                .collect(Collectors.toList())
+                .forEach(System.out::println);
+    }
+    public void task8() {
+
+    }
+    public void task9() {
+        pcService.getPCs()
+                .stream()
+                .filter(pc -> pc.getSpeed()>=450)
+                .collect(Collectors.toList())
+                .forEach(System.out::println);
+    }
+    public void task10() {
+        Printer printer, printerMax = null;
+        List<Printer> printerList = printerService.getPrinters();
+        Integer maxInt = 0;
+        for (int i = 0; i < printerList.size(); i++) {
+            printer = printerList.get(i);
+            if (printer.getPrice()>maxInt) {
+                maxInt = printer.getPrice();
+                printerMax = printer;
+            }
+            if (Objects.nonNull(printerMax))
+                System.out.println(printerMax);
+        }
+    }
+
+
+
+
 }

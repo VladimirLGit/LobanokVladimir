@@ -133,7 +133,7 @@ public class LaptopDao implements ILaptop<Laptop,Integer> {
 
         @Override
         public List<Laptop> listItem() {
-        final String QUERY = "select * from pcs";
+        final String QUERY = "select * from laptops";
         List<Laptop> laptops = new ArrayList<>();
         try (Connection con = connector.getConnection();
              Statement stmt = con.createStatement();
@@ -146,6 +146,7 @@ public class LaptopDao implements ILaptop<Laptop,Integer> {
                 Double hd = rs.getDouble("hd");
                 Byte screen = rs.getByte("screen");
                 Integer price = rs.getInt("price");
+
 
                 Laptop laptop = new Laptop();
                 laptop.setCode(code);

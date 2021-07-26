@@ -3,6 +3,7 @@ package eu.senla.mysql.service;
 import eu.senla.mysql.dao.PcDao;
 import eu.senla.mysql.dao.ProductDao;
 import eu.senla.mysql.exception.NotExistObject;
+import eu.senla.mysql.model.Laptop;
 import eu.senla.mysql.model.PC;
 import eu.senla.mysql.model.Product;
 
@@ -10,6 +11,7 @@ import javax.sql.DataSource;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 public class PcService {
     public static final Logger logger = Logger.getLogger(
@@ -22,6 +24,7 @@ public class PcService {
         this.pcDao = new PcDao(ds);
         this.productDao = new ProductDao(ds);
         this.pcList = new ArrayList<>();
+        pcList.addAll(getAllPCs());
     }
 
     public void addPc(PC item) {
@@ -53,5 +56,17 @@ public class PcService {
 
     public List<PC> getPCs() {
         return pcList;
+    }
+
+    private List<PC> getAllPCs() {
+        List<PC> allPC = pcDao.listItem();
+        allPC.forEach(pc -> pc.setMaker(productDao.get(pc.getModel()).getMaker()));
+        return allPC;
+    }
+
+    public List<PC> getPCsFilterForPrice(int price) {
+        return pcList.stream()
+                .filter(pc -> pc.getPrice() > price)
+                .collect(Collectors.toList());
     }
 }
