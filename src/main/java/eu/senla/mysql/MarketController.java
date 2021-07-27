@@ -12,9 +12,7 @@ import eu.senla.mysql.service.PrinterService;
 
 import javax.sql.DataSource;
 import java.sql.SQLException;
-import java.util.List;
-import java.util.Objects;
-import java.util.Random;
+import java.util.*;
 import java.util.logging.LogManager;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
@@ -59,9 +57,15 @@ public class MarketController {
         }
         setUp(ds);
         //generationData();
-        printerService.getPrintersFilterForPrice(1600).forEach(System.out::println);
-        pcService.getPCsFilterForPrice(1600).forEach(System.out::println);
+        printerService.getPrintersFilterForPrice(1000).forEach(System.out::println);
+        pcService.getPCsFilterForPrice(100).forEach(System.out::println);
         laptopService.getLaptopsFilterForPrice(1600).forEach(System.out::println);
+        IntSummaryStatistics intSummaryStatistics = pcService.getPCs()
+                .stream()
+                .mapToInt(PC::getPrice)
+                .summaryStatistics();
+        System.out.println(intSummaryStatistics.getMax());
+        System.out.println(intSummaryStatistics.getAverage());
     }
 
     public static MarketController getInstance() {
@@ -187,7 +191,161 @@ public class MarketController {
                 System.out.println(printerMax);
         }
     }
+    public void task11() {
+        int allSpeed = 0;
+        //Найдите среднюю скорость ПК.
+        List<PC> pcs = pcService.getPCs();
+        for (int i = 0; i < pcs.size(); i++) {
+            allSpeed += pcs.get(i).getSpeed();
+        }
+        System.out.println("pcs.size = " + pcs.size());
+        System.out.println("allSpeed/pcs.size = " + String.valueOf(allSpeed/pcs.size()));
+        IntSummaryStatistics intSummaryStatistics = pcService.getPCs()
+                .stream()
+                .mapToInt(PC::getSpeed).summaryStatistics();
+        System.out.println(intSummaryStatistics.getAverage());
+    }
+    public void task12() {
+        //Найдите среднюю скорость ПК-блокнотов, цена которых превышает 1000 дол.
+        List<Laptop> list = laptopService.getLaptopsFilterForPrice(1000);
+        int allSpeed = 0;
+        for (int i = 0; i < list.size(); i++) allSpeed += list.get(i).getSpeed();
+        System.out.println("list.size = " + list.size());
+        System.out.println("allSpeed/list.size = " + String.valueOf(allSpeed/list.size()));
+        IntSummaryStatistics intSummaryStatistics = laptopService.getLaptops()
+                .stream()
+                .filter(laptop -> laptop.getPrice() > 1000)
+                .mapToInt(Laptop::getSpeed).summaryStatistics();
+        System.out.println(intSummaryStatistics.getAverage());
 
+    }
+    public void task13() {
+        Random RANDOM = new Random();
+        String findMaker = listMakers[RANDOM.nextInt(listMakers.length - 1)];
+        List<PC> pcList = pcService.getPCs()
+                .stream()
+                .filter(pc -> pc.getMaker().equals(findMaker))
+                .collect(Collectors.toList());
+        int allSpeed = 0;
+        for (int i = 0; i < pcList.size(); i++) {
+            allSpeed = pcList.get(i).getSpeed();
+        }
+        System.out.println(findMaker);
+        System.out.println("pcList.size = " + pcList.size());
+        System.out.println("allSpeed/pcList.size = " + String.valueOf(allSpeed/pcList.size()));
+
+        IntSummaryStatistics intSummaryStatistics = pcService.getPCs()
+                .stream()
+                .filter(pc -> pc.getMaker().equals(findMaker))
+                .mapToInt(PC::getSpeed).summaryStatistics();
+        System.out.println(intSummaryStatistics.getAverage());
+    }
+    public void task14() {
+      /*
+      Для каждого значения скорости найдите среднюю стоимость ПК с такой же скоростью процессора.
+      Вывести: скорость, средняя цена
+      */
+        //Map<Integer, Integer> collect = pcService.getPCs()
+        //        .stream()
+        //        .collect(Collectors.toMap(PC::getSpeed, PC::getPrice);
+    }
+    public void task15() {
+
+    }
+    public void task16() {
+        /*
+        Найдите пары моделей PC, имеющих одинаковые скорость и RAM. В результате каждая пара
+        указывается только один раз, т.е. (i,j), но не (j,i), Порядок вывода: модель с большим номером,
+        модель с меньшим номером, скорость и RAM
+         */
+        IntSummaryStatistics intSummaryStatistics = pcService.getPCs()
+                .stream()
+                .mapToInt(PC::getPrice)
+                .summaryStatistics();
+        System.out.println(intSummaryStatistics.getMax());
+    }
+
+    public void task17() {
+        //Найдите модели ПК-блокнотов, скорость которых меньше скорости любого из ПК.
+        IntSummaryStatistics intSummaryStatistics = pcService.getPCs()
+                .stream()
+                .mapToInt(PC::getSpeed).summaryStatistics();
+        laptopService.getLaptops()
+                .stream()
+                .filter(laptop -> laptop.getSpeed() < intSummaryStatistics.getMin())
+                .collect(Collectors.toList()).forEach(System.out::println);
+    }
+    public void task18() {
+        Printer printer1 = printerService.getPrinters()
+                .stream()
+                .filter(printer -> printer.getColor() > 0)
+                .sorted((o1, o2) -> {
+                    if (o1.getPrice() > o2.getPrice()) return 0;
+                    else if (o1.getPrice() < o2.getPrice()) return -1;
+                    else
+                        return 1;
+
+                })
+                .findFirst()
+                .get();
+        System.out.println(printer1);
+
+    }
+    public void task19() {
+       //Для каждого производителя найдите средний размер экрана выпускаемых им ПК-блокнотов.
+       //Вывести: maker, средний размер экрана.
+        for (String maker: listMakers) {
+            IntSummaryStatistics intSummaryStatistics = laptopService.getLaptops()
+                    .stream()
+                    .filter(laptop -> laptop.getMaker().equals(maker))
+                    .mapToInt(Laptop::getScreen).summaryStatistics();
+            System.out.println(intSummaryStatistics.getAverage());
+        }
+
+    }
+
+    public void task20() {}
+    public void task21() {
+        //Найдите максимальную цену ПК, выпускаемых каждым производителем.
+        for (String maker: listMakers) {
+            IntSummaryStatistics intSummaryStatistics = pcService.getPCs()
+                    .stream()
+                    .filter(pc -> pc.getMaker().equals(maker))
+                    .mapToInt(PC::getPrice).summaryStatistics();
+            System.out.println(maker + " " + intSummaryStatistics.getMax());
+        }
+    }
+    public void task22() {}
+    public void task23() {
+        for (String maker: listMakers) {
+            List<PC> pcList = pcService.getPCs()
+                    .stream()
+                    .filter(pc -> pc.getMaker().equals(maker))
+                    .filter(pc -> pc.getSpeed() > 750)
+                    .collect(Collectors.toList());
+            List<Laptop> laptopList = laptopService.getLaptops()
+                    .stream()
+                    .filter(laptop -> laptop.getMaker().equals(maker))
+                    .filter(laptop -> laptop.getSpeed() > 750)
+                    .collect(Collectors.toList());
+            if (pcList.size()>0 && laptopList.size()>0) {
+                System.out.println(maker);
+                IntSummaryStatistics intSummaryStatisticsPC = pcList
+                        .stream()
+                        .mapToInt(PC::getPrice)
+                        .summaryStatistics();
+                System.out.println("PC sumPrice = " + intSummaryStatisticsPC.getAverage());
+                IntSummaryStatistics intSummaryStatisticsLaptop = laptopList
+                        .stream()
+                        .mapToInt(Laptop::getPrice)
+                        .summaryStatistics();
+                System.out.println(intSummaryStatisticsLaptop.getAverage());
+            }
+        }
+    }
+    public void task24() {
+
+    }
 
 
 
