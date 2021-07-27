@@ -1,8 +1,8 @@
 package eu.senla.mysql;
 
 
-import eu.senla.mysql.dao.ds.DataSourceFactory;
 import eu.senla.mysql.dao.MainDao;
+import eu.senla.mysql.dao.ds.DataSourceFactory;
 import eu.senla.mysql.model.Laptop;
 import eu.senla.mysql.model.PC;
 import eu.senla.mysql.model.Printer;
@@ -69,10 +69,10 @@ public class MarketController {
     }
 
     public static MarketController getInstance() {
-        if(instance == null){		//если объект еще не создан
-            instance = new MarketController();	//создать новый объект
+        if (instance == null) {        //если объект еще не создан
+            instance = new MarketController();    //создать новый объект
         }
-        return instance;		// вернуть ранее созданный объект
+        return instance;        // вернуть ранее созданный объект
     }
 
     public void setUp(DataSource ds) {
@@ -120,12 +120,15 @@ public class MarketController {
     public void task1() {
         pcService.getPCsFilterForPrice(600).forEach(System.out::println);
     }
+
     public void task2() {
         printerService.getPrinters().forEach(printer -> System.out.println(printer.getMaker()));
     }
+
     public void task3() {
         pcService.getPCsFilterForPrice(1000).forEach(System.out::println);
     }
+
     public void task4() {
         printerService.getPrinters()
                 .stream()
@@ -133,6 +136,7 @@ public class MarketController {
                 .collect(Collectors.toList())
                 .forEach(System.out::println);
     }
+
     public void task5() {
         pcService.getPCs()
                 .stream()
@@ -140,13 +144,15 @@ public class MarketController {
                 .collect(Collectors.toList())
                 .forEach(System.out::println);
     }
+
     public void task6() {
         pcService.getPCs()
                 .stream()
-                .filter(pc -> pc.getHd()>=10)
+                .filter(pc -> pc.getHd() >= 10)
                 .collect(Collectors.toList())
                 .forEach(System.out::println);
     }
+
     public void task7() {
         Random RANDOM = new Random();
         String findMaker = listMakers[RANDOM.nextInt(listMakers.length - 1)];
@@ -167,23 +173,34 @@ public class MarketController {
                 .collect(Collectors.toList())
                 .forEach(System.out::println);
     }
-    public void task8() {
 
+    public void task8() {
+        for (String maker : listMakers) {
+            List<Laptop> laptopList = laptopService.getLaptops()
+                    .stream()
+                    .filter(laptop -> laptop.getMaker().equals(maker))
+                    .collect(Collectors.toList());
+            if (laptopList.size() == 0) {
+                System.out.println(maker);
+            }
+        }
     }
+
     public void task9() {
         pcService.getPCs()
                 .stream()
-                .filter(pc -> pc.getSpeed()>=450)
+                .filter(pc -> pc.getSpeed() >= 450)
                 .collect(Collectors.toList())
                 .forEach(System.out::println);
     }
+
     public void task10() {
         Printer printer, printerMax = null;
         List<Printer> printerList = printerService.getPrinters();
         Integer maxInt = 0;
         for (int i = 0; i < printerList.size(); i++) {
             printer = printerList.get(i);
-            if (printer.getPrice()>maxInt) {
+            if (printer.getPrice() > maxInt) {
                 maxInt = printer.getPrice();
                 printerMax = printer;
             }
@@ -191,6 +208,7 @@ public class MarketController {
                 System.out.println(printerMax);
         }
     }
+
     public void task11() {
         int allSpeed = 0;
         //Найдите среднюю скорость ПК.
@@ -199,19 +217,20 @@ public class MarketController {
             allSpeed += pcs.get(i).getSpeed();
         }
         System.out.println("pcs.size = " + pcs.size());
-        System.out.println("allSpeed/pcs.size = " + String.valueOf(allSpeed/pcs.size()));
+        System.out.println("allSpeed/pcs.size = " + String.valueOf(allSpeed / pcs.size()));
         IntSummaryStatistics intSummaryStatistics = pcService.getPCs()
                 .stream()
                 .mapToInt(PC::getSpeed).summaryStatistics();
         System.out.println(intSummaryStatistics.getAverage());
     }
+
     public void task12() {
         //Найдите среднюю скорость ПК-блокнотов, цена которых превышает 1000 дол.
         List<Laptop> list = laptopService.getLaptopsFilterForPrice(1000);
         int allSpeed = 0;
         for (int i = 0; i < list.size(); i++) allSpeed += list.get(i).getSpeed();
         System.out.println("list.size = " + list.size());
-        System.out.println("allSpeed/list.size = " + String.valueOf(allSpeed/list.size()));
+        System.out.println("allSpeed/list.size = " + String.valueOf(allSpeed / list.size()));
         IntSummaryStatistics intSummaryStatistics = laptopService.getLaptops()
                 .stream()
                 .filter(laptop -> laptop.getPrice() > 1000)
@@ -219,6 +238,7 @@ public class MarketController {
         System.out.println(intSummaryStatistics.getAverage());
 
     }
+
     public void task13() {
         Random RANDOM = new Random();
         String findMaker = listMakers[RANDOM.nextInt(listMakers.length - 1)];
@@ -232,7 +252,7 @@ public class MarketController {
         }
         System.out.println(findMaker);
         System.out.println("pcList.size = " + pcList.size());
-        System.out.println("allSpeed/pcList.size = " + String.valueOf(allSpeed/pcList.size()));
+        System.out.println("allSpeed/pcList.size = " + String.valueOf(allSpeed / pcList.size()));
 
         IntSummaryStatistics intSummaryStatistics = pcService.getPCs()
                 .stream()
@@ -240,6 +260,7 @@ public class MarketController {
                 .mapToInt(PC::getSpeed).summaryStatistics();
         System.out.println(intSummaryStatistics.getAverage());
     }
+
     public void task14() {
       /*
       Для каждого значения скорости найдите среднюю стоимость ПК с такой же скоростью процессора.
@@ -249,20 +270,30 @@ public class MarketController {
         //        .stream()
         //        .collect(Collectors.toMap(PC::getSpeed, PC::getPrice);
     }
-    public void task15() {
 
+    public void task15() {
+        //Найдите размеры жестких дисков, совпадающих у двух и более PC. Вывести: HD
+        Set<Double> allItems = new HashSet<>();
+        pcService.getPCs()
+                .stream()
+                .filter(pc -> !allItems.add(pc.getHd()))
+                .collect(Collectors.toSet())
+                .forEach(System.out::println);
     }
+
     public void task16() {
         /*
         Найдите пары моделей PC, имеющих одинаковые скорость и RAM. В результате каждая пара
         указывается только один раз, т.е. (i,j), но не (j,i), Порядок вывода: модель с большим номером,
         модель с меньшим номером, скорость и RAM
          */
-        IntSummaryStatistics intSummaryStatistics = pcService.getPCs()
+        Set<Double> allItems = new HashSet<>();
+        pcService.getPCs()
                 .stream()
-                .mapToInt(PC::getPrice)
-                .summaryStatistics();
-        System.out.println(intSummaryStatistics.getMax());
+                .filter(pc -> !allItems.add(new HashMap<Integer, Double>().put(pc.getSpeed(), pc.getRam())))
+                .collect(Collectors.toList())
+                .forEach(System.out::println);
+
     }
 
     public void task17() {
@@ -275,6 +306,7 @@ public class MarketController {
                 .filter(laptop -> laptop.getSpeed() < intSummaryStatistics.getMin())
                 .collect(Collectors.toList()).forEach(System.out::println);
     }
+
     public void task18() {
         Printer printer1 = printerService.getPrinters()
                 .stream()
@@ -291,10 +323,11 @@ public class MarketController {
         System.out.println(printer1);
 
     }
+
     public void task19() {
-       //Для каждого производителя найдите средний размер экрана выпускаемых им ПК-блокнотов.
-       //Вывести: maker, средний размер экрана.
-        for (String maker: listMakers) {
+        //Для каждого производителя найдите средний размер экрана выпускаемых им ПК-блокнотов.
+        //Вывести: maker, средний размер экрана.
+        for (String maker : listMakers) {
             IntSummaryStatistics intSummaryStatistics = laptopService.getLaptops()
                     .stream()
                     .filter(laptop -> laptop.getMaker().equals(maker))
@@ -304,10 +337,22 @@ public class MarketController {
 
     }
 
-    public void task20() {}
+    public void task20() {
+        for (String maker : listMakers) {
+            Set<String> allItems = new HashSet<>();
+            List<PC> pcList = pcService.getPCs()
+                    .stream()
+                    .filter(pc -> pc.getMaker().equals(maker))
+                    .filter(pc -> !allItems.add(pc.getModel()))
+                    .collect(Collectors.toList());
+            if (pcList.size() >= 3)
+                System.out.println(maker + " " + pcList.size());
+        }
+    }
+
     public void task21() {
         //Найдите максимальную цену ПК, выпускаемых каждым производителем.
-        for (String maker: listMakers) {
+        for (String maker : listMakers) {
             IntSummaryStatistics intSummaryStatistics = pcService.getPCs()
                     .stream()
                     .filter(pc -> pc.getMaker().equals(maker))
@@ -315,9 +360,19 @@ public class MarketController {
             System.out.println(maker + " " + intSummaryStatistics.getMax());
         }
     }
-    public void task22() {}
+
+    public void task22() {
+        Set<Integer> allItems = new HashSet<>();
+        List<PC> pcList = pcService.getPCs()
+                .stream()
+                .filter(pc -> pc.getSpeed() > 600)
+                .filter(pc -> !allItems.add(pc.getSpeed()))
+                .collect(Collectors.toList());
+
+    }
+
     public void task23() {
-        for (String maker: listMakers) {
+        for (String maker : listMakers) {
             List<PC> pcList = pcService.getPCs()
                     .stream()
                     .filter(pc -> pc.getMaker().equals(maker))
@@ -328,7 +383,7 @@ public class MarketController {
                     .filter(laptop -> laptop.getMaker().equals(maker))
                     .filter(laptop -> laptop.getSpeed() > 750)
                     .collect(Collectors.toList());
-            if (pcList.size()>0 && laptopList.size()>0) {
+            if (pcList.size() > 0 && laptopList.size() > 0) {
                 System.out.println(maker);
                 IntSummaryStatistics intSummaryStatisticsPC = pcList
                         .stream()
@@ -343,10 +398,10 @@ public class MarketController {
             }
         }
     }
+
     public void task24() {
 
     }
-
 
 
 }
