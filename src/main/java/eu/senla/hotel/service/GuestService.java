@@ -1,7 +1,7 @@
 package eu.senla.hotel.service;
 
 import eu.senla.hotel.api.sevice.IGuestService;
-import eu.senla.hotel.dao.GuestDao;
+import eu.senla.hotel.dao.collection.LGuestDao;
 import eu.senla.hotel.exception.NotExistObject;
 import eu.senla.hotel.model.Guest;
 import eu.senla.hotel.model.Service;
@@ -24,34 +24,35 @@ public class GuestService implements IGuestService {
     public static final Logger logger = Logger.getLogger(
             GuestService.class.getName());
 
-    private final GuestDao guestDao;
+    private final LGuestDao guestDao;
     @XmlElementWrapper(name = "guestList")
     // XmlElement sets the name of the entities
     @XmlElement(name = "Guests")
     private List<Guest> guests;
 
     public GuestService(DataSource ds) {
-        guestDao = new GuestDao(ds);
-        guests = new ArrayList<>(); //guestDao.allGuests();
+        guestDao = new LGuestDao();
+        guests = guestDao.getGuests();
     }
 
     @Override
     public void addGuest(Guest guest) {
-        guests.add(guest);
+        //guests.add(guest);
         guestDao.addGuest(guest);
     }
 
     @Override
     public void deleteGuest(Guest guest) {
+        guests = guestDao.getGuests();
         int index = guests.indexOf(guest);
-        if (index!=-1){
+        if (index != -1) {
             guest.setState(StateGuest.CHECK_OUT);
             try {
                 guestDao.deleteGuest(guest);
             } catch (NotExistObject notExistObject) {
                 logger.info(notExistObject.getMessage());
             }
-            guests.remove(index);
+            //guests.remove(index);
         }
     }
 
@@ -69,29 +70,30 @@ public class GuestService implements IGuestService {
         LocalDate today = LocalDate.now();
         guest.setState(StateGuest.CHECK_IN);
         guest.setDateOfCheckIn(today);
-        guest.setDateOfCheckOut(today.plusDays(RANDOM.nextInt(5)+1));
-        guests.add(guest);
+        guest.setDateOfCheckOut(today.plusDays(RANDOM.nextInt(5) + 1));
+        //guests.add(guest);
         guestDao.addGuest(guest);
     }
 
     @Override
     public void leave(Guest guest) {
+        guests = guestDao.getGuests();
         int index = guests.indexOf(guest);
-        if (index!=-1){
+        if (index != -1) {
             guest.setState(StateGuest.CHECK_OUT);
             try {
                 guestDao.deleteGuest(guest);
             } catch (NotExistObject notExistObject) {
                 logger.info(notExistObject.getMessage());
             }
-            guests.remove(index);
-        }
-        else
+            //guests.remove(index);
+        } else
             logger.info("The guest does not exist");
     }
 
     public List<Guest> getGuests() {
-        if (guests.size()==0) {
+        guests = guestDao.getGuests();
+        if (guests.size() == 0) {
             logger.info("no guests at the hotel");
         }
         return guests;
@@ -109,17 +111,18 @@ public class GuestService implements IGuestService {
 
     @Override
     public List<Guest> last3Guests() {
+        guests = guestDao.getGuests();
         List<Guest> last3Guest = new ArrayList<>();
-        for (int i = guests.size()-1; i >= 0; i--) {
-           last3Guest.add(guests.get(i));
-           if (last3Guest.size()==3) break;
+        for (int i = guests.size() - 1; i >= 0; i--) {
+            last3Guest.add(guests.get(i));
+            if (last3Guest.size() == 3) break;
         }
 
-        if (last3Guest.size()<3) {
+        if (last3Guest.size() < 3) {
             //если не хватает или нет гостей в списке, тогда последние из истории
             List<Guest> last3GuestHistory = guestDao.last3Guests();
-            if (last3GuestHistory.size()>0)
-                while ((last3Guest.size()!=3) && (last3GuestHistory.size()>0)){
+            if (last3GuestHistory.size() > 0)
+                while ((last3Guest.size() != 3) && (last3GuestHistory.size() > 0)) {
                     last3Guest.add(last3GuestHistory.remove(0));
                 }
 
@@ -129,21 +132,23 @@ public class GuestService implements IGuestService {
 
     @Override
     public int amountGuests() {
+        guests = guestDao.getGuests();
         return guests.size();
     }
 
     @Override
     public Guest viewGuest(int indexGuest) {
-        if (indexGuest<guests.size()){
+        guests = guestDao.getGuests();
+        if (indexGuest < guests.size()) {
             System.out.println(guests.get(indexGuest));
             return guests.get(indexGuest);
-        }
-        else
+        } else
             System.out.println("Такого гостя нет");
         return null;
     }
 
     public void listGuests() {
+        guests = guestDao.getGuests();
         for (Guest guest : guests) {
             System.out.println(guest);
         }

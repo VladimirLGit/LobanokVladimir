@@ -50,10 +50,6 @@ public class HotelController {
             "Покупка сувениров",
             "Тренажерный зал"};
     private static HotelController instance;
-    private MainDao mainDao;
-    private IGuestDao guestDao;
-    private IRoomDao roomDao;
-    private IServiceDao serviceDao;
     private IGuestService guestService;
     private IRoomService roomService;
     private IServiceService hotelService;
@@ -83,23 +79,8 @@ public class HotelController {
         return instance;		// вернуть ранее созданный объект
     }
 
-    private void createDao(DataSource ds){
-        mainDao = new MainDao(ds);
-        guestDao = new GuestDao(ds);
-        roomDao = new RoomDao(ds);
-        serviceDao = new ServiceDao(ds);
-    }
 
     public void setUp(DataSource ds) {
-        createDao(ds);
-        mainDao.createHotelBase();
-        mainDao.createTableGuests();
-        mainDao.createLinkTableServices();
-        mainDao.createTableHistoryGuests();
-
-        mainDao.createTableRooms();
-        mainDao.createLinkTableRooms();
-        mainDao.createTableServices();
         guestService = new GuestService(ds);
         roomService = new RoomService(ds);
         hotelService = new HotelService(ds);
@@ -215,7 +196,7 @@ public class HotelController {
         Service service = services.get(RANDOM.nextInt(services.size() - 1));
         Guest guest = guests.get(RANDOM.nextInt(guests.size() - 1));
         guest.addOrderedService(service);
-        serviceDao.addOrderGuest(guest,service);
+        //serviceDao.addOrderGuest(guest,service);
     }
 
     public void serializationMarshal(){
@@ -273,69 +254,5 @@ public class HotelController {
             e.printStackTrace();
         }
     }
-    /*
-    public void serializationsData(){
-        final ObjectMapper mapper = new ObjectMapper(new YAMLFactory()
-                .configure(YAMLGenerator.Feature.WRITE_DOC_START_MARKER, false)
-        )
-                .enable(SerializationFeature.WRITE_SINGLE_ELEM_ARRAYS_UNWRAPPED);
-        mapper.setVisibility(mapper.getSerializationConfig().getDefaultVisibilityChecker()
-                .withFieldVisibility(JsonAutoDetect.Visibility.ANY)
-                .withGetterVisibility(JsonAutoDetect.Visibility.NONE)
-                .withSetterVisibility(JsonAutoDetect.Visibility.NONE)
-                .withCreatorVisibility(JsonAutoDetect.Visibility.NONE)
-                .withIsGetterVisibility(JsonAutoDetect.Visibility.NONE));
-        List<Guest> guests = guestService.getGuests();
-        File guestsOutput = new File("src/eu/senla/Hotel/resources/guests.yaml");
-        try {
-            mapper.writeValue(guestsOutput, guests);
-        }
-        catch (JsonProcessingException e) {
-            System.out.println(
-                    String.format("Problem Serializing POJO Because Of Error %s", e)
-            );
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void serializationsObjects() {
-        List<Guest> guests = guestService.getGuests();
-        List<Room> rooms = roomService.getRooms();
-        List<Service> services = hotelService.getServices();
-        ObjectMapper mapper = new ObjectMapper(new YAMLFactory().disable(Feature.WRITE_DOC_START_MARKER));
-        //mapper.findAndRegisterModules();
-        //mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
-        File guestsOutput = new File("src/eu/senla/Hotel/resources/guests.yaml");
-
-        try {
-            mapper.writeValue(guestsOutput, guestService);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void deserializationObjects() {
-        final ObjectMapper mapper = new ObjectMapper(new YAMLFactory()
-                .configure(YAMLGenerator.Feature.WRITE_DOC_START_MARKER, false)
-        )
-                .enable(SerializationFeature.WRITE_SINGLE_ELEM_ARRAYS_UNWRAPPED);
-        mapper.setVisibility(mapper.getSerializationConfig().getDefaultVisibilityChecker()
-                .withFieldVisibility(JsonAutoDetect.Visibility.ANY)
-                .withGetterVisibility(JsonAutoDetect.Visibility.NONE)
-                .withSetterVisibility(JsonAutoDetect.Visibility.NONE)
-                .withCreatorVisibility(JsonAutoDetect.Visibility.NONE)
-                .withIsGetterVisibility(JsonAutoDetect.Visibility.NONE));
-        File guestsOutput = new File("src/eu/senla/Hotel/resources/guests.yaml");
-        try {
-            mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-            GuestService guestService1 = mapper.readValue(guestsOutput, GuestService.class);
-            //List<Guest> guests = mapper.readValue(guestsOutput, new TypeReference<List<Guest>>(){});
-            //guests.forEach(System.out::println);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-    */
 
 }

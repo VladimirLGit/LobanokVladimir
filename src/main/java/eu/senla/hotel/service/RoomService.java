@@ -2,6 +2,7 @@ package eu.senla.hotel.service;
 
 import eu.senla.hotel.api.sevice.IRoomService;
 import eu.senla.hotel.dao.RoomDao;
+import eu.senla.hotel.dao.collection.LRoomDao;
 import eu.senla.hotel.exception.NoFreeRoomInTheHotel;
 import eu.senla.hotel.exception.NotExistObject;
 import eu.senla.hotel.model.Guest;
@@ -29,20 +30,20 @@ public class RoomService implements IRoomService {
     public static final Logger logger = Logger.getLogger(
             RoomService.class.getName());
 
-    private final RoomDao roomDao;
+    private final LRoomDao roomDao;
     @XmlElementWrapper(name = "roomList")
     @XmlElement(name = "Rooms")
     private List<Room> rooms;
 
     public RoomService(DataSource ds) {
-        roomDao = new RoomDao(ds);
-        rooms = new ArrayList<>(); //roomDao.allRooms();
+        roomDao = new LRoomDao();
+        rooms = roomDao.getRooms();
     }
 
     @Override
     public void addRoom(Room room) {
         roomDao.addRoom(room);
-        rooms.add(room);
+        //rooms.add(room);
     }
 
     @Override
@@ -68,9 +69,9 @@ public class RoomService implements IRoomService {
             room.addGuest(guest);
             room.setLastDayOfStay(guest.getDateOfCheckOut());
             roomDao.updateRoom(room);
-            roomDao.addLinkGuestWithRoom(guest, room);
+            //roomDao.addLinkGuestWithRoom(guest, room);
             guest.setIdRoom(room.getId()); //поселили гостя в комнату без критериев
-        } catch (NoFreeRoomInTheHotel noFreeRoomInTheHotel) {
+        } catch (NoFreeRoomInTheHotel | NotExistObject noFreeRoomInTheHotel) {
             logger.info(noFreeRoomInTheHotel.getMessage());
         }
 
@@ -85,13 +86,18 @@ public class RoomService implements IRoomService {
         int amountOfDaysOfStay = 0;
         int priceRoom = 0;
         Room room = roomDao.getRoomForId(idRoom);
+        rooms = roomDao.getRooms();
         int indexRoom = rooms.indexOf(room);
         if (indexRoom >= 0) {
             room = rooms.get(indexRoom);
             room.setRating(RANDOM.nextInt(5));
             room.setState(StateRoom.FREE);
             room.deleteGuest(guest);
-            roomDao.updateRoom(room);
+            try {
+                roomDao.updateRoom(room);
+            } catch (NotExistObject notExistObject) {
+                logger.info(notExistObject.getMessage());
+            }
             guest.setIdRoom(0);
             guest.setDateOfCheckOut(today);
             //сумма к уплате за проживание и оказанные услуги
@@ -104,6 +110,7 @@ public class RoomService implements IRoomService {
     }
 
     public List<Room> getRooms() {
+        rooms = roomDao.getRooms();
         if (rooms.size()==0) {
             logger.info("no guests at the hotel");
         }
@@ -116,6 +123,7 @@ public class RoomService implements IRoomService {
 
     @Override
     public void listNumber() {
+        rooms = roomDao.getRooms();
         for (Room room : rooms) {
             System.out.println(room);
         }
@@ -127,7 +135,11 @@ public class RoomService implements IRoomService {
         } else {
             System.out.println("До " + room);
             room.setPrice(newPrice);
-            roomDao.updateRoom(room);
+            try {
+                roomDao.updateRoom(room);
+            } catch (NotExistObject notExistObject) {
+                logger.info(notExistObject.getMessage());
+            }
             System.out.println("После измениения цены");
             System.out.println(room);
         }
@@ -156,6 +168,7 @@ public class RoomService implements IRoomService {
     @Override
     public List<Room> listFreeRooms() throws NoFreeRoomInTheHotel {
         List<Room> freeRooms = new ArrayList<>();
+        rooms = roomDao.getRooms();
         rooms.forEach(room -> addStateRoom(room, StateRoom.FREE, freeRooms));
         if (freeRooms.size() == 0) {
             throw new NoFreeRoomInTheHotel("No free room in the hotel");
@@ -166,6 +179,7 @@ public class RoomService implements IRoomService {
     @Override
     public List<Room> listCheckedRooms() {
         List<Room> checkedRooms = new ArrayList<>();
+        rooms = roomDao.getRooms();
         rooms.forEach(room -> addStateRoom(room, StateRoom.CHECKED, checkedRooms));
         return checkedRooms;
     }
@@ -184,12 +198,14 @@ public class RoomService implements IRoomService {
     @Override
     public List<Room> listFreeRoomsForDate(LocalDate date) {
         List<Room> freeRooms = new ArrayList<>();
+        rooms = roomDao.getRooms();
         rooms.forEach(room -> addStateRoom(room, StateRoom.FREE, date, freeRooms));
         return freeRooms;
     }
 
     @Override
     public Room viewRoom(int indexRoom) {
+        rooms = roomDao.getRooms();
         if (indexRoom < rooms.size()) {
             System.out.println(rooms.get(indexRoom));
             return rooms.get(indexRoom);
@@ -201,7 +217,11 @@ public class RoomService implements IRoomService {
     public void changeStateRoom(StateRoom state, Room room) {
         System.out.println("До " + room);
         room.setState(state);
-        roomDao.updateRoom(room);
+        try {
+            roomDao.updateRoom(room);
+        } catch (NotExistObject notExistObject) {
+            logger.info(notExistObject.getMessage());
+        }
         System.out.println("После измениения статуса");
         System.out.println(room);
     }

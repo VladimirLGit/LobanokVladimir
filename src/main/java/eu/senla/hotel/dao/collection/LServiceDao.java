@@ -9,14 +9,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LServiceDao implements IServiceDao {
+    private int id;
     private List<Service> services;
 
     public LServiceDao() {
         services = new ArrayList<>();
     }
 
+    public List<Service> getServices() {
+        return services;
+    }
+
+    public void setServices(List<Service> services) {
+        this.services = services;
+    }
+
     @Override
     public void addService(Service service) {
+        service.setId(id++);
         services.add(service);
     }
 
@@ -29,6 +39,7 @@ public class LServiceDao implements IServiceDao {
     public void updateService(Service service) {
         int i = services.indexOf(service);
         if (i!=-1) {
+            service.setId(services.get(i).getId());
             services.set(i, service);
         }
     }

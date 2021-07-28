@@ -2,6 +2,7 @@ package eu.senla.hotel.service;
 
 import eu.senla.hotel.api.sevice.IServiceService;
 import eu.senla.hotel.dao.ServiceDao;
+import eu.senla.hotel.dao.collection.LServiceDao;
 import eu.senla.hotel.model.Guest;
 import eu.senla.hotel.model.Service;
 
@@ -20,15 +21,15 @@ public class HotelService implements IServiceService {
     public static final Logger logger = Logger.getLogger(
             HotelService.class.getName());
 
-    private ServiceDao serviceDao;
+    private LServiceDao serviceDao;
 
     @XmlElementWrapper(name = "serviceList")
     @XmlElement(name = "Service")
     private List<Service> services;
 
     public HotelService(DataSource ds) {
-        serviceDao = new ServiceDao(ds);
-        services = new ArrayList<>();
+        serviceDao = new LServiceDao();
+        services = serviceDao.getServices();
     }
 
     @Override
@@ -39,14 +40,15 @@ public class HotelService implements IServiceService {
 
     public void addService(Service service){
         serviceDao.addService(service);
-        services.add(service);
+        //services.add(service);
     }
     public void deleteService(Service service){
         serviceDao.deleteService(service);
-        services.remove(service);
+        //services.remove(service);
     }
 
     public List<Service> getServices() {
+        services = serviceDao.getServices();
         return services;
     }
     public void setServices(ArrayList<Service> services) {
@@ -55,7 +57,8 @@ public class HotelService implements IServiceService {
 
     @Override
     public void listOrder() {
-        services.forEach(service -> System.out.println(service));
+        services = serviceDao.getServices();
+        services.forEach(System.out::println);
     }
 
     @Override
@@ -64,6 +67,7 @@ public class HotelService implements IServiceService {
             logger.info("Cost is below zero");
         }
         else {
+            services = serviceDao.getServices();
             Service service = services.get(indexOrder);
             service.setPrice(newPrice);
             services.set(indexOrder, service);
@@ -72,6 +76,7 @@ public class HotelService implements IServiceService {
 
     @Override
     public Service viewService(int indexService) {
+        services = serviceDao.getServices();
         if (indexService<services.size()){
             System.out.println(services.get(indexService));
             return services.get(indexService);
