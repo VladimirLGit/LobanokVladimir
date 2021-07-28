@@ -66,6 +66,7 @@ public class MarketController {
                 .summaryStatistics();
         System.out.println(intSummaryStatistics.getMax());
         System.out.println(intSummaryStatistics.getAverage());
+        task25();
     }
 
     public static MarketController getInstance() {
@@ -269,6 +270,18 @@ public class MarketController {
         //Map<Integer, Integer> collect = pcService.getPCs()
         //        .stream()
         //        .collect(Collectors.toMap(PC::getSpeed, PC::getPrice);
+        Set<Integer> allItems = new HashSet<>();
+        Set<PC> pcSet = pcService.getPCs()
+                .stream()
+                .filter(pc -> allItems.add(pc.getSpeed()))
+                .collect(Collectors.toSet());
+        for (PC item : pcSet) {
+            IntSummaryStatistics intSummaryStatistics = pcSet.stream()
+                    .filter(pc -> pc.getSpeed() == item.getSpeed())
+                    .mapToInt(PC::getPrice).summaryStatistics();
+            System.out.println(item.getSpeed() + " " + intSummaryStatistics.getAverage());
+        }
+
     }
 
     public void task15() {
@@ -368,6 +381,12 @@ public class MarketController {
                 .filter(pc -> pc.getSpeed() > 600)
                 .filter(pc -> !allItems.add(pc.getSpeed()))
                 .collect(Collectors.toList());
+        for (PC item : pcList) {
+            IntSummaryStatistics intSummaryStatistics = pcList.stream()
+                    .filter(pc -> pc.getSpeed() == item.getSpeed())
+                    .mapToInt(PC::getPrice).summaryStatistics();
+            System.out.println("Speed: " + item.getSpeed() + " Average price: " + intSummaryStatistics.getAverage() );
+        }
 
     }
 
@@ -400,7 +419,58 @@ public class MarketController {
     }
 
     public void task24() {
+        PC pc = pcService.getPCs()
+                .stream()
+                .max((o1, o2) -> {
+                    if (o1.getPrice() > o2.getPrice()) return 0;
+                    else if (o1.getPrice() < o2.getPrice()) return -1;
+                    else
+                        return 1;
 
+                }).get();
+        Laptop laptop = laptopService.getLaptops()
+                .stream()
+                .max((o1, o2) -> {
+                    if (o1.getPrice() > o2.getPrice()) return 0;
+                    else if (o1.getPrice() < o2.getPrice()) return -1;
+                    else
+                        return 1;
+
+                }).get();
+        Printer printer = printerService.getPrinters()
+                .stream()
+                .max((o1, o2) -> {
+                    if (o1.getPrice() > o2.getPrice()) return 0;
+                    else if (o1.getPrice() < o2.getPrice()) return -1;
+                    else
+                        return 1;
+
+                }).get();
+        System.out.println(pc);
+        System.out.println(laptop);
+        System.out.println(printer);
+    }
+    public void task25() {
+        PC pc = pcService.getPCs()
+                .stream()
+                .min((o1, o2) -> {
+                    if (o1.getRam() > o2.getRam()) return 0;
+                    else if (o1.getRam() < o2.getRam()) return -1;
+                    else
+                        return 1;
+
+                }).get();
+        PC pc1 = pcService.getPCs()
+                .stream()
+                .filter(item -> item.getRam() == pc.getRam())
+                .max((o1, o2) -> {
+                    if (o1.getPrice() > o2.getPrice()) return 0;
+                    else if (o1.getPrice() < o2.getPrice()) return -1;
+                    else
+                        return 1;
+
+                }).get();
+        System.out.println(pc1);
     }
 
 
