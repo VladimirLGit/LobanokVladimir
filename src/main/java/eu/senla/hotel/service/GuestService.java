@@ -1,5 +1,6 @@
 package eu.senla.hotel.service;
 
+import eu.senla.hotel.api.dao.IGuestDao;
 import eu.senla.hotel.api.sevice.IGuestService;
 import eu.senla.hotel.dao.collection.LGuestDao;
 import eu.senla.hotel.exception.NotExistObject;
@@ -24,15 +25,15 @@ public class GuestService implements IGuestService {
     public static final Logger logger = Logger.getLogger(
             GuestService.class.getName());
 
-    private final LGuestDao guestDao;
+    private final IGuestDao guestDao;
     @XmlElementWrapper(name = "guestList")
     // XmlElement sets the name of the entities
     @XmlElement(name = "Guests")
     private List<Guest> guests;
 
-    public GuestService(DataSource ds) {
-        guestDao = new LGuestDao();
-        guests = guestDao.getGuests();
+    public GuestService(IGuestDao ds) {
+        guestDao = ds;
+        guests = guestDao.allGuests();
     }
 
     @Override
@@ -43,7 +44,7 @@ public class GuestService implements IGuestService {
 
     @Override
     public void deleteGuest(Guest guest) {
-        guests = guestDao.getGuests();
+        guests = guestDao.allGuests();
         int index = guests.indexOf(guest);
         if (index != -1) {
             guest.setState(StateGuest.CHECK_OUT);
@@ -77,7 +78,7 @@ public class GuestService implements IGuestService {
 
     @Override
     public void leave(Guest guest) {
-        guests = guestDao.getGuests();
+        guests = guestDao.allGuests();
         int index = guests.indexOf(guest);
         if (index != -1) {
             guest.setState(StateGuest.CHECK_OUT);
@@ -92,7 +93,7 @@ public class GuestService implements IGuestService {
     }
 
     public List<Guest> getGuests() {
-        guests = guestDao.getGuests();
+        guests = guestDao.allGuests();
         if (guests.size() == 0) {
             logger.info("no guests at the hotel");
         }
@@ -111,7 +112,7 @@ public class GuestService implements IGuestService {
 
     @Override
     public List<Guest> last3Guests() {
-        guests = guestDao.getGuests();
+        guests = guestDao.allGuests();
         List<Guest> last3Guest = new ArrayList<>();
         for (int i = guests.size() - 1; i >= 0; i--) {
             last3Guest.add(guests.get(i));
@@ -132,13 +133,13 @@ public class GuestService implements IGuestService {
 
     @Override
     public int amountGuests() {
-        guests = guestDao.getGuests();
+        guests = guestDao.allGuests();
         return guests.size();
     }
 
     @Override
     public Guest viewGuest(int indexGuest) {
-        guests = guestDao.getGuests();
+        guests = guestDao.allGuests();
         if (indexGuest < guests.size()) {
             System.out.println(guests.get(indexGuest));
             return guests.get(indexGuest);
@@ -148,7 +149,7 @@ public class GuestService implements IGuestService {
     }
 
     public void listGuests() {
-        guests = guestDao.getGuests();
+        guests = guestDao.allGuests();
         for (Guest guest : guests) {
             System.out.println(guest);
         }

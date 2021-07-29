@@ -15,10 +15,6 @@ public class LGuestDao implements IGuestDao {
         guests = new ArrayList<>();
     }
 
-    public List<Guest> getGuests() {
-        return guests;
-    }
-
     public void setGuests(List<Guest> guests) {
         this.guests = guests;
     }

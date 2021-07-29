@@ -11,6 +11,6 @@ public interface IRoomDao {
     void deleteRoom(Room room) throws NotExistObject;
     void updateRoom(Room room) throws NotExistObject;
     List<Room> allRooms();
-
     Room checkGuest(int id);
+    Room getRoomForId(int idRoom);
 }

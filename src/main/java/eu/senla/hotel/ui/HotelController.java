@@ -11,6 +11,9 @@ import eu.senla.hotel.dao.GuestDao;
 import eu.senla.hotel.dao.MainDao;
 import eu.senla.hotel.dao.RoomDao;
 import eu.senla.hotel.dao.ServiceDao;
+import eu.senla.hotel.dao.collection.LGuestDao;
+import eu.senla.hotel.dao.collection.LRoomDao;
+import eu.senla.hotel.dao.collection.LServiceDao;
 import eu.senla.hotel.dao.ds.DataSourceFactory;
 import eu.senla.hotel.model.*;
 import eu.senla.hotel.service.GuestService;
@@ -53,9 +56,14 @@ public class HotelController {
             "Покупка сувениров",
             "Тренажерный зал"};
     private static HotelController instance;
+
+    private IGuestDao guestDao;
+    private IRoomDao roomDao;
+    private IServiceDao serviceDao;
     private IGuestService guestService;
     private IRoomService roomService;
     private IServiceService hotelService;
+
 
 
     private HotelController() {
@@ -66,7 +74,8 @@ public class HotelController {
             //System.out.printf("Resource Path: %s\n", this.getClass().getClassLoader().getResource("").getPath());
             //this.getClass().getClassLoader().getResource("").getPath().replace("/target/classes", "/src/main/resources/logging.properties");
             //LogManager.getLogManager().readConfiguration(HotelController.class.getResourceAsStream("src/main/resources/logging.properties"));
-            LogManager.getLogManager()
+            LogManager.getLogManager().readConfiguration(HotelController.class.getClassLoader().getResourceAsStream("logging.properties"));
+            /*LogManager.getLogManager()
                     .readConfiguration(HotelController
                             .class
                             .getResourceAsStream(this
@@ -74,6 +83,7 @@ public class HotelController {
                                     .getClassLoader()
                                     .getResource("")
                                     .getPath().replace("/target/classes/", "/src/main/resources/logging.properties")));
+            */
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -96,9 +106,12 @@ public class HotelController {
 
 
     public void setUp(DataSource ds) {
-        guestService = new GuestService(ds);
-        roomService = new RoomService(ds);
-        hotelService = new HotelService(ds);
+        guestDao = new LGuestDao();
+        roomDao = new LRoomDao();
+        serviceDao = new LServiceDao();
+        guestService = new GuestService(guestDao);
+        roomService = new RoomService(roomDao);
+        hotelService = new HotelService(serviceDao);
     }
 
     public void addRoom() {

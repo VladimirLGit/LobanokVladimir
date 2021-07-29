@@ -1,5 +1,6 @@
 package eu.senla.hotel.service;
 
+import eu.senla.hotel.api.dao.IServiceDao;
 import eu.senla.hotel.api.sevice.IServiceService;
 import eu.senla.hotel.dao.ServiceDao;
 import eu.senla.hotel.dao.collection.LServiceDao;
@@ -21,15 +22,15 @@ public class HotelService implements IServiceService {
     public static final Logger logger = Logger.getLogger(
             HotelService.class.getName());
 
-    private LServiceDao serviceDao;
+    private final IServiceDao serviceDao;
 
     @XmlElementWrapper(name = "serviceList")
     @XmlElement(name = "Service")
     private List<Service> services;
 
-    public HotelService(DataSource ds) {
-        serviceDao = new LServiceDao();
-        services = serviceDao.getServices();
+    public HotelService(IServiceDao ds) {
+        serviceDao = ds;
+        services = serviceDao.allServices();
     }
 
     @Override
@@ -48,7 +49,7 @@ public class HotelService implements IServiceService {
     }
 
     public List<Service> getServices() {
-        services = serviceDao.getServices();
+        services = serviceDao.allServices();
         return services;
     }
     public void setServices(ArrayList<Service> services) {
@@ -57,7 +58,7 @@ public class HotelService implements IServiceService {
 
     @Override
     public void listOrder() {
-        services = serviceDao.getServices();
+        services = serviceDao.allServices();
         services.forEach(System.out::println);
     }
 
@@ -67,7 +68,7 @@ public class HotelService implements IServiceService {
             logger.info("Cost is below zero");
         }
         else {
-            services = serviceDao.getServices();
+            services = serviceDao.allServices();
             Service service = services.get(indexOrder);
             service.setPrice(newPrice);
             services.set(indexOrder, service);
@@ -76,7 +77,7 @@ public class HotelService implements IServiceService {
 
     @Override
     public Service viewService(int indexService) {
-        services = serviceDao.getServices();
+        services = serviceDao.allServices();
         if (indexService<services.size()){
             System.out.println(services.get(indexService));
             return services.get(indexService);

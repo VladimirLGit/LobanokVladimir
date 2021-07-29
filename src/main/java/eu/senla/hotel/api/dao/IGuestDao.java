@@ -11,4 +11,6 @@ public interface IGuestDao {
     void updateGuest(Guest guest) throws NotExistObject;
     List<Guest> allGuests();
     Guest readGuest(int id);
+    List<Guest> last3Guests();
+
 }
