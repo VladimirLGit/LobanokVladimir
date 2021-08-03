@@ -3,13 +3,13 @@ package eu.senla.hotel.dao.collection;
 import eu.senla.hotel.api.dao.IServiceDao;
 import eu.senla.hotel.exception.NotExistObject;
 import eu.senla.hotel.model.Guest;
+import eu.senla.hotel.model.Room;
 import eu.senla.hotel.model.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class LServiceDao implements IServiceDao {
-    private int id;
     private List<Service> services;
 
     public LServiceDao() {
@@ -26,7 +26,11 @@ public class LServiceDao implements IServiceDao {
 
     @Override
     public void addService(Service service) {
-        service.setId(id++);
+        int newId = services.stream()
+                .mapToInt(Service::getId)
+                .summaryStatistics()
+                .getMax();
+        service.setId(newId + 1);
         services.add(service);
     }
 

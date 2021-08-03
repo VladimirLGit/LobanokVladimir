@@ -1,5 +1,6 @@
 package eu.senla.hotel.api.sevice;
 
+import eu.senla.hotel.api.dao.IServiceDao;
 import eu.senla.hotel.model.Guest;
 import eu.senla.hotel.model.Service;
 

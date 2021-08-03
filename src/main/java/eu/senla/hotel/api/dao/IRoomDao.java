@@ -13,4 +13,5 @@ public interface IRoomDao {
     List<Room> allRooms();
     Room checkGuest(int id);
     Room getRoomForId(int idRoom);
+    void setRooms(List<Room> rooms);
 }

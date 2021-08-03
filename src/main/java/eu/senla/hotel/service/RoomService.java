@@ -1,5 +1,6 @@
 package eu.senla.hotel.service;
 
+import eu.senla.hotel.api.dao.IGuestDao;
 import eu.senla.hotel.api.dao.IRoomDao;
 import eu.senla.hotel.api.sevice.IRoomService;
 import eu.senla.hotel.dao.RoomDao;
@@ -31,14 +32,22 @@ public class RoomService implements IRoomService {
     public static final Logger logger = Logger.getLogger(
             RoomService.class.getName());
 
-    private final IRoomDao roomDao;
+    private IRoomDao roomDao;
     @XmlElementWrapper(name = "roomList")
     @XmlElement(name = "Rooms")
     private List<Room> rooms;
 
+    public RoomService() {
+        roomDao = null;
+    }
+
     public RoomService(IRoomDao ds) {
         roomDao = ds;
         rooms = roomDao.allRooms();
+    }
+
+    public void reloadDao(IRoomDao ds) {
+        roomDao = ds;
     }
 
     @Override
@@ -111,6 +120,8 @@ public class RoomService implements IRoomService {
     }
 
     public List<Room> getRooms() {
+        if (roomDao == null)
+            return rooms;
         rooms = roomDao.allRooms();
         if (rooms.size()==0) {
             logger.info("no guests at the hotel");

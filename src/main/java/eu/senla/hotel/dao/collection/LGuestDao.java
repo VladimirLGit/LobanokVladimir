@@ -3,12 +3,12 @@ package eu.senla.hotel.dao.collection;
 import eu.senla.hotel.api.dao.IGuestDao;
 import eu.senla.hotel.exception.NotExistObject;
 import eu.senla.hotel.model.Guest;
+import eu.senla.mysql.model.PC;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class LGuestDao implements IGuestDao {
-    private int id;
     private List<Guest> guests;
 
     public LGuestDao() {
@@ -21,7 +21,11 @@ public class LGuestDao implements IGuestDao {
 
     @Override
     public void addGuest(Guest guest) {
-        guest.setId(id++);
+        int newId = guests.stream()
+                .mapToInt(Guest::getId)
+                .summaryStatistics()
+                .getMax();
+        guest.setId(newId + 1);
         guests.add(guest);
     }
 

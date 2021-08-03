@@ -181,6 +181,11 @@ public class GuestDao implements IGuestDao {
         return guests;
     }
 
+    @Override
+    public void setGuests(List<Guest> guests) {
+
+    }
+
     public List<Integer> allServicesGuest(Guest guest) {
         List<Integer> services = null;
         final String QUERY = "select * from linkService WHERE idGuest = ?;";

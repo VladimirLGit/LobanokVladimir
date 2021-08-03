@@ -1,5 +1,6 @@
 package eu.senla.hotel.api.sevice;
 
+import eu.senla.hotel.api.dao.IRoomDao;
 import eu.senla.hotel.exception.NoFreeRoomInTheHotel;
 import eu.senla.hotel.model.Guest;
 import eu.senla.hotel.model.Room;
@@ -21,10 +22,6 @@ public interface IRoomService {
     List<Room> listFreeRoomsForDate(LocalDate date);
     Room viewRoom(int indexRoom);
     List<Room> getRooms();
-
     void changePriceRoom(int newPrice, Room room);
-
     void changeStateRoom(StateRoom stateRoom, Room room);
-
-    //void setRooms(List<Room> rooms);
 }

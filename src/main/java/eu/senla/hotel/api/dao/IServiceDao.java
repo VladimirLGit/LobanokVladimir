@@ -13,4 +13,5 @@ public interface IServiceDao {
     void addOrderGuest(Guest guest, Service service);
     void deleteOrderGuest(Guest guestOut) throws NotExistObject;
     Service readService(Integer idService);
+    void setServices(List<Service> services);
 }

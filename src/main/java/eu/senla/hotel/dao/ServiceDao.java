@@ -154,4 +154,9 @@ public class ServiceDao implements IServiceDao {
         }
         return service;
     }
+
+    @Override
+    public void setServices(List<Service> services) {
+
+    }
 }

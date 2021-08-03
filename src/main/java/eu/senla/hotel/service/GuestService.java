@@ -25,11 +25,15 @@ public class GuestService implements IGuestService {
     public static final Logger logger = Logger.getLogger(
             GuestService.class.getName());
 
-    private final IGuestDao guestDao;
+    private IGuestDao guestDao;
     @XmlElementWrapper(name = "guestList")
     // XmlElement sets the name of the entities
     @XmlElement(name = "Guests")
     private List<Guest> guests;
+
+    public GuestService() {
+        guestDao = null;
+    }
 
     public GuestService(IGuestDao ds) {
         guestDao = ds;
@@ -55,6 +59,10 @@ public class GuestService implements IGuestService {
             }
             //guests.remove(index);
         }
+    }
+
+    public void reloadDao(IGuestDao ds) {
+        guestDao = ds;
     }
 
     public void updateGuest(Guest guest) {
@@ -93,6 +101,8 @@ public class GuestService implements IGuestService {
     }
 
     public List<Guest> getGuests() {
+        if (guestDao == null)
+            return guests;
         guests = guestDao.allGuests();
         if (guests.size() == 0) {
             logger.info("no guests at the hotel");

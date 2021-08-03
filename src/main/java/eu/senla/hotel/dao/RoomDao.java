@@ -169,6 +169,11 @@ public class RoomDao implements IRoomDao {
         return room;
     }
 
+    @Override
+    public void setRooms(List<Room> rooms) {
+
+    }
+
 
     @Override
     public List<Room> allRooms() {

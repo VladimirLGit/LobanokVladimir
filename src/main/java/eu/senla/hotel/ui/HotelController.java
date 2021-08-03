@@ -69,21 +69,7 @@ public class HotelController {
     private HotelController() {
         DataSource ds = null;
         try {
-            //System.out.printf("Resource Path: %s\n", HotelController.class
-            //        .getResource("").getPath());
-            //System.out.printf("Resource Path: %s\n", this.getClass().getClassLoader().getResource("").getPath());
-            //this.getClass().getClassLoader().getResource("").getPath().replace("/target/classes", "/src/main/resources/logging.properties");
-            //LogManager.getLogManager().readConfiguration(HotelController.class.getResourceAsStream("src/main/resources/logging.properties"));
             LogManager.getLogManager().readConfiguration(HotelController.class.getClassLoader().getResourceAsStream("logging.properties"));
-            /*LogManager.getLogManager()
-                    .readConfiguration(HotelController
-                            .class
-                            .getResourceAsStream(this
-                                    .getClass()
-                                    .getClassLoader()
-                                    .getResource("")
-                                    .getPath().replace("/target/classes/", "/src/main/resources/logging.properties")));
-            */
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -339,9 +325,9 @@ public class HotelController {
     }
 
     public void serializationMarshal() {
-        final String GUESTS_XML = "src/main/java/resources/guests-jaxb.xml";
-        final String ROOMS_XML = "src/main/java/resources/rooms-jaxb.xml";
-        final String SERVICES_XML = "src/main/java/resources/services-jaxb.xml";
+        final String GUESTS_XML = "src/main/resources/guests-jaxb.xml";
+        final String ROOMS_XML = "src/main/resources/rooms-jaxb.xml";
+        final String SERVICES_XML = "src/main/resources/services-jaxb.xml";
         //создание объекта Marshaller, который выполняет сериализацию
         JAXBContext context;
         try {
@@ -367,9 +353,9 @@ public class HotelController {
     }
 
     public void deserializationObjects() {
-        final String GUESTS_XML = "src/main/java/resources/guests-jaxb.xml";
-        final String ROOMS_XML = "src/main/java/resources/rooms-jaxb.xml";
-        final String SERVICES_XML = "src/main/java/resources/services-jaxb.xml";
+        final String GUESTS_XML = "src/main/resources/guests-jaxb.xml";
+        final String ROOMS_XML = "src/main/resources/rooms-jaxb.xml";
+        final String SERVICES_XML = "src/main/resources/services-jaxb.xml";
         //создание объекта Marshaller, который выполняет десериализацию
         JAXBContext context;
         try {
@@ -377,15 +363,18 @@ public class HotelController {
             Unmarshaller unmarshaller = context.createUnmarshaller();
             // сама десериализация
             GuestService guestService2 = (GuestService) unmarshaller.unmarshal(new File(GUESTS_XML));
-
+            guestDao.setGuests(guestService2.getGuests());
+            guestService2.reloadDao(guestDao);
             context = JAXBContext.newInstance(RoomService.class);
             unmarshaller = context.createUnmarshaller();
             RoomService roomService2 = (RoomService) unmarshaller.unmarshal(new File(ROOMS_XML));
-
+            roomDao.setRooms(roomService2.getRooms());
+            roomService2.reloadDao(roomDao);
             context = JAXBContext.newInstance(HotelService.class);
             unmarshaller = context.createUnmarshaller();
             HotelService hotelService2 = (HotelService) unmarshaller.unmarshal(new File(SERVICES_XML));
-
+            serviceDao.setServices(hotelService2.getServices());
+            hotelService2.reloadDao(serviceDao);
             guestService2.listGuests();
             roomService2.listNumber();
             hotelService2.listOrder();

@@ -99,10 +99,10 @@ public class GuestServiceTest {
         mainDao.createTableRooms();
         mainDao.createLinkTableRooms();
         mainDao.createTableServices();
-        guestService = new GuestService(ds);
-        roomService = new RoomService(ds);
+        guestService = new GuestService(guestDao);
+        roomService = new RoomService(roomDao);
         createRooms();
-        hotelService = new HotelService(ds);
+        hotelService = new HotelService(serviceDao);
         createServices();
     }
 

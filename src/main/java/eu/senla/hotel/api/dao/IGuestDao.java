@@ -12,5 +12,5 @@ public interface IGuestDao {
     List<Guest> allGuests();
     Guest readGuest(int id);
     List<Guest> last3Guests();
-
+    void setGuests(List<Guest> guests);
 }

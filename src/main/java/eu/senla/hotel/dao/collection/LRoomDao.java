@@ -2,13 +2,13 @@ package eu.senla.hotel.dao.collection;
 
 import eu.senla.hotel.api.dao.IRoomDao;
 import eu.senla.hotel.exception.NotExistObject;
+import eu.senla.hotel.model.Guest;
 import eu.senla.hotel.model.Room;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class LRoomDao implements IRoomDao {
-    private int id;
     private List<Room> rooms;
 
     public LRoomDao() {
@@ -25,7 +25,11 @@ public class LRoomDao implements IRoomDao {
 
     @Override
     public void addRoom(Room room) {
-        room.setId(id++);
+        int newId = rooms.stream()
+                .mapToInt(Room::getId)
+                .summaryStatistics()
+                .getMax();
+        room.setId(newId + 1);
         rooms.add(room);
     }
 

@@ -1,5 +1,6 @@
 package eu.senla.hotel.service;
 
+import eu.senla.hotel.api.dao.IGuestDao;
 import eu.senla.hotel.api.dao.IServiceDao;
 import eu.senla.hotel.api.sevice.IServiceService;
 import eu.senla.hotel.dao.ServiceDao;
@@ -22,15 +23,22 @@ public class HotelService implements IServiceService {
     public static final Logger logger = Logger.getLogger(
             HotelService.class.getName());
 
-    private final IServiceDao serviceDao;
+    private IServiceDao serviceDao;
 
     @XmlElementWrapper(name = "serviceList")
     @XmlElement(name = "Service")
     private List<Service> services;
 
+    public HotelService() {
+        serviceDao = null;
+    }
+
     public HotelService(IServiceDao ds) {
         serviceDao = ds;
         services = serviceDao.allServices();
+    }
+    public void reloadDao(IServiceDao ds) {
+        serviceDao = ds;
     }
 
     @Override
@@ -49,6 +57,8 @@ public class HotelService implements IServiceService {
     }
 
     public List<Service> getServices() {
+        if (serviceDao == null)
+            return services;
         services = serviceDao.allServices();
         return services;
     }
