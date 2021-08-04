@@ -7,6 +7,7 @@ import eu.senla.hotel.dao.ServiceDao;
 import eu.senla.hotel.dao.collection.LServiceDao;
 import eu.senla.hotel.model.Guest;
 import eu.senla.hotel.model.Service;
+import eu.senla.hotel.model.Services;
 
 import javax.sql.DataSource;
 import javax.xml.bind.annotation.XmlElement;
@@ -17,25 +18,34 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
-@XmlType(name = "hotelService")
-@XmlRootElement
+
 public class HotelService implements IServiceService {
     public static final Logger logger = Logger.getLogger(
             HotelService.class.getName());
 
     private IServiceDao serviceDao;
 
-    @XmlElementWrapper(name = "serviceList")
-    @XmlElement(name = "Service")
-    private List<Service> services;
+    private Services serviceObjects;
+
 
     public HotelService() {
+        serviceObjects = new Services();
         serviceDao = null;
     }
 
     public HotelService(IServiceDao ds) {
+        this();
         serviceDao = ds;
-        services = serviceDao.allServices();
+        serviceObjects.setServices(serviceDao.allServices());
+    }
+
+    @Override
+    public Services getServiceObjects() {
+        return serviceObjects;
+    }
+
+    public void setServiceObjects(Services serviceObjects) {
+        this.serviceObjects = serviceObjects;
     }
     public void reloadDao(IServiceDao ds) {
         serviceDao = ds;
@@ -57,19 +67,17 @@ public class HotelService implements IServiceService {
     }
 
     public List<Service> getServices() {
-        if (serviceDao == null)
-            return services;
-        services = serviceDao.allServices();
-        return services;
+        serviceObjects.setServices(serviceDao.allServices());
+        return serviceObjects.getServices();
     }
     public void setServices(ArrayList<Service> services) {
-        this.services = services;
+        this.serviceObjects.setServices(services);
     }
 
     @Override
     public void listOrder() {
-        services = serviceDao.allServices();
-        services.forEach(System.out::println);
+        serviceObjects.setServices(serviceDao.allServices());
+        serviceObjects.getServices().forEach(System.out::println);
     }
 
     @Override
@@ -78,19 +86,19 @@ public class HotelService implements IServiceService {
             logger.info("Cost is below zero");
         }
         else {
-            services = serviceDao.allServices();
-            Service service = services.get(indexOrder);
+            serviceObjects.setServices(serviceDao.allServices());
+            Service service = serviceObjects.getServices().get(indexOrder);
             service.setPrice(newPrice);
-            services.set(indexOrder, service);
+            serviceObjects.getServices().set(indexOrder, service);
         }
     }
 
     @Override
     public Service viewService(int indexService) {
-        services = serviceDao.allServices();
-        if (indexService<services.size()){
-            System.out.println(services.get(indexService));
-            return services.get(indexService);
+        serviceObjects.setServices(serviceDao.allServices());
+        if (indexService<serviceObjects.getServices().size()){
+            System.out.println(serviceObjects.getServices().get(indexService));
+            return serviceObjects.getServices().get(indexService);
         }
         else
             System.out.println("Такой услуги не существует");

@@ -1,6 +1,7 @@
 package eu.senla.hotel.api.sevice;
 
 import eu.senla.hotel.model.Guest;
+import eu.senla.hotel.model.Guests;
 import eu.senla.hotel.model.Service;
 import java.util.List;
 
@@ -18,5 +19,7 @@ public interface IGuestService {
     void updateGuest(Guest guest);
 
     void listGuests();
+
+    Guests getGuestObjects();
 }
 

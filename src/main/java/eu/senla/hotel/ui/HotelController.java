@@ -25,10 +25,7 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.*;
@@ -331,7 +328,10 @@ public class HotelController {
         //создание объекта Marshaller, который выполняет сериализацию
         JAXBContext context;
         try {
-            context = JAXBContext.newInstance(GuestService.class);
+            marshalIt(guestService.getGuestObjects(), GUESTS_XML);
+            marshalIt(roomService.getRoomObjects(), ROOMS_XML);
+            marshalIt(hotelService.getServiceObjects(), SERVICES_XML);
+            /*context = JAXBContext.newInstance(GuestService.class);
             Marshaller marshaller = context.createMarshaller();
             marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
             // сама сериализация
@@ -344,7 +344,7 @@ public class HotelController {
             context = JAXBContext.newInstance(HotelService.class);
             marshaller = context.createMarshaller();
             marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
-            marshaller.marshal(hotelService, new File(SERVICES_XML));
+            marshaller.marshal(hotelService, new File(SERVICES_XML));*/
 
         } catch (JAXBException e) {
             e.printStackTrace();
@@ -382,6 +382,28 @@ public class HotelController {
         } catch (JAXBException e) {
             e.printStackTrace();
         }
+    }
+
+    public void marshalIt(Object objectName, String path) throws JAXBException {
+
+        JAXBContext jaxbContext = JAXBContext.newInstance(objectName.getClass());
+        Marshaller marshaller = jaxbContext.createMarshaller();
+        // For Pretty printing output
+        marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+        marshaller.marshal(objectName, new File(path));
+
+    }
+
+    public static Object unmarshalIt(Class<?> className, String xml) throws JAXBException {
+
+        JAXBContext jaxbContext = JAXBContext.newInstance(className);
+
+        Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
+
+        StringReader reader = new StringReader(xml);
+
+        return unmarshaller.unmarshal(reader);
+
     }
 
 }

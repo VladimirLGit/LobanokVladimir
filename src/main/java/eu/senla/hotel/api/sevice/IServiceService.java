@@ -3,6 +3,7 @@ package eu.senla.hotel.api.sevice;
 import eu.senla.hotel.api.dao.IServiceDao;
 import eu.senla.hotel.model.Guest;
 import eu.senla.hotel.model.Service;
+import eu.senla.hotel.model.Services;
 
 import java.util.List;
 
@@ -15,4 +16,7 @@ public interface IServiceService {
     Service viewService(int indexService);
 
     List<Service> getServices();
+
+    Services getServiceObjects();
 }
+
