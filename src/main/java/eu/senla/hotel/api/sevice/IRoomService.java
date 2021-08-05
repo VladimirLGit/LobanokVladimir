@@ -14,7 +14,7 @@ import java.util.List;
 public interface IRoomService {
     void addRoom(Room room);
     void deleteRoom(Room room);
-    void checkIn(Guest guest);
+    boolean checkIn(Guest guest);
     void checkOut(Guest guest);
     void listNumber();
     List<Room> listFreeRooms() throws NoFreeRoomInTheHotel;
@@ -27,4 +27,5 @@ public interface IRoomService {
     void changeStateRoom(StateRoom stateRoom, Room room);
 
     Rooms getRoomObjects();
+    void setRoomObjects(Rooms rooms);
 }

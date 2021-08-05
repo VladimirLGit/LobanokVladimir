@@ -21,7 +21,7 @@ public class LGuestDao implements IGuestDao {
 
     @Override
     public void addGuest(Guest guest) {
-        int newId = guests.stream()
+        int newId = guests.size() == 0 ? 0 : guests.stream()
                 .mapToInt(Guest::getId)
                 .summaryStatistics()
                 .getMax();

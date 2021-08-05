@@ -18,5 +18,6 @@ public interface IServiceService {
     List<Service> getServices();
 
     Services getServiceObjects();
+    void setServiceObjects(Services services);
 }
 

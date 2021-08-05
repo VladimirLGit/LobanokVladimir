@@ -1,22 +1,13 @@
 package eu.senla.hotel.service;
 
-import eu.senla.hotel.api.dao.IGuestDao;
 import eu.senla.hotel.api.dao.IRoomDao;
 import eu.senla.hotel.api.sevice.IRoomService;
-import eu.senla.hotel.dao.RoomDao;
-import eu.senla.hotel.dao.collection.LRoomDao;
 import eu.senla.hotel.exception.NoFreeRoomInTheHotel;
 import eu.senla.hotel.exception.NotExistObject;
 import eu.senla.hotel.model.Guest;
 import eu.senla.hotel.model.Room;
 import eu.senla.hotel.model.Rooms;
 import eu.senla.hotel.model.StateRoom;
-
-import javax.sql.DataSource;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlElementWrapper;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
 
 import static java.time.temporal.ChronoUnit.DAYS;
 
@@ -33,7 +24,6 @@ public class RoomService implements IRoomService {
             RoomService.class.getName());
 
     private IRoomDao roomDao;
-
     private Rooms roomObjects;
 
     public RoomService() {
@@ -54,10 +44,8 @@ public class RoomService implements IRoomService {
 
     public void setRoomObjects(Rooms roomObjects) {
         this.roomObjects = roomObjects;
-    }
+        this.roomDao.setRooms(roomObjects.getRooms());
 
-    public void reloadDao(IRoomDao ds) {
-        roomDao = ds;
     }
 
     @Override
@@ -79,7 +67,7 @@ public class RoomService implements IRoomService {
     }
 
     @Override
-    public void checkIn(Guest guest) {
+    public boolean checkIn(Guest guest) {
         Random RANDOM = new Random();
         List<Room> freeRooms;
         try {
@@ -91,9 +79,11 @@ public class RoomService implements IRoomService {
             roomDao.updateRoom(room);
             //roomDao.addLinkGuestWithRoom(guest, room);
             guest.setIdRoom(room.getId()); //поселили гостя в комнату без критериев
+            return true;
         } catch (NoFreeRoomInTheHotel | NotExistObject noFreeRoomInTheHotel) {
             logger.info(noFreeRoomInTheHotel.getMessage());
         }
+        return false;
 
     }
 
@@ -141,6 +131,7 @@ public class RoomService implements IRoomService {
 
     public void setRoomsList(List<Room> roomsList) {
         this.roomObjects.setRooms(roomsList);
+        this.roomDao.setRooms(roomsList);
     }
 
     @Override

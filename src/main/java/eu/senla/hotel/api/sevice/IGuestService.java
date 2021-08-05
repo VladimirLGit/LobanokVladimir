@@ -21,5 +21,6 @@ public interface IGuestService {
     void listGuests();
 
     Guests getGuestObjects();
+    void setGuestObjects(Guests guests);
 }
 

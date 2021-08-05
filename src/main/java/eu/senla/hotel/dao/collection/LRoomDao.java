@@ -25,7 +25,7 @@ public class LRoomDao implements IRoomDao {
 
     @Override
     public void addRoom(Room room) {
-        int newId = rooms.stream()
+        int newId = rooms.size() == 0 ? 0 : rooms.stream()
                 .mapToInt(Room::getId)
                 .summaryStatistics()
                 .getMax();

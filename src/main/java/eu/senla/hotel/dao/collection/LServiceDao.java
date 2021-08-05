@@ -26,7 +26,7 @@ public class LServiceDao implements IServiceDao {
 
     @Override
     public void addService(Service service) {
-        int newId = services.stream()
+        int newId = services.size() == 0 ? 0 : services.stream()
                 .mapToInt(Service::getId)
                 .summaryStatistics()
                 .getMax();

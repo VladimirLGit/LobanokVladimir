@@ -43,6 +43,7 @@ public class GuestService implements IGuestService {
 
     public void setGuestObjects(Guests guestObjects) {
         this.guestObjects = guestObjects;
+        this.guestDao.setGuests(guestObjects.getGuestsList());
     }
 
     @Override
@@ -64,10 +65,6 @@ public class GuestService implements IGuestService {
             }
             //guests.remove(index);
         }
-    }
-
-    public void reloadDao(IGuestDao ds) {
-        guestDao = ds;
     }
 
     public void updateGuest(Guest guest) {
@@ -115,6 +112,7 @@ public class GuestService implements IGuestService {
 
     public void setGuestList(List<Guest> guestList) {
         this.guestObjects.setGuestsList(guestList);
+        this.guestDao.setGuests(guestList);
     }
 
 

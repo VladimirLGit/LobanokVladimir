@@ -245,13 +245,15 @@ public class HotelController {
             for (Guest guest : guests) {
                 if ((guest.getState() == StateGuest.NO_STATE) &&
                         (guest.getName().equals(nameGuest))) {
-                    LocalDate today = LocalDate.now();
-                    guest.setState(StateGuest.CHECK_IN);
-                    guest.setDateOfCheckIn(today);
-                    Random RANDOM = new Random();
-                    guest.setDateOfCheckOut(today.plusDays(RANDOM.nextInt(5) + 1));
-                    roomService.checkIn(guest);
-                    guestService.updateGuest(guest);
+
+                    if (roomService.checkIn(guest)) {
+                        LocalDate today = LocalDate.now();
+                        guest.setState(StateGuest.CHECK_IN);
+                        guest.setDateOfCheckIn(today);
+                        Random RANDOM = new Random();
+                        guest.setDateOfCheckOut(today.plusDays(RANDOM.nextInt(5) + 1));
+                        guestService.updateGuest(guest);
+                    }
                     break;
                 }
             }
@@ -325,27 +327,10 @@ public class HotelController {
         final String GUESTS_XML = "src/main/resources/guests-jaxb.xml";
         final String ROOMS_XML = "src/main/resources/rooms-jaxb.xml";
         final String SERVICES_XML = "src/main/resources/services-jaxb.xml";
-        //создание объекта Marshaller, который выполняет сериализацию
-        JAXBContext context;
         try {
             marshalIt(guestService.getGuestObjects(), GUESTS_XML);
             marshalIt(roomService.getRoomObjects(), ROOMS_XML);
             marshalIt(hotelService.getServiceObjects(), SERVICES_XML);
-            /*context = JAXBContext.newInstance(GuestService.class);
-            Marshaller marshaller = context.createMarshaller();
-            marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
-            // сама сериализация
-            // Write to File
-            marshaller.marshal(guestService, new File(GUESTS_XML));
-            context = JAXBContext.newInstance(RoomService.class);
-            marshaller = context.createMarshaller();
-            marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
-            marshaller.marshal(roomService, new File(ROOMS_XML));
-            context = JAXBContext.newInstance(HotelService.class);
-            marshaller = context.createMarshaller();
-            marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
-            marshaller.marshal(hotelService, new File(SERVICES_XML));*/
-
         } catch (JAXBException e) {
             e.printStackTrace();
         }
@@ -356,28 +341,14 @@ public class HotelController {
         final String GUESTS_XML = "src/main/resources/guests-jaxb.xml";
         final String ROOMS_XML = "src/main/resources/rooms-jaxb.xml";
         final String SERVICES_XML = "src/main/resources/services-jaxb.xml";
-        //создание объекта Marshaller, который выполняет десериализацию
-        JAXBContext context;
         try {
-            context = JAXBContext.newInstance(GuestService.class);
-            Unmarshaller unmarshaller = context.createUnmarshaller();
-            // сама десериализация
-            GuestService guestService2 = (GuestService) unmarshaller.unmarshal(new File(GUESTS_XML));
-            guestDao.setGuests(guestService2.getGuests());
-            guestService2.reloadDao(guestDao);
-            context = JAXBContext.newInstance(RoomService.class);
-            unmarshaller = context.createUnmarshaller();
-            RoomService roomService2 = (RoomService) unmarshaller.unmarshal(new File(ROOMS_XML));
-            roomDao.setRooms(roomService2.getRooms());
-            roomService2.reloadDao(roomDao);
-            context = JAXBContext.newInstance(HotelService.class);
-            unmarshaller = context.createUnmarshaller();
-            HotelService hotelService2 = (HotelService) unmarshaller.unmarshal(new File(SERVICES_XML));
-            serviceDao.setServices(hotelService2.getServices());
-            hotelService2.reloadDao(serviceDao);
-            guestService2.listGuests();
-            roomService2.listNumber();
-            hotelService2.listOrder();
+            guestService.setGuestObjects((Guests)unmarshalIt(Guests.class, GUESTS_XML));
+            roomService.setRoomObjects((Rooms)unmarshalIt(Rooms.class, ROOMS_XML));
+            hotelService.setServiceObjects((Services)unmarshalIt(Services.class, SERVICES_XML));
+
+            guestService.listGuests();
+            roomService.listNumber();
+            hotelService.listOrder();
 
         } catch (JAXBException e) {
             e.printStackTrace();
@@ -394,15 +365,11 @@ public class HotelController {
 
     }
 
-    public static Object unmarshalIt(Class<?> className, String xml) throws JAXBException {
+    public static Object unmarshalIt(Class<?> className, String path) throws JAXBException {
 
         JAXBContext jaxbContext = JAXBContext.newInstance(className);
-
         Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
-
-        StringReader reader = new StringReader(xml);
-
-        return unmarshaller.unmarshal(reader);
+        return unmarshaller.unmarshal(new File(path));
 
     }
 

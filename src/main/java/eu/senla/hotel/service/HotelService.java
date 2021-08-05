@@ -24,9 +24,7 @@ public class HotelService implements IServiceService {
             HotelService.class.getName());
 
     private IServiceDao serviceDao;
-
     private Services serviceObjects;
-
 
     public HotelService() {
         serviceObjects = new Services();
@@ -46,6 +44,7 @@ public class HotelService implements IServiceService {
 
     public void setServiceObjects(Services serviceObjects) {
         this.serviceObjects = serviceObjects;
+        this.serviceDao.setServices(serviceObjects.getServices());
     }
     public void reloadDao(IServiceDao ds) {
         serviceDao = ds;
@@ -72,6 +71,7 @@ public class HotelService implements IServiceService {
     }
     public void setServices(ArrayList<Service> services) {
         this.serviceObjects.setServices(services);
+        this.serviceDao.setServices(services);
     }
 
     @Override
