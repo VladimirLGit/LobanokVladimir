@@ -22,28 +22,16 @@ public class GuestService implements IGuestService {
     public static final Logger logger = Logger.getLogger(
             GuestService.class.getName());
 
-    private IGuestDao guestDao;
-
-    private Guests guestObjects;
+    private final IGuestDao guestDao;
+    private List<Guest> guests;
 
     public GuestService() {
-        guestObjects = new Guests();
         guestDao = null;
     }
 
     public GuestService(IGuestDao ds) {
-        this();
         guestDao = ds;
-        guestObjects.setGuestsList(guestDao.allGuests());
-    }
-
-    public Guests getGuestObjects() {
-        return guestObjects;
-    }
-
-    public void setGuestObjects(Guests guestObjects) {
-        this.guestObjects = guestObjects;
-        this.guestDao.setGuests(guestObjects.getGuestsList());
+        guests = guestDao.allGuests();
     }
 
     @Override
@@ -54,8 +42,8 @@ public class GuestService implements IGuestService {
 
     @Override
     public void deleteGuest(Guest guest) {
-        guestObjects.setGuestsList(guestDao.allGuests());
-        int index = guestObjects.getGuestsList().indexOf(guest);
+        guests = guestDao.allGuests();
+        int index = guests.indexOf(guest);
         if (index != -1) {
             guest.setState(StateGuest.CHECK_OUT);
             try {
@@ -88,8 +76,8 @@ public class GuestService implements IGuestService {
 
     @Override
     public void leave(Guest guest) {
-        guestObjects.setGuestsList(guestDao.allGuests());
-        int index = guestObjects.getGuestsList().indexOf(guest);
+        guests = guestDao.allGuests();
+        int index = guests.indexOf(guest);
         if (index != -1) {
             guest.setState(StateGuest.CHECK_OUT);
             try {
@@ -103,16 +91,16 @@ public class GuestService implements IGuestService {
     }
 
     public List<Guest> getGuests() {
-        guestObjects.setGuestsList(guestDao.allGuests());
-        if (guestObjects.getGuestsList().size() == 0) {
+        guests = guestDao.allGuests();
+        if (guests.size() == 0) {
             logger.info("no guests at the hotel");
         }
-        return guestObjects.getGuestsList();
+        return guests;
     }
 
-    public void setGuestList(List<Guest> guestList) {
-        this.guestObjects.setGuestsList(guestList);
-        this.guestDao.setGuests(guestList);
+    public void setGuests(List<Guest> guestList) {
+        if (guestList != null)
+            this.guestDao.setGuests(guestList);
     }
 
 
@@ -124,10 +112,10 @@ public class GuestService implements IGuestService {
 
     @Override
     public List<Guest> last3Guests() {
-        guestObjects.setGuestsList(guestDao.allGuests());
+        guests = guestDao.allGuests();
         List<Guest> last3Guest = new ArrayList<>();
-        for (int i = guestObjects.getGuestsList().size() - 1; i >= 0; i--) {
-            last3Guest.add(guestObjects.getGuestsList().get(i));
+        for (int i = guests.size() - 1; i >= 0; i--) {
+            last3Guest.add(guests.get(i));
             if (last3Guest.size() == 3) break;
         }
 
@@ -145,24 +133,24 @@ public class GuestService implements IGuestService {
 
     @Override
     public int amountGuests() {
-        guestObjects.setGuestsList(guestDao.allGuests());
-        return guestObjects.getGuestsList().size();
+        guests = guestDao.allGuests();
+        return guests.size();
     }
 
     @Override
     public Guest viewGuest(int indexGuest) {
-        guestObjects.setGuestsList(guestDao.allGuests());
-        if (indexGuest < guestObjects.getGuestsList().size()) {
-            System.out.println(guestObjects.getGuestsList().get(indexGuest));
-            return guestObjects.getGuestsList().get(indexGuest);
+        guests = guestDao.allGuests();
+        if (indexGuest < guests.size()) {
+            System.out.println(guests.get(indexGuest));
+            return guests.get(indexGuest);
         } else
             System.out.println("Такого гостя нет");
         return null;
     }
 
     public void listGuests() {
-        guestObjects.setGuestsList(guestDao.allGuests());
-        for (Guest guest : guestObjects.getGuestsList()) {
+        guests = guestDao.allGuests();
+        for (Guest guest : guests) {
             System.out.println(guest);
         }
     }

@@ -15,12 +15,9 @@ public interface IGuestService {
     List<Guest> last3Guests();
     int amountGuests();
     List<Guest> getGuests();
-
+    void setGuests(List<Guest> guests);
     void updateGuest(Guest guest);
-
     void listGuests();
 
-    Guests getGuestObjects();
-    void setGuestObjects(Guests guests);
 }
 

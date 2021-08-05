@@ -328,9 +328,15 @@ public class HotelController {
         final String ROOMS_XML = "src/main/resources/rooms-jaxb.xml";
         final String SERVICES_XML = "src/main/resources/services-jaxb.xml";
         try {
-            marshalIt(guestService.getGuestObjects(), GUESTS_XML);
-            marshalIt(roomService.getRoomObjects(), ROOMS_XML);
-            marshalIt(hotelService.getServiceObjects(), SERVICES_XML);
+            Guests guests = new Guests();
+            guests.setGuestsList(guestService.getGuests());
+            marshalIt(guests, GUESTS_XML);
+            Rooms rooms = new Rooms();
+            rooms.setRooms(roomService.getRooms());
+            marshalIt(rooms, ROOMS_XML);
+            Services services = new Services();
+            services.setServices(hotelService.getServices());
+            marshalIt(services, SERVICES_XML);
         } catch (JAXBException e) {
             e.printStackTrace();
         }
@@ -342,9 +348,12 @@ public class HotelController {
         final String ROOMS_XML = "src/main/resources/rooms-jaxb.xml";
         final String SERVICES_XML = "src/main/resources/services-jaxb.xml";
         try {
-            guestService.setGuestObjects((Guests)unmarshalIt(Guests.class, GUESTS_XML));
-            roomService.setRoomObjects((Rooms)unmarshalIt(Rooms.class, ROOMS_XML));
-            hotelService.setServiceObjects((Services)unmarshalIt(Services.class, SERVICES_XML));
+            Guests guests = (Guests)unmarshalIt(Guests.class, GUESTS_XML);
+            guestService.setGuests(guests.getGuestsList());
+            Rooms rooms = (Rooms)unmarshalIt(Rooms.class, ROOMS_XML);
+            roomService.setRooms(rooms.getRooms());
+            Services services = (Services)unmarshalIt(Services.class, SERVICES_XML);
+            hotelService.setServices(services.getServices());
 
             guestService.listGuests();
             roomService.listNumber();

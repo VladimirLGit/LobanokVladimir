@@ -23,9 +23,8 @@ public interface IRoomService {
     List<Room> listFreeRoomsForDate(LocalDate date);
     Room viewRoom(int indexRoom);
     List<Room> getRooms();
+    void setRooms(List<Room> rooms);
     void changePriceRoom(int newPrice, Room room);
     void changeStateRoom(StateRoom stateRoom, Room room);
 
-    Rooms getRoomObjects();
-    void setRoomObjects(Rooms rooms);
 }

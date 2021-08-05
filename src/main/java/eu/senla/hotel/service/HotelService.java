@@ -24,30 +24,15 @@ public class HotelService implements IServiceService {
             HotelService.class.getName());
 
     private IServiceDao serviceDao;
-    private Services serviceObjects;
+    private List<Service> services;
 
     public HotelService() {
-        serviceObjects = new Services();
         serviceDao = null;
     }
 
     public HotelService(IServiceDao ds) {
-        this();
         serviceDao = ds;
-        serviceObjects.setServices(serviceDao.allServices());
-    }
-
-    @Override
-    public Services getServiceObjects() {
-        return serviceObjects;
-    }
-
-    public void setServiceObjects(Services serviceObjects) {
-        this.serviceObjects = serviceObjects;
-        this.serviceDao.setServices(serviceObjects.getServices());
-    }
-    public void reloadDao(IServiceDao ds) {
-        serviceDao = ds;
+        services = serviceDao.allServices();
     }
 
     @Override
@@ -66,18 +51,18 @@ public class HotelService implements IServiceService {
     }
 
     public List<Service> getServices() {
-        serviceObjects.setServices(serviceDao.allServices());
-        return serviceObjects.getServices();
+        services = serviceDao.allServices();
+        return services;
     }
-    public void setServices(ArrayList<Service> services) {
-        this.serviceObjects.setServices(services);
-        this.serviceDao.setServices(services);
+    public void setServices(List<Service> services) {
+        if (services != null)
+            this.serviceDao.setServices(services);
     }
 
     @Override
     public void listOrder() {
-        serviceObjects.setServices(serviceDao.allServices());
-        serviceObjects.getServices().forEach(System.out::println);
+        services = serviceDao.allServices();
+        services.forEach(System.out::println);
     }
 
     @Override
@@ -86,19 +71,19 @@ public class HotelService implements IServiceService {
             logger.info("Cost is below zero");
         }
         else {
-            serviceObjects.setServices(serviceDao.allServices());
-            Service service = serviceObjects.getServices().get(indexOrder);
+            services = serviceDao.allServices();
+            Service service = services.get(indexOrder);
             service.setPrice(newPrice);
-            serviceObjects.getServices().set(indexOrder, service);
+            services.set(indexOrder, service);
         }
     }
 
     @Override
     public Service viewService(int indexService) {
-        serviceObjects.setServices(serviceDao.allServices());
-        if (indexService<serviceObjects.getServices().size()){
-            System.out.println(serviceObjects.getServices().get(indexService));
-            return serviceObjects.getServices().get(indexService);
+        services = serviceDao.allServices();
+        if (indexService<services.size()){
+            System.out.println(services.get(indexService));
+            return services.get(indexService);
         }
         else
             System.out.println("Такой услуги не существует");

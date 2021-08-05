@@ -14,10 +14,7 @@ public interface IServiceService {
     void listOrder();
     void changePriceOrder(int indexOrder, int newPrice);
     Service viewService(int indexService);
-
     List<Service> getServices();
-
-    Services getServiceObjects();
-    void setServiceObjects(Services services);
+    void setServices(List<Service> services);
 }
 

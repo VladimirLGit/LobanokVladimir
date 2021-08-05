@@ -6,10 +6,7 @@ import eu.senla.hotel.exception.NoFreeRoomInTheHotel;
 import eu.senla.hotel.exception.NotExistObject;
 import eu.senla.hotel.model.Guest;
 import eu.senla.hotel.model.Room;
-import eu.senla.hotel.model.Rooms;
 import eu.senla.hotel.model.StateRoom;
-
-import static java.time.temporal.ChronoUnit.DAYS;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -18,35 +15,25 @@ import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import static java.time.temporal.ChronoUnit.DAYS;
+
 
 public class RoomService implements IRoomService {
     public static final Logger logger = Logger.getLogger(
             RoomService.class.getName());
 
-    private IRoomDao roomDao;
-    private Rooms roomObjects;
+    private final IRoomDao roomDao;
+    private List<Room> rooms;
 
     public RoomService() {
-        roomObjects = new Rooms();
         roomDao = null;
     }
 
     public RoomService(IRoomDao ds) {
-        this();
         roomDao = ds;
-        roomObjects.setRooms(roomDao.allRooms());
+        rooms = roomDao.allRooms();
     }
 
-    @Override
-    public Rooms getRoomObjects() {
-        return roomObjects;
-    }
-
-    public void setRoomObjects(Rooms roomObjects) {
-        this.roomObjects = roomObjects;
-        this.roomDao.setRooms(roomObjects.getRooms());
-
-    }
 
     @Override
     public void addRoom(Room room) {
@@ -96,10 +83,10 @@ public class RoomService implements IRoomService {
         int amountOfDaysOfStay = 0;
         int priceRoom = 0;
         Room room = roomDao.getRoomForId(idRoom);
-        roomObjects.setRooms(roomDao.allRooms());
-        int indexRoom = roomObjects.getRooms().indexOf(room);
+        rooms = roomDao.allRooms();
+        int indexRoom = rooms.indexOf(room);
         if (indexRoom >= 0) {
-            room = roomObjects.getRooms().get(indexRoom);
+            room = rooms.get(indexRoom);
             room.setRating(RANDOM.nextInt(5));
             room.setState(StateRoom.FREE);
             room.deleteGuest(guest);
@@ -120,24 +107,22 @@ public class RoomService implements IRoomService {
     }
 
     public List<Room> getRooms() {
-        if (roomDao == null)
-            return roomObjects.getRooms();
-        roomObjects.setRooms(roomDao.allRooms());
-        if (roomObjects.getRooms().size()==0) {
+        rooms = roomDao.allRooms();
+        if (rooms.size() == 0) {
             logger.info("no guests at the hotel");
         }
-        return roomObjects.getRooms();
+        return rooms;
     }
 
-    public void setRoomsList(List<Room> roomsList) {
-        this.roomObjects.setRooms(roomsList);
-        this.roomDao.setRooms(roomsList);
+    public void setRooms(List<Room> roomsList) {
+        if (roomsList != null)
+            this.roomDao.setRooms(roomsList);
     }
 
     @Override
     public void listNumber() {
-        roomObjects.setRooms(roomDao.allRooms());
-        for (Room room : roomObjects.getRooms()) {
+        rooms = roomDao.allRooms();
+        for (Room room : rooms) {
             System.out.println(room);
         }
     }
@@ -170,7 +155,6 @@ public class RoomService implements IRoomService {
         if (room.getState() == state) {
             list.add(room);
         } else if (room.getState() == StateRoom.CHECKED) {
-
             dateCheckOut = room.getLastDayOfStay();
             if ((dateCheckOut != null) && (dateCheckOut.equals(date) || dateCheckOut.isBefore(date))) {
                 list.add(room);
@@ -181,8 +165,8 @@ public class RoomService implements IRoomService {
     @Override
     public List<Room> listFreeRooms() throws NoFreeRoomInTheHotel {
         List<Room> freeRooms = new ArrayList<>();
-        roomObjects.setRooms(roomDao.allRooms());
-        roomObjects.getRooms().forEach(room -> addStateRoom(room, StateRoom.FREE, freeRooms));
+        rooms = roomDao.allRooms();
+        rooms.forEach(room -> addStateRoom(room, StateRoom.FREE, freeRooms));
         if (freeRooms.size() == 0) {
             throw new NoFreeRoomInTheHotel("No free room in the hotel");
         } else
@@ -192,8 +176,8 @@ public class RoomService implements IRoomService {
     @Override
     public List<Room> listCheckedRooms() {
         List<Room> checkedRooms = new ArrayList<>();
-        roomObjects.setRooms(roomDao.allRooms());
-        roomObjects.getRooms().forEach(room -> addStateRoom(room, StateRoom.CHECKED, checkedRooms));
+        rooms = roomDao.allRooms();
+        rooms.forEach(room -> addStateRoom(room, StateRoom.CHECKED, checkedRooms));
         return checkedRooms;
     }
 
@@ -211,17 +195,17 @@ public class RoomService implements IRoomService {
     @Override
     public List<Room> listFreeRoomsForDate(LocalDate date) {
         List<Room> freeRooms = new ArrayList<>();
-        roomObjects.setRooms(roomDao.allRooms());
-        roomObjects.getRooms().forEach(room -> addStateRoom(room, StateRoom.FREE, date, freeRooms));
+        rooms = roomDao.allRooms();
+        rooms.forEach(room -> addStateRoom(room, StateRoom.FREE, date, freeRooms));
         return freeRooms;
     }
 
     @Override
     public Room viewRoom(int indexRoom) {
-        roomObjects.setRooms(roomDao.allRooms());
-        if (indexRoom < roomObjects.getRooms().size()) {
-            System.out.println(roomObjects.getRooms().get(indexRoom));
-            return roomObjects.getRooms().get(indexRoom);
+        rooms = roomDao.allRooms();
+        if (indexRoom < rooms.size()) {
+            System.out.println(rooms.get(indexRoom));
+            return rooms.get(indexRoom);
         } else
             System.out.println("Номер не существует");
         return null;
