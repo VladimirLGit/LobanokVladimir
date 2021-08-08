@@ -15,6 +15,9 @@ import eu.senla.hotel.dao.collection.LGuestDao;
 import eu.senla.hotel.dao.collection.LRoomDao;
 import eu.senla.hotel.dao.collection.LServiceDao;
 import eu.senla.hotel.dao.ds.DataSourceFactory;
+import eu.senla.hotel.dependency2.annotation.Autowired;
+import eu.senla.hotel.dependency2.annotation.Component;
+import eu.senla.hotel.dependency2.annotation.Qualifier;
 import eu.senla.hotel.model.*;
 import eu.senla.hotel.service.GuestService;
 import eu.senla.hotel.service.HotelService;
@@ -32,7 +35,7 @@ import java.util.*;
 import java.util.logging.LogManager;
 import java.util.logging.Logger;
 
-
+@Component
 public class HotelController {
     public final Logger logger = Logger.getLogger(
             HotelController.class.getName());
@@ -52,11 +55,17 @@ public class HotelController {
             "Чистка одежды",
             "Покупка сувениров",
             "Тренажерный зал"};
-    private static HotelController instance;
-
+    private HotelController instance; //static
+    @Autowired
+    @Qualifier(value = "LGuestDao")
     private IGuestDao guestDao;
+    @Autowired
+    @Qualifier(value = "LRoomDao")
     private IRoomDao roomDao;
+    @Autowired
+    @Qualifier(value = "LServiceDao")
     private IServiceDao serviceDao;
+
     private IGuestService guestService;
     private IRoomService roomService;
     private IServiceService hotelService;
@@ -80,7 +89,7 @@ public class HotelController {
     }
 
 
-    public static HotelController getInstance() {
+    public HotelController getInstance() { //static
         if (instance == null) {        //если объект еще не создан
             instance = new HotelController();    //создать новый объект
         }
@@ -89,9 +98,9 @@ public class HotelController {
 
 
     public void setUp(DataSource ds) {
-        guestDao = new LGuestDao();
-        roomDao = new LRoomDao();
-        serviceDao = new LServiceDao();
+        //guestDao = new LGuestDao();
+        //roomDao = new LRoomDao();
+        //serviceDao = new LServiceDao();
         guestService = new GuestService(guestDao);
         roomService = new RoomService(roomDao);
         hotelService = new HotelService(serviceDao);
