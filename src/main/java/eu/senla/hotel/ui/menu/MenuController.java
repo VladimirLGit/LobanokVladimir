@@ -12,13 +12,6 @@ public class MenuController {
     private Builder builder;
     private Navigator navigator;
     private MenuController() {
-        Injector injector;
-        injector = new Injector();
-        try {
-            injector.initFramework(MenuController.class);
-        } catch (InstantiationException | IllegalAccessException | ClassNotFoundException | IOException e) {
-            e.printStackTrace();
-        }
         builder = Builder.getInstance();
         builder.buildMenu();
         navigator = Navigator.getInstance();

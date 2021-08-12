@@ -1,6 +1,7 @@
 package eu.senla.hotel.dao.collection;
 
 import eu.senla.hotel.api.dao.IServiceDao;
+import eu.senla.hotel.dependency2.annotation.Component;
 import eu.senla.hotel.exception.NotExistObject;
 import eu.senla.hotel.model.Guest;
 import eu.senla.hotel.model.Room;
@@ -9,6 +10,7 @@ import eu.senla.hotel.model.Service;
 import java.util.ArrayList;
 import java.util.List;
 
+@Component
 public class LServiceDao implements IServiceDao {
     private List<Service> services;
 

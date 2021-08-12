@@ -7,17 +7,11 @@ import eu.senla.hotel.api.dao.IServiceDao;
 import eu.senla.hotel.api.sevice.IGuestService;
 import eu.senla.hotel.api.sevice.IRoomService;
 import eu.senla.hotel.api.sevice.IServiceService;
-import eu.senla.hotel.dao.GuestDao;
-import eu.senla.hotel.dao.MainDao;
-import eu.senla.hotel.dao.RoomDao;
-import eu.senla.hotel.dao.ServiceDao;
-import eu.senla.hotel.dao.collection.LGuestDao;
-import eu.senla.hotel.dao.collection.LRoomDao;
-import eu.senla.hotel.dao.collection.LServiceDao;
-import eu.senla.hotel.dao.ds.DataSourceFactory;
+
 import eu.senla.hotel.dependency2.annotation.Autowired;
 import eu.senla.hotel.dependency2.annotation.Component;
 import eu.senla.hotel.dependency2.annotation.Qualifier;
+
 import eu.senla.hotel.model.*;
 import eu.senla.hotel.service.GuestService;
 import eu.senla.hotel.service.HotelService;
@@ -29,10 +23,9 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 import java.io.*;
-import java.sql.SQLException;
+
 import java.time.LocalDate;
 import java.util.*;
-import java.util.logging.LogManager;
 import java.util.logging.Logger;
 
 @Component
@@ -72,21 +65,21 @@ public class HotelController {
 
 
 
-    private HotelController() {
-        DataSource ds = null;
-        try {
-            LogManager.getLogManager().readConfiguration(HotelController.class.getClassLoader().getResourceAsStream("logging.properties"));
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-
-        try {
-            ds = DataSourceFactory.getDataSource();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-        setUp(ds);
-    }
+//    private HotelController() {
+//        DataSource ds = null;
+//        try {
+//            LogManager.getLogManager().readConfiguration(HotelController.class.getClassLoader().getResourceAsStream("logging.properties"));
+//        } catch (Exception ex) {
+//            ex.printStackTrace();
+//        }
+//
+//        try {
+//            ds = DataSourceFactory.getDataSource();
+//        } catch (SQLException throwables) {
+//            throwables.printStackTrace();
+//        }
+//        setUp(ds);
+//    }
 
 
     public HotelController getInstance() { //static

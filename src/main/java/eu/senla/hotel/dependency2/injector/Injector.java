@@ -44,7 +44,7 @@ public class Injector {
 	 * initialize the injector framework
 	 */
 	public void initFramework(Class<?> mainClass)
-			throws InstantiationException, IllegalAccessException, ClassNotFoundException, IOException {
+			throws InstantiationException, IllegalAccessException, ClassNotFoundException, IOException, NoSuchFieldException {
 		Class<?>[] classes = ClassLoaderUtil.getClasses(mainClass.getPackage().getName());
 		Reflections reflections = new Reflections(mainClass.getPackage().getName());
 		Set<Class<?>> types = reflections.getTypesAnnotatedWith(Component.class);

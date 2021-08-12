@@ -1,6 +1,7 @@
 package eu.senla.hotel.dao.collection;
 
 import eu.senla.hotel.api.dao.IRoomDao;
+import eu.senla.hotel.dependency2.annotation.Component;
 import eu.senla.hotel.exception.NotExistObject;
 import eu.senla.hotel.model.Guest;
 import eu.senla.hotel.model.Room;
@@ -8,6 +9,7 @@ import eu.senla.hotel.model.Room;
 import java.util.ArrayList;
 import java.util.List;
 
+@Component
 public class LRoomDao implements IRoomDao {
     private List<Room> rooms;
 

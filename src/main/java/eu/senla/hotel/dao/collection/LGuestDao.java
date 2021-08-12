@@ -1,6 +1,7 @@
 package eu.senla.hotel.dao.collection;
 
 import eu.senla.hotel.api.dao.IGuestDao;
+import eu.senla.hotel.dependency2.annotation.Component;
 import eu.senla.hotel.exception.NotExistObject;
 import eu.senla.hotel.model.Guest;
 import eu.senla.mysql.model.PC;
@@ -8,6 +9,7 @@ import eu.senla.mysql.model.PC;
 import java.util.ArrayList;
 import java.util.List;
 
+@Component
 public class LGuestDao implements IGuestDao {
     private List<Guest> guests;
 
