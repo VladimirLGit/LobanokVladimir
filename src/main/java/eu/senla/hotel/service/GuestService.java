@@ -2,15 +2,11 @@ package eu.senla.hotel.service;
 
 import eu.senla.hotel.api.dao.IGuestDao;
 import eu.senla.hotel.api.sevice.IGuestService;
-import eu.senla.hotel.dao.collection.LGuestDao;
 import eu.senla.hotel.exception.NotExistObject;
 import eu.senla.hotel.model.Guest;
-import eu.senla.hotel.model.Guests;
 import eu.senla.hotel.model.Service;
 import eu.senla.hotel.model.StateGuest;
 
-import javax.sql.DataSource;
-import javax.xml.bind.annotation.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;

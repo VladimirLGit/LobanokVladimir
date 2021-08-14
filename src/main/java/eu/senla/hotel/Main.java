@@ -4,8 +4,10 @@
 
 package eu.senla.hotel;
 
+import eu.senla.hotel.ui.menu.MenuController;
+
 public class Main {
     public static void main(String[] args) {
-        //MenuController.getInstance().run();
+        MenuController.getInstance().run();
     }
 }

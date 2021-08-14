@@ -17,11 +17,8 @@ public class MyApplication {
     public void run(Class<?> mainClass) {
         System.out.println("Starting MyApplication...");
         this.startApplication(UserApplication.class);
-        try {
-            this.injector.getService(HotelController.class).setUp(DataSourceFactory.getDataSource());
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
+        this.injector.getService(HotelController.class).getInstance();
+        //this.injector.getService(HotelController.class).setUp(DataSourceFactory.getDataSource());
         System.out.println("\nStopping MyApplication...");
     }
 

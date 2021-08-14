@@ -4,5 +4,5 @@ import eu.senla.hotel.ui.HotelController;
 
 
 public abstract class AbstractAction {
-    protected HotelController hotelController = null;//  HotelController.getInstance();
+    protected HotelController hotelController = HotelController.getInstance();
 }

@@ -7,11 +7,8 @@ import org.reflections.Reflections;
 
 import java.io.IOException;
 import java.lang.reflect.Field;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 import java.util.Map.Entry;
-import java.util.Optional;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 import javax.management.RuntimeErrorException;
@@ -46,8 +43,15 @@ public class Injector {
 	public void initFramework(Class<?> mainClass)
 			throws InstantiationException, IllegalAccessException, ClassNotFoundException, IOException, NoSuchFieldException {
 		Class<?>[] classes = ClassLoaderUtil.getClasses(mainClass.getPackage().getName());
-		Reflections reflections = new Reflections(mainClass.getPackage().getName());
-		Set<Class<?>> types = reflections.getTypesAnnotatedWith(Component.class);
+		Set<Class<?>> types = new HashSet<>();
+		for (Class<?> classz : classes) {
+			if (classz.isAnnotationPresent(Component.class)) {
+				types.add(classz);
+			}
+		}
+
+		//Reflections reflections = new Reflections(mainClass.getPackage().getName());
+		//Set<Class<?>> types = reflections.getTypesAnnotatedWith(Component.class);
 
 		for (Class<?> implementationClass : types) {
 			Class<?>[] interfaces = implementationClass.getInterfaces();
