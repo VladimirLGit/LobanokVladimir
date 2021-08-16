@@ -23,22 +23,18 @@ public class RoomService implements IRoomService {
             RoomService.class.getName());
 
     private final IRoomDao roomDao;
-    private List<Room> rooms;
-
     public RoomService() {
         roomDao = null;
     }
 
     public RoomService(IRoomDao ds) {
         roomDao = ds;
-        rooms = roomDao.allRooms();
     }
 
 
     @Override
     public void addRoom(Room room) {
         roomDao.addRoom(room);
-        //rooms.add(room);
     }
 
     @Override
@@ -71,7 +67,6 @@ public class RoomService implements IRoomService {
             logger.info(noFreeRoomInTheHotel.getMessage());
         }
         return false;
-
     }
 
 
@@ -83,7 +78,7 @@ public class RoomService implements IRoomService {
         int amountOfDaysOfStay = 0;
         int priceRoom = 0;
         Room room = roomDao.getRoomForId(idRoom);
-        rooms = roomDao.allRooms();
+        List<Room> rooms = roomDao.allRooms();
         int indexRoom = rooms.indexOf(room);
         if (indexRoom >= 0) {
             room = rooms.get(indexRoom);
@@ -107,22 +102,17 @@ public class RoomService implements IRoomService {
     }
 
     public List<Room> getRooms() {
-        rooms = roomDao.allRooms();
-        if (rooms.size() == 0) {
-            logger.info("no guests at the hotel");
-        }
-        return rooms;
+        return roomDao.allRooms();
     }
 
     public void setRooms(List<Room> roomsList) {
         if (roomsList != null)
-            this.roomDao.setRooms(roomsList);
+            roomDao.setRooms(roomsList);
     }
 
     @Override
     public void listNumber() {
-        rooms = roomDao.allRooms();
-        for (Room room : rooms) {
+        for (Room room : roomDao.allRooms()) {
             System.out.println(room);
         }
     }
@@ -165,8 +155,7 @@ public class RoomService implements IRoomService {
     @Override
     public List<Room> listFreeRooms() throws NoFreeRoomInTheHotel {
         List<Room> freeRooms = new ArrayList<>();
-        rooms = roomDao.allRooms();
-        rooms.forEach(room -> addStateRoom(room, StateRoom.FREE, freeRooms));
+        roomDao.allRooms().forEach(room -> addStateRoom(room, StateRoom.FREE, freeRooms));
         if (freeRooms.size() == 0) {
             throw new NoFreeRoomInTheHotel("No free room in the hotel");
         } else
@@ -176,8 +165,7 @@ public class RoomService implements IRoomService {
     @Override
     public List<Room> listCheckedRooms() {
         List<Room> checkedRooms = new ArrayList<>();
-        rooms = roomDao.allRooms();
-        rooms.forEach(room -> addStateRoom(room, StateRoom.CHECKED, checkedRooms));
+        roomDao.allRooms().forEach(room -> addStateRoom(room, StateRoom.CHECKED, checkedRooms));
         return checkedRooms;
     }
 
@@ -195,14 +183,13 @@ public class RoomService implements IRoomService {
     @Override
     public List<Room> listFreeRoomsForDate(LocalDate date) {
         List<Room> freeRooms = new ArrayList<>();
-        rooms = roomDao.allRooms();
-        rooms.forEach(room -> addStateRoom(room, StateRoom.FREE, date, freeRooms));
+        roomDao.allRooms().forEach(room -> addStateRoom(room, StateRoom.FREE, date, freeRooms));
         return freeRooms;
     }
 
     @Override
     public Room viewRoom(int indexRoom) {
-        rooms = roomDao.allRooms();
+        List<Room> rooms = roomDao.allRooms();
         if (indexRoom < rooms.size()) {
             System.out.println(rooms.get(indexRoom));
             return rooms.get(indexRoom);

@@ -40,9 +40,10 @@ public class GuestDao implements IGuestDao {
 
     //INSERT IGNORE INTO `guests` (`IDGuest`, `Name`, `DateOfCheckIn`, `DateOfCheckOut`, `StateGuest`) VALUES (NULL, 'Tom', '2021-06-01', '2021-06-05', '1');
     @Override
-    public void addGuest(Guest guest) {
+    public boolean addGuest(Guest guest) {
         final String QUERY = "INSERT IGNORE INTO guests (Name, DateOfCheckIn, DateOfCheckOut, StateGuest) VALUES (?,?,?,?);";
         //return idRoom into ?;
+        int id = -1;
         try (Connection con = connector.getConnection()) {
             PreparedStatement preparedStatement = con.prepareStatement(QUERY, Statement.RETURN_GENERATED_KEYS);
             preparedStatement.setString(1, guest.getName());
@@ -52,7 +53,6 @@ public class GuestDao implements IGuestDao {
             preparedStatement.execute();
             // get the generated key for the id
             ResultSet rs = preparedStatement.getGeneratedKeys();
-            int id;
             if (rs.next()) {
                 id = rs.getInt(1);
                 guest.setId(id);
@@ -62,6 +62,7 @@ public class GuestDao implements IGuestDao {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
+        return id != -1;
     }
 
     @Override
@@ -71,6 +72,7 @@ public class GuestDao implements IGuestDao {
              Statement query = con.createStatement()) {
             int execute = query.executeUpdate(QUERY);
             if (execute > 0) {
+                guest.setState(StateGuest.CHECK_OUT);
                 System.out.println("Delete guest as " + guest.getName());
                 addGuestIntoHistory(guest);
             } else {

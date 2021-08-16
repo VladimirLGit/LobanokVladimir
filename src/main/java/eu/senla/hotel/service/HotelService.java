@@ -24,7 +24,6 @@ public class HotelService implements IServiceService {
             HotelService.class.getName());
 
     private IServiceDao serviceDao;
-    private List<Service> services;
 
     public HotelService() {
         serviceDao = null;
@@ -32,7 +31,6 @@ public class HotelService implements IServiceService {
 
     public HotelService(IServiceDao ds) {
         serviceDao = ds;
-        services = serviceDao.allServices();
     }
 
     @Override
@@ -43,16 +41,13 @@ public class HotelService implements IServiceService {
 
     public void addService(Service service){
         serviceDao.addService(service);
-        //services.add(service);
     }
     public void deleteService(Service service){
         serviceDao.deleteService(service);
-        //services.remove(service);
     }
 
     public List<Service> getServices() {
-        services = serviceDao.allServices();
-        return services;
+        return serviceDao.allServices();
     }
     public void setServices(List<Service> services) {
         if (services != null)
@@ -61,8 +56,7 @@ public class HotelService implements IServiceService {
 
     @Override
     public void listOrder() {
-        services = serviceDao.allServices();
-        services.forEach(System.out::println);
+        serviceDao.allServices().forEach(System.out::println);
     }
 
     @Override
@@ -71,16 +65,15 @@ public class HotelService implements IServiceService {
             logger.info("Cost is below zero");
         }
         else {
-            services = serviceDao.allServices();
-            Service service = services.get(indexOrder);
+            Service service = serviceDao.allServices().get(indexOrder);
             service.setPrice(newPrice);
-            services.set(indexOrder, service);
+            serviceDao.updateService(service);
         }
     }
 
     @Override
     public Service viewService(int indexService) {
-        services = serviceDao.allServices();
+        List<Service> services = serviceDao.allServices();
         if (indexService<services.size()){
             System.out.println(services.get(indexService));
             return services.get(indexService);
