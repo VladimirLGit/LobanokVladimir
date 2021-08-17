@@ -1,11 +1,62 @@
 package eu.senla.hotel.ui.menu;
 
+import eu.senla.hotel.dependency2.annotation.Autowired;
+import eu.senla.hotel.dependency2.annotation.Component;
+import eu.senla.hotel.dependency2.annotation.Qualifier;
 import eu.senla.hotel.ui.actions.*;
 
+@Component
 public class Builder {
     private static Builder instance;
     private Menu rootMenu;
-    private Builder() {}
+    @Autowired
+    @Qualifier(value = "AddGuest")
+    private IAction addGuest;
+    @Autowired
+    @Qualifier(value = "CheckInGuest")
+    private IAction checkInGuest;
+    @Autowired
+    @Qualifier(value = "CheckOutGuest")
+    private IAction checkOutGuest;
+    @Autowired
+    @Qualifier(value = "CallService")
+    private IAction callService;
+    @Autowired
+    @Qualifier(value = "ViewGuestsHotel")
+    private IAction viewGuestsHotel;
+    @Autowired
+    @Qualifier(value = "ChangePriceService")
+    private IAction changePriceService;
+    @Autowired
+    @Qualifier(value = "ViewServices")
+    private IAction viewServices;
+    @Autowired
+    @Qualifier(value = "DeleteService")
+    private IAction deleteService;
+    @Autowired
+    @Qualifier(value = "AddService")
+    private IAction addService;
+    @Autowired
+    @Qualifier(value = "ChangeStateRoom")
+    private IAction changeStateRoom;
+    @Autowired
+    @Qualifier(value = "ChangePriceRoom")
+    private IAction changePriceRoom;
+    @Autowired
+    @Qualifier(value = "ViewRooms")
+    private IAction viewRooms;
+    @Autowired
+    @Qualifier(value = "DeleteRoom")
+    private IAction deleteRoom;
+    @Autowired
+    @Qualifier(value = "AddRoom")
+    private IAction addRoom;
+    @Autowired
+    @Qualifier(value = "SerializationsObjects")
+    private IAction serializationsObjects;
+    @Autowired
+    @Qualifier(value = "DeserializationObject")
+    private IAction deserializationObject;
 
     public static Builder getInstance() {
         if(instance == null){		//если объект еще не создан
@@ -35,8 +86,8 @@ public class Builder {
 
     private Menu createSerializationsMenu(int indexMenu) {
         Menu serializationsMenu = new Menu(indexMenu,"SerializationsMenu");
-        serializationsMenu.addMenuItem(new MenuItem(0,"Загрузить объекты", new DeserializationObject(), serializationsMenu));
-        serializationsMenu.addMenuItem(new MenuItem(1,"Сохранить объекты", new SerializationsObjects(), serializationsMenu));
+        serializationsMenu.addMenuItem(new MenuItem(0,"Загрузить объекты", deserializationObject, serializationsMenu));
+        serializationsMenu.addMenuItem(new MenuItem(1,"Сохранить объекты", serializationsObjects, serializationsMenu));
         serializationsMenu.addMenuItem(new MenuItem(2,"Выход в предыдущее меню", ()->{
             System.out.println("----");
         }, rootMenu));
@@ -49,11 +100,11 @@ public class Builder {
 
     public Menu createRoomMenu(int index) {
         Menu roomMenu = new Menu(index,"RoomMenu");
-        roomMenu.addMenuItem(new MenuItem(0,"Добавить комнату", new AddRoom(), roomMenu));
-        roomMenu.addMenuItem(new MenuItem(1,"Удалить комнату", new DeleteRoom(), roomMenu));
-        roomMenu.addMenuItem(new MenuItem(2,"Вывести комнаты", new ViewRooms(), roomMenu));
-        roomMenu.addMenuItem(new MenuItem(3,"Изменить стоимость комнаты",new ChangePriceRoom(), roomMenu));
-        roomMenu.addMenuItem(new MenuItem(4,"Изменить статус комнаты", new ChangeStateRoom(), roomMenu));
+        roomMenu.addMenuItem(new MenuItem(0,"Добавить комнату", addRoom, roomMenu));
+        roomMenu.addMenuItem(new MenuItem(1,"Удалить комнату", deleteRoom, roomMenu));
+        roomMenu.addMenuItem(new MenuItem(2,"Вывести комнаты", viewRooms, roomMenu));
+        roomMenu.addMenuItem(new MenuItem(3,"Изменить стоимость комнаты",changePriceRoom, roomMenu));
+        roomMenu.addMenuItem(new MenuItem(4,"Изменить статус комнаты", changeStateRoom, roomMenu));
         roomMenu.addMenuItem(new MenuItem(5,"Выход в предыдущее меню", ()->{
             System.out.println("----");
         }, rootMenu));
@@ -63,10 +114,10 @@ public class Builder {
 
     public Menu createServiceMenu(int index) {
         Menu serviceMenu = new Menu(index,"ServiceMenu");
-        serviceMenu.addMenuItem(new MenuItem(0,"Добавить услугу", new AddService(), serviceMenu));
-        serviceMenu.addMenuItem(new MenuItem(1,"Удалить услугу", new DeleteService(), serviceMenu));
-        serviceMenu.addMenuItem(new MenuItem(2,"Вывести услуги", new ViewServices(), serviceMenu));
-        serviceMenu.addMenuItem(new MenuItem(3,"Изменить стоимость услуги", new ChangePriceService(), serviceMenu));
+        serviceMenu.addMenuItem(new MenuItem(0,"Добавить услугу", addService, serviceMenu));
+        serviceMenu.addMenuItem(new MenuItem(1,"Удалить услугу", deleteService, serviceMenu));
+        serviceMenu.addMenuItem(new MenuItem(2,"Вывести услуги", viewServices, serviceMenu));
+        serviceMenu.addMenuItem(new MenuItem(3,"Изменить стоимость услуги", changePriceService, serviceMenu));
         serviceMenu.addMenuItem(new MenuItem(4,"Выход в предыдущее меню", ()->{
             System.out.println("----");
         }, rootMenu));
@@ -76,11 +127,11 @@ public class Builder {
 
     public Menu createGuestMenu(int index) {
         Menu guestMenu = new Menu(index,"GuestMenu");
-        guestMenu.addMenuItem(new MenuItem(0,"Добавить(Создать) гостя", new AddGuest(), guestMenu));
-        guestMenu.addMenuItem(new MenuItem(1,"Заселить гостя в свободный номер", new CheckInGuest(), guestMenu));
-        guestMenu.addMenuItem(new MenuItem(2,"Выселить гостя из номера", new CheckOutGuest(), guestMenu));
-        guestMenu.addMenuItem(new MenuItem(3,"Заказать услугу", new CallService(), guestMenu));
-        guestMenu.addMenuItem(new MenuItem(4,"Список всех постояльцев", new ViewGuestsHotel(), guestMenu));
+        guestMenu.addMenuItem(new MenuItem(0,"Добавить(Создать) гостя", addGuest, guestMenu));
+        guestMenu.addMenuItem(new MenuItem(1,"Заселить гостя в свободный номер", checkInGuest, guestMenu));
+        guestMenu.addMenuItem(new MenuItem(2,"Выселить гостя из номера", checkOutGuest, guestMenu));
+        guestMenu.addMenuItem(new MenuItem(3,"Заказать услугу", callService, guestMenu));
+        guestMenu.addMenuItem(new MenuItem(4,"Список всех постояльцев", viewGuestsHotel, guestMenu));
         guestMenu.addMenuItem(new MenuItem(5,"Выход в предыдущее меню", ()->{
             System.out.println("----");
         }, rootMenu));

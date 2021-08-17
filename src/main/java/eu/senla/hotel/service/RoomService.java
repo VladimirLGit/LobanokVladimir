@@ -7,20 +7,20 @@ import eu.senla.hotel.exception.NotExistObject;
 import eu.senla.hotel.model.Guest;
 import eu.senla.hotel.model.Room;
 import eu.senla.hotel.model.StateRoom;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 
 import static java.time.temporal.ChronoUnit.DAYS;
 
 
 public class RoomService implements IRoomService {
-    public static final Logger logger = Logger.getLogger(
-            RoomService.class.getName());
+    private static final Logger logger = LogManager.getLogger();
 
     private final IRoomDao roomDao;
     public RoomService() {
@@ -44,7 +44,7 @@ public class RoomService implements IRoomService {
                 roomDao.deleteRoom(room);
             } catch (NotExistObject notExistObject) {
                 logger.info("The room does not exist"); //notExistObject.printStackTrace();
-                logger.log(Level.ALL, "The room does not exist");
+                logger.error("The room does not exist");
             }
         }
     }

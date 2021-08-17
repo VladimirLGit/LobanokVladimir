@@ -8,9 +8,6 @@ import eu.senla.hotel.api.sevice.IGuestService;
 import eu.senla.hotel.api.sevice.IRoomService;
 import eu.senla.hotel.api.sevice.IServiceService;
 
-import eu.senla.hotel.dao.collection.LGuestDao;
-import eu.senla.hotel.dao.collection.LRoomDao;
-import eu.senla.hotel.dao.collection.LServiceDao;
 import eu.senla.hotel.dependency2.annotation.Autowired;
 import eu.senla.hotel.dependency2.annotation.Component;
 import eu.senla.hotel.dependency2.annotation.Qualifier;
@@ -19,27 +16,22 @@ import eu.senla.hotel.model.*;
 import eu.senla.hotel.service.GuestService;
 import eu.senla.hotel.service.HotelService;
 import eu.senla.hotel.service.RoomService;
-import eu.senla.mysql.dao.ds.DataSourceFactory;
-
 import javax.sql.DataSource;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 import java.io.*;
-
-import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.*;
-import java.util.logging.LogManager;
-import java.util.logging.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 @Component
 public class HotelController {
-    public final Logger logger = Logger.getLogger(
-            HotelController.class.getName());
+    private static final Logger logger = LogManager.getLogger();
 
-    private String[] listNameGuests = new String[]{
+    private final String[] listNameGuests = new String[]{
             "Tom",
             "Jack",
             "Rose",
@@ -47,7 +39,7 @@ public class HotelController {
             "Oscar",
             "Leo",
             "John"};
-    String[] listNameServices = new String[]{"Заказ еды в номер",
+    private final String[] listNameServices = new String[]{"Заказ еды в номер",
             "Уборка номера",
             "Массаж",
             "Вызов такси",

@@ -4,7 +4,6 @@ import eu.senla.hotel.api.dao.IGuestDao;
 import eu.senla.hotel.dependency2.annotation.Component;
 import eu.senla.hotel.exception.NotExistObject;
 import eu.senla.hotel.model.Guest;
-import eu.senla.mysql.model.PC;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,13 +21,13 @@ public class LGuestDao implements IGuestDao {
     }
 
     @Override
-    public void addGuest(Guest guest) {
+    public boolean addGuest(Guest guest) {
         int newId = guests.size() == 0 ? 0 : guests.stream()
                 .mapToInt(Guest::getId)
                 .summaryStatistics()
                 .getMax();
         guest.setId(newId + 1);
-        guests.add(guest);
+        return guests.add(guest);
     }
 
     @Override

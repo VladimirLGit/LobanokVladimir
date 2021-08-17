@@ -6,17 +6,17 @@ import eu.senla.hotel.exception.NotExistObject;
 import eu.senla.hotel.model.Guest;
 import eu.senla.hotel.model.Service;
 import eu.senla.hotel.model.StateGuest;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.util.logging.Logger;
 
 
 public class GuestService implements IGuestService {
-    public static final Logger logger = Logger.getLogger(
-            GuestService.class.getName());
+    private static final Logger logger = LogManager.getLogger();
 
     private final IGuestDao guestDao;
     public GuestService() {

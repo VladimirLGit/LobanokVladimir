@@ -1,27 +1,17 @@
 package eu.senla.hotel.service;
 
-import eu.senla.hotel.api.dao.IGuestDao;
 import eu.senla.hotel.api.dao.IServiceDao;
 import eu.senla.hotel.api.sevice.IServiceService;
-import eu.senla.hotel.dao.ServiceDao;
-import eu.senla.hotel.dao.collection.LServiceDao;
 import eu.senla.hotel.model.Guest;
 import eu.senla.hotel.model.Service;
-import eu.senla.hotel.model.Services;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
-import javax.sql.DataSource;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlElementWrapper;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
 
 
 public class HotelService implements IServiceService {
-    public static final Logger logger = Logger.getLogger(
-            HotelService.class.getName());
+    private static final Logger logger = LogManager.getLogger();
 
     private IServiceDao serviceDao;
 

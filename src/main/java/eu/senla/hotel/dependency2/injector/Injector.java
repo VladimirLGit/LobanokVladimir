@@ -3,10 +3,8 @@ package eu.senla.hotel.dependency2.injector;
 import eu.senla.hotel.dependency2.annotation.Component;
 import eu.senla.hotel.dependency2.utils.ClassLoaderUtil;
 import eu.senla.hotel.dependency2.utils.InjectionUtil;
-import org.reflections.Reflections;
 
 import java.io.IOException;
-import java.lang.reflect.Field;
 import java.util.*;
 import java.util.Map.Entry;
 import java.util.stream.Collectors;
@@ -49,9 +47,6 @@ public class Injector {
 				types.add(classz);
 			}
 		}
-
-		//Reflections reflections = new Reflections(mainClass.getPackage().getName());
-		//Set<Class<?>> types = reflections.getTypesAnnotatedWith(Component.class);
 
 		for (Class<?> implementationClass : types) {
 			Class<?>[] interfaces = implementationClass.getInterfaces();
