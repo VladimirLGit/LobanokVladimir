@@ -4,6 +4,10 @@ import eu.senla.hotel.Main;
 import eu.senla.hotel.dao.ds.DataSourceFactory;
 import eu.senla.hotel.dependency2.injector.Injector;
 import eu.senla.hotel.ui.HotelController;
+import org.hibernate.boot.Metadata;
+import org.hibernate.boot.MetadataSources;
+import org.hibernate.boot.registry.StandardServiceRegistry;
+import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 
 import java.util.Scanner;
 
@@ -16,6 +20,8 @@ public class MenuController {
         builder = Builder.getInstance();
         try {
             this.injector.initFramework(Main.class);
+            StandardServiceRegistry ssr = new StandardServiceRegistryBuilder().configure("hibernate.cfg.xml").build();
+            Metadata meta = new MetadataSources(ssr).getMetadataBuilder().build();
             this.injector.getService(HotelController.class).setUp(DataSourceFactory.getDataSource());
             builder = this.injector.getService(Builder.class);
 

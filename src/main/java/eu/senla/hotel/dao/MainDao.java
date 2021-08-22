@@ -29,6 +29,7 @@ public class MainDao {
                 " DateOfCheckIn date NOT NULL,\n" +
                 " DateOfCheckOut date NOT NULL,\n" +
                 " StateGuest int(10) NOT NULL,\n" +
+                " idRoom int(10) NOT NULL,\n" +
                 " PRIMARY KEY (idGuest)\n" +
                 ");";
         try (Connection con = connector.getConnection();
@@ -108,6 +109,7 @@ public class MainDao {
                 " rating double NOT NULL,\n" +
                 " stateRoom int(10) NOT NULL,\n" +
                 " typeRoom int(10) NOT NULL,\n" +
+                " lastDayOfStay date NOT NULL,\n" +
                 " PRIMARY KEY (idRoom)\n" +
                 ");";
         try (Connection con = connector.getConnection();

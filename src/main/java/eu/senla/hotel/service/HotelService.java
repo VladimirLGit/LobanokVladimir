@@ -25,20 +25,25 @@ public class HotelService implements IServiceService {
 
     @Override
     public void order(Guest guest, Service service) {
-        System.out.println( service + " service done");
-        serviceDao.addOrderGuest(guest, service);
+        System.out.println(service + " service done");
+        if ((guest != null) && (service != null))
+            serviceDao.addOrderGuest(guest, service);
+        else
+           logger.info("guest is null or service is null");
     }
 
-    public void addService(Service service){
+    public void addService(Service service) {
         serviceDao.addService(service);
     }
-    public void deleteService(Service service){
+
+    public void deleteService(Service service) {
         serviceDao.deleteService(service);
     }
 
     public List<Service> getServices() {
         return serviceDao.allServices();
     }
+
     public void setServices(List<Service> services) {
         if (services != null)
             this.serviceDao.setServices(services);
@@ -51,10 +56,9 @@ public class HotelService implements IServiceService {
 
     @Override
     public void changePriceOrder(int indexOrder, int newPrice) {
-        if (newPrice<=0) {
+        if (newPrice <= 0) {
             logger.info("Cost is below zero");
-        }
-        else {
+        } else {
             Service service = serviceDao.allServices().get(indexOrder);
             service.setPrice(newPrice);
             serviceDao.updateService(service);
@@ -64,11 +68,10 @@ public class HotelService implements IServiceService {
     @Override
     public Service viewService(int indexService) {
         List<Service> services = serviceDao.allServices();
-        if (indexService<services.size()){
+        if (indexService < services.size()) {
             System.out.println(services.get(indexService));
             return services.get(indexService);
-        }
-        else
+        } else
             System.out.println("Такой услуги не существует");
         return null;
     }

@@ -2,6 +2,7 @@ package eu.senla.hotel.model;
 
 import eu.senla.hotel.utils.guest.LocalDateAdapter;
 
+import javax.persistence.*;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -21,19 +22,43 @@ import java.util.Objects;
         "state",
         "idRoom",
         "orderedServices"})
-
+//https://www.onlinetutorialspoint.com/hibernate/hibernate-4-example-with-annotations.html
 @XmlRootElement(name = "guest")
+@Entity
+@Table(name = "Guests")
+@Embeddable
 public class Guest {
+    @Id
+    @Column(name="idGuest")
+    @GeneratedValue(strategy=GenerationType.AUTO)
     private Integer id;
+    @Column(name = "name")
     private String name;
+    @Temporal(TemporalType.DATE)
+    @Column(name = "DateOfCheckIn")
     private LocalDate dateOfCheckIn;
+    @Temporal(TemporalType.DATE)
+    @Column(name = "DateOfCheckOut")
     private LocalDate dateOfCheckOut;
+    @Column(name = "StateGuest")
     private StateGuest state;
+    @Column(name = "idRoom")
+    @ManyToOne
     private Integer idRoom;
 
     @XmlElementWrapper(name = "orderedServices")
     @XmlElement(name = "service")
+    @ElementCollection
+    @CollectionTable(
+            name="services",
+            joinColumns=@JoinColumn(name="idService")
+    )
+    @Column(name="idService")
     private List<Integer> orderedServices;
+    //@OneToMany(mappedBy = "services", fetch = FetchType.EAGER)
+    //@OrderBy("firstName asc")
+    //@OneToMany(orphanRemoval=true, cascade={CascadeType.ALL})
+    //private List<Service> orderedServices;
 
     public Guest() {
     }
@@ -61,6 +86,18 @@ public class Guest {
         this.orderedServices = orderedServices;
     }
 
+    /*public void addOrderedService(Service service) {
+        orderedServices.add(service);
+    }
+
+    public List<Service> getOrderedServices() {
+        return orderedServices;
+    }
+
+    public void setListServices(List<Service> orderedServices) {
+        this.orderedServices = orderedServices;
+    }
+    */
     public Integer getId() {
         return id;
     }

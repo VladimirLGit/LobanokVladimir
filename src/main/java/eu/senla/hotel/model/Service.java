@@ -1,5 +1,6 @@
 package eu.senla.hotel.model;
 
+import javax.persistence.*;
 import javax.xml.bind.annotation.*;
 
 @XmlType(propOrder={
@@ -7,9 +8,17 @@ import javax.xml.bind.annotation.*;
         "name",
         "price"})
 @XmlRootElement(name = "service")
+@Entity
+@Table(name = "Services")
+@Embeddable
 public class Service {
+    @Id
+    @Column(name="idService")
+    @GeneratedValue(strategy= GenerationType.AUTO)
     private Integer id;
+    @Column(name = "name")
     private String name;
+    @Column(name = "price")
     private int price;
 
     public Service(String nameService, int priceService) {

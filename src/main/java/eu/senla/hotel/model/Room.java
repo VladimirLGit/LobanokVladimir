@@ -2,6 +2,7 @@ package eu.senla.hotel.model;
 
 import eu.senla.hotel.utils.guest.LocalDateAdapter;
 
+import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
@@ -21,15 +22,33 @@ import java.util.Objects;
         "lastDayOfStay",
         "guests"})
 @XmlRootElement(name = "room")
+@Entity
+@Table(name = "Rooms")
 public class Room {
+    @Id
+    @Column(name="idRoom")
+    @GeneratedValue(strategy= GenerationType.AUTO)
     private Integer id;
+    @Column(name="number")
     private int number;
+    @Column(name="price")
     private int price;
+    @Column(name="rating")
     private double rating;
+    @Column(name="numberOfGuests")
     private int numberOfGuests;
+    @ElementCollection
+    @CollectionTable(
+            name="guests",
+            joinColumns=@JoinColumn(name="idGuest")
+    )
+    @Column(name="idGuest")
     private List<Integer> guests;
+    @Column(name="stateRoom")
     private StateRoom state;
+    @Column(name="typeRoom")
     private TypeRoom type;
+    @Column(name="lastDayOfStay")
     private LocalDate lastDayOfStay;
 
     public Room() {
