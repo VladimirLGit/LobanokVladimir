@@ -24,7 +24,7 @@ import java.util.Objects;
 @XmlRootElement(name = "room")
 @Entity
 @Table(name = "Rooms")
-public class Room {
+public class Room implements java.io.Serializable {
     @Id
     @Column(name="idRoom")
     @GeneratedValue(strategy= GenerationType.AUTO)

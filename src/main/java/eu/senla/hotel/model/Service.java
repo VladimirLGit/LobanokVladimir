@@ -11,7 +11,7 @@ import javax.xml.bind.annotation.*;
 @Entity
 @Table(name = "Services")
 @Embeddable
-public class Service {
+public class Service implements java.io.Serializable {
     @Id
     @Column(name="idService")
     @GeneratedValue(strategy= GenerationType.AUTO)

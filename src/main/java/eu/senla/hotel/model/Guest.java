@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-
+//https://www.onlinetutorialspoint.com/hibernate/hibernate-one-to-many-annotations-example.html
 @XmlType(propOrder = {
         "id",
         "name",
@@ -22,12 +22,12 @@ import java.util.Objects;
         "state",
         "idRoom",
         "orderedServices"})
-//https://www.onlinetutorialspoint.com/hibernate/hibernate-4-example-with-annotations.html
+
 @XmlRootElement(name = "guest")
 @Entity
 @Table(name = "Guests")
 @Embeddable
-public class Guest {
+public class Guest implements java.io.Serializable {
     @Id
     @Column(name="idGuest")
     @GeneratedValue(strategy=GenerationType.AUTO)
