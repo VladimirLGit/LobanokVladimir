@@ -1,5 +1,7 @@
 package eu.senla.hotel.model;
 
+import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.*;
 import javax.xml.bind.annotation.*;
 
@@ -8,13 +10,14 @@ import javax.xml.bind.annotation.*;
         "name",
         "price"})
 @XmlRootElement(name = "service")
-@Entity
-@Table(name = "Services")
+@javax.persistence.Entity(name = "Services")
+@javax.persistence.Table(name = "Services")
 @Embeddable
 public class Service implements java.io.Serializable {
     @Id
     @Column(name="idService")
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy= GenerationType.AUTO,generator="native")
+    @GenericGenerator(name = "native",strategy = "native")
     private Integer id;
     @Column(name = "name")
     private String name;

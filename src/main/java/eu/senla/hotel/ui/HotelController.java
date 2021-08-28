@@ -8,6 +8,7 @@ import eu.senla.hotel.api.sevice.IGuestService;
 import eu.senla.hotel.api.sevice.IRoomService;
 import eu.senla.hotel.api.sevice.IServiceService;
 
+import eu.senla.hotel.dao.MainDao;
 import eu.senla.hotel.dependency2.annotation.Autowired;
 import eu.senla.hotel.dependency2.annotation.Component;
 import eu.senla.hotel.dependency2.annotation.Qualifier;
@@ -48,19 +49,19 @@ public class HotelController {
             "Тренажерный зал"};
     private static HotelController instance; //static
     @Autowired
-    @Qualifier(value = "LGuestDao")
+    @Qualifier(value = "HGuestDao")
     private IGuestDao guestDao;
     @Autowired
-    @Qualifier(value = "LRoomDao")
+    @Qualifier(value = "HRoomDao")
     private IRoomDao roomDao;
     @Autowired
-    @Qualifier(value = "LServiceDao")
+    @Qualifier(value = "HServiceDao")
     private IServiceDao serviceDao;
 
     private IGuestService guestService;
     private IRoomService roomService;
     private IServiceService hotelService;
-
+    private MainDao mainDao;
 
 
 //    private HotelController() {
@@ -89,6 +90,15 @@ public class HotelController {
 
 
     public void setUp(DataSource ds) {
+        mainDao = new MainDao(ds);
+        mainDao.createHotelBase();
+        mainDao.createTableGuests();
+        mainDao.createLinkTableServices();
+        mainDao.createTableHistoryGuests();
+
+        mainDao.createTableRooms();
+        mainDao.createLinkTableRooms();
+        mainDao.createTableServices();
         //guestDao = new LGuestDao();
         //roomDao = new LRoomDao();
         //serviceDao = new LServiceDao();
@@ -156,6 +166,7 @@ public class HotelController {
             int indexName = Integer.parseInt(reader.readLine());
             Guest guest = new Guest(listNameGuests[indexName]);
             guest.setDateOfCheckIn(LocalDate.of(2016, 3, 30));
+            guest.setDateOfCheckOut(LocalDate.of(2016, 3, 30));
             guestService.addGuest(guest);
         } catch (IOException e) {
             e.printStackTrace();

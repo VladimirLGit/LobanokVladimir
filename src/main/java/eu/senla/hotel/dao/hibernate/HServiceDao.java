@@ -1,6 +1,7 @@
 package eu.senla.hotel.dao.hibernate;
 
 import eu.senla.hotel.api.dao.IServiceDao;
+import eu.senla.hotel.dependency2.annotation.Component;
 import eu.senla.hotel.exception.NotExistObject;
 import eu.senla.hotel.model.Guest;
 import eu.senla.hotel.model.Service;
@@ -10,6 +11,7 @@ import org.hibernate.query.Query;
 
 import java.util.List;
 
+@Component
 public class HServiceDao implements IServiceDao {
     @Override
     public void addService(Service service) {

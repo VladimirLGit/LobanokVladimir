@@ -1,6 +1,7 @@
 package eu.senla.hotel.model;
 
 import eu.senla.hotel.utils.guest.LocalDateAdapter;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -22,12 +23,13 @@ import java.util.Objects;
         "lastDayOfStay",
         "guests"})
 @XmlRootElement(name = "room")
-@Entity
-@Table(name = "Rooms")
+@javax.persistence.Entity(name = "Rooms")
+@javax.persistence.Table(name = "Rooms")
 public class Room implements java.io.Serializable {
     @Id
     @Column(name="idRoom")
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy= GenerationType.AUTO,generator="native")
+    @GenericGenerator(name = "native",strategy = "native")
     private Integer id;
     @Column(name="number")
     private int number;
@@ -42,7 +44,6 @@ public class Room implements java.io.Serializable {
             name="guests",
             joinColumns=@JoinColumn(name="idGuest")
     )
-    @Column(name="idGuest")
     private List<Integer> guests;
     @Column(name="stateRoom")
     private StateRoom state;

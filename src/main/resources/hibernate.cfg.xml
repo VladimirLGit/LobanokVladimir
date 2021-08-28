@@ -8,7 +8,7 @@
             org.hibernate.dialect.MySQLDialect
         </property>
         <property name="hibernate.connection.driver_class">
-            com.mysql.jdbc.Driver
+            com.mysql.cj.jdbc.Driver
         </property>
 
         <!-- Assume is the database name -->
@@ -21,9 +21,8 @@
         <property name="hibernate.connection.password">
             root
         </property>
-
-        <!-- List of XML mapping files -->
-        <mapping resource="Developer.hbm.xml"/>
-
+        <property name="hibernate.show_sql">
+            true
+        </property>
     </session-factory>
 </hibernate-configuration>

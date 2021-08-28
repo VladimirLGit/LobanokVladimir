@@ -1,6 +1,7 @@
 package eu.senla.hotel.model;
 
 import eu.senla.hotel.utils.guest.LocalDateAdapter;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlElement;
@@ -8,12 +9,12 @@ import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-//https://www.onlinetutorialspoint.com/hibernate/hibernate-one-to-many-annotations-example.html
 @XmlType(propOrder = {
         "id",
         "name",
@@ -22,28 +23,28 @@ import java.util.Objects;
         "state",
         "idRoom",
         "orderedServices"})
-
 @XmlRootElement(name = "guest")
-@Entity
-@Table(name = "Guests")
-@Embeddable
-public class Guest implements java.io.Serializable {
+
+@javax.persistence.Entity(name = "Guests")
+@javax.persistence.Table(name = "Guests")
+public class Guest implements Serializable {
     @Id
     @Column(name="idGuest")
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy= GenerationType.AUTO,generator="native")
+    @GenericGenerator(name = "native",strategy = "native")
     private Integer id;
     @Column(name = "name")
     private String name;
-    @Temporal(TemporalType.DATE)
+    //@Temporal(TemporalType.DATE)
     @Column(name = "DateOfCheckIn")
     private LocalDate dateOfCheckIn;
-    @Temporal(TemporalType.DATE)
+    //@Temporal(TemporalType.DATE)
     @Column(name = "DateOfCheckOut")
     private LocalDate dateOfCheckOut;
     @Column(name = "StateGuest")
     private StateGuest state;
     @Column(name = "idRoom")
-    @ManyToOne
+    //@ManyToOne
     private Integer idRoom;
 
     @XmlElementWrapper(name = "orderedServices")
@@ -53,7 +54,7 @@ public class Guest implements java.io.Serializable {
             name="services",
             joinColumns=@JoinColumn(name="idService")
     )
-    @Column(name="idService")
+    //@Column(name="idService")
     private List<Integer> orderedServices;
     //@OneToMany(mappedBy = "services", fetch = FetchType.EAGER)
     //@OrderBy("firstName asc")
@@ -65,7 +66,7 @@ public class Guest implements java.io.Serializable {
 
     public Guest(String nameGuest) {
         this.name = nameGuest;
-        this.idRoom = null;
+        this.idRoom = 0;
         this.state = StateGuest.NO_STATE;
         orderedServices = new ArrayList<>();
     }

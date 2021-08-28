@@ -1,6 +1,7 @@
 package eu.senla.hotel.dao.hibernate;
 
 import eu.senla.hotel.api.dao.IGuestDao;
+import eu.senla.hotel.dependency2.annotation.Component;
 import eu.senla.hotel.exception.NotExistObject;
 import eu.senla.hotel.model.Guest;
 import org.hibernate.Session;
@@ -10,6 +11,7 @@ import org.hibernate.query.Query;
 import java.util.ArrayList;
 import java.util.List;
 
+@Component
 public class HGuestDao implements IGuestDao {
     @Override
     public boolean addGuest(Guest guest) {
@@ -63,7 +65,7 @@ public class HGuestDao implements IGuestDao {
         Session session = null;
         try {
             session = HibernateConnector.getInstance().getSession();
-            Query query = session.createQuery("from Guests g");
+            Query query = session.createQuery("from Guests");
 
             List queryList = query.list();
             if (queryList != null && queryList.isEmpty()) {

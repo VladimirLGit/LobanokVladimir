@@ -1,6 +1,7 @@
 package eu.senla.hotel.dao.hibernate;
 
 import eu.senla.hotel.api.dao.IRoomDao;
+import eu.senla.hotel.dependency2.annotation.Component;
 import eu.senla.hotel.exception.NotExistObject;
 import eu.senla.hotel.model.Room;
 import org.hibernate.Session;
@@ -9,6 +10,7 @@ import org.hibernate.query.Query;
 
 import java.util.List;
 
+@Component
 public class HRoomDao implements IRoomDao {
     @Override
     public void addRoom(Room room) {
