@@ -322,7 +322,8 @@ public class HotelController {
                     if ((guest.getState() == StateGuest.CHECK_IN) &&
                             (guest.getName().equals(nameGuest))) {
                         Service service = services.get(indexService);
-                        guest.addOrderedService(service);
+                        hotelService.order(guest, service);
+                        //guest.addOrderedService(service);
                         break;
                     }
                 }

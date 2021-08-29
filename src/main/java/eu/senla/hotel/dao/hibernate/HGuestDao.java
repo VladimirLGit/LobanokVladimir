@@ -4,6 +4,7 @@ import eu.senla.hotel.api.dao.IGuestDao;
 import eu.senla.hotel.dependency2.annotation.Component;
 import eu.senla.hotel.exception.NotExistObject;
 import eu.senla.hotel.model.Guest;
+import eu.senla.hotel.model.links.LinkGuest;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
@@ -15,10 +16,8 @@ import java.util.List;
 public class HGuestDao implements IGuestDao {
     @Override
     public boolean addGuest(Guest guest) {
-        Session session = null;
-        Transaction transaction = null;
-        try {
-            session = HibernateConnector.getInstance().getSession();
+        Transaction transaction;
+        try (Session session = HibernateConnector.getInstance().getSession()) {
             transaction = session.beginTransaction();
             session.save(guest);
             transaction.commit();
@@ -27,44 +26,54 @@ public class HGuestDao implements IGuestDao {
             e.printStackTrace();
             return false;
         }
+
     }
 
     @Override
     public void deleteGuest(Guest guest) throws NotExistObject {
-        Session session = null;
-        try {
-            session = HibernateConnector.getInstance().getSession();
+        try (Session session = HibernateConnector.getInstance().getSession()) {
             Transaction beginTransaction = session.beginTransaction();
-            Query createQuery = session.createQuery("delete from Guests g where g.idGuest =:id");
+            Query createQuery = session.createQuery("delete from Guests guest where idGuest =:id");
             createQuery.setParameter("id", guest.getId());
             createQuery.executeUpdate();
             beginTransaction.commit();
+            addGuestIntoHistory(guest);
         } catch (Exception e) {
             e.printStackTrace();
-        } finally {
-            session.close();
+        }
+    }
+
+    private void addGuestIntoHistory(Guest guest) {
+        Transaction transaction;
+        LinkGuest linkGuest = new LinkGuest(guest.getId(),
+                guest.getName(),
+                guest.getDateOfCheckIn(),
+                guest.getDateOfCheckOut(),
+                guest.getState());
+        try (Session session = HibernateConnector.getInstance().getSession()) {
+            transaction = session.beginTransaction();
+            session.save(linkGuest);
+            transaction.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
     @Override
     public void updateGuest(Guest guest) throws NotExistObject {
-        Session session = null;
-        try {
-            session = HibernateConnector.getInstance().getSession();
+        try (Session session = HibernateConnector.getInstance().getSession()) {
+            Transaction beginTransaction = session.beginTransaction();
             session.saveOrUpdate(guest);
             session.flush();
+            beginTransaction.commit();
         } catch (Exception e) {
             e.printStackTrace();
-        } finally {
-            session.close();
         }
     }
 
     @Override
     public List<Guest> allGuests() {
-        Session session = null;
-        try {
-            session = HibernateConnector.getInstance().getSession();
+        try (Session session = HibernateConnector.getInstance().getSession()) {
             Query query = session.createQuery("from Guests");
 
             List queryList = query.list();
@@ -76,16 +85,12 @@ public class HGuestDao implements IGuestDao {
         } catch (Exception e) {
             e.printStackTrace();
             return null;
-        } finally {
-            session.close();
         }
     }
 
     @Override
     public Guest readGuest(int id) {
-        Session session = null;
-        try {
-            session = HibernateConnector.getInstance().getSession();
+        try (Session session = HibernateConnector.getInstance().getSession()) {
             Query query = session.createQuery("from Guests g where g.idGuest = :id");
             query.setParameter("id", id);
 
@@ -93,13 +98,12 @@ public class HGuestDao implements IGuestDao {
             if (queryList != null && queryList.isEmpty()) {
                 return null;
             } else {
+                assert queryList != null;
                 return (Guest) queryList.get(0);
             }
         } catch (Exception e) {
             e.printStackTrace();
             return null;
-        } finally {
-            session.close();
         }
     }
 

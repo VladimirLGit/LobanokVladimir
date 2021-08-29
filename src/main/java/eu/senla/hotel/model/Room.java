@@ -4,6 +4,7 @@ import eu.senla.hotel.utils.guest.LocalDateAdapter;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import javax.persistence.Entity;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
@@ -23,8 +24,7 @@ import java.util.Objects;
         "lastDayOfStay",
         "guests"})
 @XmlRootElement(name = "room")
-@javax.persistence.Entity(name = "Rooms")
-@javax.persistence.Table(name = "Rooms")
+@Entity(name = "Rooms")
 public class Room implements java.io.Serializable {
     @Id
     @Column(name="idRoom")
@@ -39,12 +39,10 @@ public class Room implements java.io.Serializable {
     private double rating;
     @Column(name="numberOfGuests")
     private int numberOfGuests;
-    @ElementCollection
-    @CollectionTable(
-            name="guests",
-            joinColumns=@JoinColumn(name="idGuest")
-    )
-    private List<Integer> guests;
+    @OneToMany(targetEntity = Guest.class, mappedBy = "room",
+            cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    //@OneToMany (mappedBy="room", fetch=FetchType.EAGER)
+    private List<Guest> guests;
     @Column(name="stateRoom")
     private StateRoom state;
     @Column(name="typeRoom")
@@ -56,6 +54,7 @@ public class Room implements java.io.Serializable {
     }
 
     public Room(int number, int price, int numberOfGuests, TypeRoom typeRoom) {
+        this.id = 1;
         this.number = number;
         this.price = price;
         this.numberOfGuests = numberOfGuests;
@@ -113,13 +112,22 @@ public class Room implements java.io.Serializable {
         this.numberOfGuests = numberOfGuests;
     }
 
-    public List<Integer> getGuests() {
+    public List<Guest> getGuests() {
+        return guests;
+    }
+
+    public void setGuests(List<Guest> guests) {
+        this.guests = guests;
+    }
+
+    /*
+    * public List<Integer> getGuests() {
         return guests;
     }
 
     public void setGuests(List<Integer> guests) {
         this.guests = guests;
-    }
+    }*/
 
     @XmlJavaTypeAdapter(type = LocalDate.class, value = LocalDateAdapter.class)
     public LocalDate getLastDayOfStay() {
@@ -145,7 +153,8 @@ public class Room implements java.io.Serializable {
         if ((localDate != null) && (localDate.isAfter(lastDayOfStay))) {
             lastDayOfStay = localDate;
         }
-        guests.add(guest.getId());
+        //guests.add(guest.getId());
+        guests.add(guest);
     }
 
     public void deleteGuest(Guest guest) {

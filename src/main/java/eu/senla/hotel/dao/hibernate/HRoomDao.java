@@ -23,6 +23,8 @@ public class HRoomDao implements IRoomDao {
             transaction.commit();
         } catch (Exception e) {
             e.printStackTrace();
+        } finally {
+            session.close();
         }
     }
 
@@ -48,8 +50,10 @@ public class HRoomDao implements IRoomDao {
         Session session = null;
         try {
             session = HibernateConnector.getInstance().getSession();
+            Transaction beginTransaction = session.beginTransaction();
             session.saveOrUpdate(room);
             session.flush();
+            beginTransaction.commit();
         } catch (Exception e) {
             e.printStackTrace();
         } finally {

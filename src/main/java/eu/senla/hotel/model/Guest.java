@@ -4,6 +4,7 @@ import eu.senla.hotel.utils.guest.LocalDateAdapter;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import javax.persistence.Entity;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -25,8 +26,7 @@ import java.util.Objects;
         "orderedServices"})
 @XmlRootElement(name = "guest")
 
-@javax.persistence.Entity(name = "Guests")
-@javax.persistence.Table(name = "Guests")
+@Entity(name = "Guests")
 public class Guest implements Serializable {
     @Id
     @Column(name="idGuest")
@@ -35,38 +35,37 @@ public class Guest implements Serializable {
     private Integer id;
     @Column(name = "name")
     private String name;
-    //@Temporal(TemporalType.DATE)
     @Column(name = "DateOfCheckIn")
     private LocalDate dateOfCheckIn;
-    //@Temporal(TemporalType.DATE)
     @Column(name = "DateOfCheckOut")
     private LocalDate dateOfCheckOut;
     @Column(name = "StateGuest")
     private StateGuest state;
-    @Column(name = "idRoom")
     //@ManyToOne
-    private Integer idRoom;
+    //@JoinColumn(name="idRoom")
+    @ManyToOne (optional=false, cascade=CascadeType.ALL)
+    @JoinColumn (name="idRoom")
+    private Room room;
 
     @XmlElementWrapper(name = "orderedServices")
     @XmlElement(name = "service")
-    @ElementCollection
-    @CollectionTable(
-            name="services",
-            joinColumns=@JoinColumn(name="idService")
-    )
-    //@Column(name="idService")
-    private List<Integer> orderedServices;
-    //@OneToMany(mappedBy = "services", fetch = FetchType.EAGER)
-    //@OrderBy("firstName asc")
-    //@OneToMany(orphanRemoval=true, cascade={CascadeType.ALL})
-    //private List<Service> orderedServices;
+    //@OneToMany(targetEntity = Service.class, mappedBy = "guest",
+    //        cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    //@OneToMany
+    //@JoinColumn(name = "idGuest")
+    //@OneToMany(fetch = FetchType.LAZY,
+    //        mappedBy = "guest",
+    //        cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name = "service_id", nullable = false)
+    private List<Service> orderedServices;
 
     public Guest() {
     }
 
     public Guest(String nameGuest) {
         this.name = nameGuest;
-        this.idRoom = 0;
+        this.room = new Room(0, 0,0, TypeRoom.STANDARD);
         this.state = StateGuest.NO_STATE;
         orderedServices = new ArrayList<>();
     }
@@ -74,7 +73,7 @@ public class Guest implements Serializable {
     public void clearListOrder() {
         orderedServices.clear();
     }
-
+    /*
     public void addOrderedService(Service service) {
         orderedServices.add(service.getId());
     }
@@ -86,8 +85,8 @@ public class Guest implements Serializable {
     public void setListServices(List<Integer> orderedServices) {
         this.orderedServices = orderedServices;
     }
-
-    /*public void addOrderedService(Service service) {
+    */
+    public void addOrderedService(Service service) {
         orderedServices.add(service);
     }
 
@@ -98,7 +97,7 @@ public class Guest implements Serializable {
     public void setListServices(List<Service> orderedServices) {
         this.orderedServices = orderedServices;
     }
-    */
+
     public Integer getId() {
         return id;
     }
@@ -141,12 +140,12 @@ public class Guest implements Serializable {
         this.state = stateGuest;
     }
 
-    public Integer getIdRoom() {
-        return idRoom;
+    public Room getRoom() {
+        return room;
     }
 
-    public void setIdRoom(Integer idRoom) {
-        this.idRoom = idRoom;
+    public void setRoom(Room room) {
+        this.room = room;
     }
 
     @Override

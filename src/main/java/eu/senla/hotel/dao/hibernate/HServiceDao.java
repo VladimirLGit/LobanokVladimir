@@ -5,6 +5,7 @@ import eu.senla.hotel.dependency2.annotation.Component;
 import eu.senla.hotel.exception.NotExistObject;
 import eu.senla.hotel.model.Guest;
 import eu.senla.hotel.model.Service;
+import eu.senla.hotel.model.links.LinkService;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
@@ -16,7 +17,7 @@ public class HServiceDao implements IServiceDao {
     @Override
     public void addService(Service service) {
         Session session = null;
-        Transaction transaction = null;
+        Transaction transaction;
         try {
             session = HibernateConnector.getInstance().getSession();
             transaction = session.beginTransaction();
@@ -24,6 +25,8 @@ public class HServiceDao implements IServiceDao {
             transaction.commit();
         } catch (Exception e) {
             e.printStackTrace();
+        } finally {
+            session.close();
         }
     }
 
@@ -49,8 +52,10 @@ public class HServiceDao implements IServiceDao {
         Session session = null;
         try {
             session = HibernateConnector.getInstance().getSession();
+            Transaction beginTransaction = session.beginTransaction();
             session.saveOrUpdate(service);
             session.flush();
+            beginTransaction.commit();
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -81,7 +86,20 @@ public class HServiceDao implements IServiceDao {
 
     @Override
     public void addOrderGuest(Guest guest, Service service) {
-
+        LinkService linkService = new LinkService(service.getId(), guest.getId());
+        Session session = null;
+        Transaction transaction;
+        try {
+            session = HibernateConnector.getInstance().getSession();
+            transaction = session.beginTransaction();
+            session.save(linkService);
+            transaction.commit();
+            //guest.addOrderedService(service);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
     }
 
     @Override

@@ -61,7 +61,7 @@ public class RoomService implements IRoomService {
             room.setLastDayOfStay(guest.getDateOfCheckOut());
             roomDao.updateRoom(room);
             //roomDao.addLinkGuestWithRoom(guest, room);
-            guest.setIdRoom(room.getId()); //поселили гостя в комнату без критериев
+            guest.setRoom(room); //поселили гостя в комнату без критериев
             return true;
         } catch (NoFreeRoomInTheHotel | NotExistObject noFreeRoomInTheHotel) {
             logger.info(noFreeRoomInTheHotel.getMessage());
@@ -74,7 +74,7 @@ public class RoomService implements IRoomService {
     public void checkOut(Guest guest) {
         Random RANDOM = new Random();
         LocalDate today = LocalDate.now();
-        int idRoom = guest.getIdRoom();
+        int idRoom = guest.getRoom().getId();
         int amountOfDaysOfStay = 0;
         int priceRoom = 0;
         Room room = roomDao.getRoomForId(idRoom);
@@ -90,7 +90,7 @@ public class RoomService implements IRoomService {
             } catch (NotExistObject notExistObject) {
                 logger.info(notExistObject.getMessage());
             }
-            guest.setIdRoom(0);
+            //guest.setIdRoom(0);
             guest.setDateOfCheckOut(today);
             //сумма к уплате за проживание и оказанные услуги
             priceRoom = room.getPrice();

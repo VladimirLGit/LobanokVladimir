@@ -3,10 +3,12 @@ package eu.senla.hotel.dao.hibernate;
 import eu.senla.hotel.model.Guest;
 import eu.senla.hotel.model.Room;
 import eu.senla.hotel.model.Service;
+import eu.senla.hotel.model.links.ItemTable;
+import eu.senla.hotel.model.links.LinkGuest;
+import eu.senla.hotel.model.links.LinkService;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
@@ -22,6 +24,10 @@ public class HibernateConnector {
         cfg.addAnnotatedClass(Guest.class);
         cfg.addAnnotatedClass(Room.class);
         cfg.addAnnotatedClass(Service.class);
+
+        cfg.addAnnotatedClass(ItemTable.class);
+        cfg.addAnnotatedClass(LinkGuest.class);
+        cfg.addAnnotatedClass(LinkService.class);
         ServiceRegistry servReg = new StandardServiceRegistryBuilder().applySettings(cfg.getProperties()).build();
         sessionFactory = cfg.buildSessionFactory(servReg);
 
@@ -37,7 +43,6 @@ public class HibernateConnector {
         if (me == null) {
             me = new HibernateConnector();
         }
-
         return me;
     }
 
