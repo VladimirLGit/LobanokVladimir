@@ -3,7 +3,7 @@ package eu.senla.hotel.dao;
 import eu.senla.hotel.api.dao.IServiceDao;
 import eu.senla.hotel.exception.NotExistObject;
 import eu.senla.hotel.model.Guest;
-import eu.senla.hotel.model.Service;
+import eu.senla.hotel.model.ServiceOrder;
 
 
 import javax.sql.DataSource;
@@ -20,13 +20,13 @@ public class ServiceDao implements IServiceDao {
     }
 
     @Override
-    public void addService(Service service) {
+    public void addService(ServiceOrder serviceOrder) {
         final String QUERY = "INSERT INTO services (Name, Price) VALUES (?,?)";
         //return idRoom into ?;
         try (Connection con = connector.getConnection()){
             PreparedStatement preparedStatement = con.prepareStatement(QUERY,Statement.RETURN_GENERATED_KEYS);
-            preparedStatement.setString(1, service.getName());
-            preparedStatement.setInt(2, service.getPrice());
+            preparedStatement.setString(1, serviceOrder.getName());
+            preparedStatement.setInt(2, serviceOrder.getPrice());
             preparedStatement.execute();
 
             // get the generated key for the id
@@ -34,7 +34,7 @@ public class ServiceDao implements IServiceDao {
             int id;
             if (rs.next()) {
                 id = rs.getInt(1);
-                service.setId(id);
+                serviceOrder.setId(id);
             }
             rs.close();
             preparedStatement.close();
@@ -44,14 +44,14 @@ public class ServiceDao implements IServiceDao {
     }
 
     @Override
-    public void deleteService(Service service) {
-        final String QUERY = "Delete FROM services WHERE idService = " + '"' + service.getId() + '"';
+    public void deleteService(ServiceOrder serviceOrder) {
+        final String QUERY = "Delete FROM services WHERE idService = " + '"' + serviceOrder.getId() + '"';
         try (Connection con = connector.getConnection();
              Statement query =  con.createStatement()) {
             int execute = query.executeUpdate(QUERY);
             query.close();
             if (execute>0) {
-                System.out.println("Delete service as " + service.getName());
+                System.out.println("Delete service as " + serviceOrder.getName());
             } else {
                 System.out.println("The service does not exist");
             }
@@ -62,13 +62,13 @@ public class ServiceDao implements IServiceDao {
     }
 
     @Override
-    public void updateService(Service service) {
+    public void updateService(ServiceOrder serviceOrder) {
         final String QUERY = "UPDATE services name = ?, price = ? WHERE idService = ?";
         try (Connection con = connector.getConnection()) {
             PreparedStatement preparedStatement = con.prepareStatement(QUERY);
-            preparedStatement.setString(1, service.getName());
-            preparedStatement.setInt(2, service.getPrice());
-            preparedStatement.setInt(3, service.getId());
+            preparedStatement.setString(1, serviceOrder.getName());
+            preparedStatement.setInt(2, serviceOrder.getPrice());
+            preparedStatement.setInt(3, serviceOrder.getId());
             preparedStatement.execute();
             preparedStatement.close();
         } catch (SQLException throwables) {
@@ -78,9 +78,9 @@ public class ServiceDao implements IServiceDao {
 
 
     @Override
-    public List<Service> allServices() {
+    public List<ServiceOrder> allServices() {
         final String QUERY = "select * from services";
-        List<Service> services = new ArrayList<>();
+        List<ServiceOrder> serviceOrders = new ArrayList<>();
         try(Connection con = connector.getConnection();
             Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery(QUERY)) {
@@ -89,25 +89,25 @@ public class ServiceDao implements IServiceDao {
                 int idService = rs.getInt("IDService");
                 String nameService = rs.getString("Name");
                 int price = rs.getInt("Price");
-                Service service = new Service(nameService, price);
-                service.setId(idService);
-                services.add(service);
+                ServiceOrder serviceOrder = new ServiceOrder(nameService, price);
+                serviceOrder.setId(idService);
+                serviceOrders.add(serviceOrder);
             }
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return services;
+        return serviceOrders;
     }
 
 
-    public void addOrderGuest(Guest guest, Service service) {
+    public void addOrderGuest(Guest guest, ServiceOrder serviceOrder) {
         final String QUERY = "INSERT INTO linkService (idGuest, idService) VALUES (?,?)";
         //return idRoom into ?;
         try (Connection con = connector.getConnection()){
             PreparedStatement preparedStatement = con.prepareStatement(QUERY);
             preparedStatement.setInt(1, guest.getId());
-            preparedStatement.setInt(2, service.getId());
+            preparedStatement.setInt(2, serviceOrder.getId());
             preparedStatement.execute();
             preparedStatement.close();
         } catch (SQLException throwables) {
@@ -134,9 +134,9 @@ public class ServiceDao implements IServiceDao {
     }
 
     @Override
-    public Service readService(Integer idService) {
+    public ServiceOrder readService(Integer idService) {
         final String QUERY = "select * from services WHERE IDService = ?;";
-        Service service = null;
+        ServiceOrder serviceOrder = null;
         try (Connection con = connector.getConnection()) {
             PreparedStatement preparedStatement = con.prepareStatement(QUERY);
             preparedStatement.setInt(1, idService);
@@ -145,18 +145,18 @@ public class ServiceDao implements IServiceDao {
                 int id = rs.getInt("IDService");
                 String name = rs.getString("Name");
                 int price = rs.getInt("Price");
-                service = new Service(name, price);
-                service.setId(id);
+                serviceOrder = new ServiceOrder(name, price);
+                serviceOrder.setId(id);
             }
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return service;
+        return serviceOrder;
     }
 
     @Override
-    public void setServices(List<Service> services) {
+    public void setServices(List<ServiceOrder> serviceOrders) {
 
     }
 }

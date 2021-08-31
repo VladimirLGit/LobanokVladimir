@@ -4,17 +4,18 @@ import eu.senla.hotel.api.dao.IGuestDao;
 import eu.senla.hotel.api.sevice.IGuestService;
 import eu.senla.hotel.exception.NotExistObject;
 import eu.senla.hotel.model.Guest;
-import eu.senla.hotel.model.Service;
+import eu.senla.hotel.model.ServiceOrder;
 import eu.senla.hotel.model.StateGuest;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-
+@Service
 public class GuestService implements IGuestService {
     private static final Logger logger = LogManager.getLogger();
 
@@ -78,8 +79,8 @@ public class GuestService implements IGuestService {
 
 
     @Override
-    public void orderService(Guest guest, Service service) {
-        guest.addOrderedService(service);
+    public void orderService(Guest guest, ServiceOrder serviceOrder) {
+        guest.addOrderedService(serviceOrder);
         //guestDao.addOrderGuest(guest, service);
     }
 

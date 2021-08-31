@@ -58,7 +58,7 @@ public class Guest implements Serializable {
     //        cascade = CascadeType.ALL)
     @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "service_id", nullable = false)
-    private List<Service> orderedServices;
+    private List<ServiceOrder> orderedServiceOrders;
 
     public Guest() {
     }
@@ -67,11 +67,11 @@ public class Guest implements Serializable {
         this.name = nameGuest;
         this.room = new Room(0, 0,0, TypeRoom.STANDARD);
         this.state = StateGuest.NO_STATE;
-        orderedServices = new ArrayList<>();
+        orderedServiceOrders = new ArrayList<>();
     }
 
     public void clearListOrder() {
-        orderedServices.clear();
+        orderedServiceOrders.clear();
     }
     /*
     public void addOrderedService(Service service) {
@@ -86,16 +86,16 @@ public class Guest implements Serializable {
         this.orderedServices = orderedServices;
     }
     */
-    public void addOrderedService(Service service) {
-        orderedServices.add(service);
+    public void addOrderedService(ServiceOrder serviceOrder) {
+        orderedServiceOrders.add(serviceOrder);
     }
 
-    public List<Service> getOrderedServices() {
-        return orderedServices;
+    public List<ServiceOrder> getOrderedServices() {
+        return orderedServiceOrders;
     }
 
-    public void setListServices(List<Service> orderedServices) {
-        this.orderedServices = orderedServices;
+    public void setListServices(List<ServiceOrder> orderedServiceOrders) {
+        this.orderedServiceOrders = orderedServiceOrders;
     }
 
     public Integer getId() {

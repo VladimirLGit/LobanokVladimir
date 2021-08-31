@@ -1,20 +1,18 @@
 package eu.senla.hotel.api.sevice;
 
-import eu.senla.hotel.api.dao.IServiceDao;
 import eu.senla.hotel.model.Guest;
-import eu.senla.hotel.model.Service;
-import eu.senla.hotel.model.Services;
+import eu.senla.hotel.model.ServiceOrder;
 
 import java.util.List;
 
 public interface IServiceService {
-    void addService(Service service);
-    void deleteService(Service service);
-    void order(Guest guest, Service service);
+    void addService(ServiceOrder serviceOrder);
+    void deleteService(ServiceOrder serviceOrder);
+    void order(Guest guest, ServiceOrder serviceOrder);
     void listOrder();
     void changePriceOrder(int indexOrder, int newPrice);
-    Service viewService(int indexService);
-    List<Service> getServices();
-    void setServices(List<Service> services);
+    ServiceOrder viewService(int indexService);
+    List<ServiceOrder> getServices();
+    void setServices(List<ServiceOrder> serviceOrders);
 }
 

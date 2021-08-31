@@ -1,19 +1,16 @@
 package eu.senla.hotel.ui.menu;
 
-import eu.senla.hotel.dependency2.annotation.Autowired;
-import eu.senla.hotel.dependency2.annotation.Component;
-import eu.senla.hotel.dependency2.annotation.Qualifier;
+
 import eu.senla.hotel.ui.actions.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Component;
 
 @Component
 public class Builder {
     private static Builder instance;
     private Menu rootMenu;
-    @Autowired
-    @Qualifier(value = "AddGuest")
     private IAction addGuest;
-    @Autowired
-    @Qualifier(value = "CheckInGuest")
     private IAction checkInGuest;
     @Autowired
     @Qualifier(value = "CheckOutGuest")
@@ -42,8 +39,7 @@ public class Builder {
     @Autowired
     @Qualifier(value = "ChangePriceRoom")
     private IAction changePriceRoom;
-    @Autowired
-    @Qualifier(value = "ViewRooms")
+
     private IAction viewRooms;
     @Autowired
     @Qualifier(value = "DeleteRoom")
@@ -137,5 +133,20 @@ public class Builder {
         }, rootMenu));
 
         return guestMenu;
+    }
+    @Autowired
+    @Qualifier(value = "AddGuest")
+    public void setAddGuest(IAction addGuest) {
+        this.addGuest = addGuest;
+    }
+    @Autowired
+    @Qualifier(value = "CheckInGuest")
+    public void setCheckInGuest(IAction checkInGuest) {
+        this.checkInGuest = checkInGuest;
+    }
+    @Autowired
+    @Qualifier(value = "ViewRooms")
+    public void setViewRooms(IAction viewRooms) {
+        this.viewRooms = viewRooms;
     }
 }

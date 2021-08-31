@@ -8,27 +8,29 @@ import org.hibernate.boot.Metadata;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+import org.springframework.stereotype.Controller;
 
 import java.util.Scanner;
 
+@Controller
 public class MenuController {
     private static MenuController instance;
-    private final Injector injector = new Injector();
+    //private final Injector injector = new Injector();
     private Builder builder;
     private Navigator navigator;
     private MenuController() {
         builder = Builder.getInstance();
-        try {
-            this.injector.initFramework(Main.class);
-            StandardServiceRegistry ssr = new StandardServiceRegistryBuilder().configure("hibernate.cfg.xml").build();
-            Metadata meta = new MetadataSources(ssr).getMetadataBuilder().build();
-            this.injector.getService(HotelController.class).setUp(DataSourceFactory.getDataSource());
-            builder = this.injector.getService(Builder.class);
+        //try {
+            //this.injector.initFramework(Main.class);
+            //StandardServiceRegistry ssr = new StandardServiceRegistryBuilder().configure("hibernate.cfg.xml").build();
+            //Metadata meta = new MetadataSources(ssr).getMetadataBuilder().build();
+            //this.injector.getService(HotelController.class).setUp(DataSourceFactory.getDataSource());
+            //builder = this.injector.getService(Builder.class);
 
 
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
+        //} catch (Exception ex) {
+        //    ex.printStackTrace();
+        //}
         builder.buildMenu();
         navigator = Navigator.getInstance();
     }

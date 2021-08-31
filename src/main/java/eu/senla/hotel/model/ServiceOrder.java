@@ -13,7 +13,7 @@ import java.io.Serializable;
         "price"})
 @XmlRootElement(name = "service")
 @Entity(name = "Services")
-public class Service implements Serializable {
+public class ServiceOrder implements Serializable {
     @Id
     @Column(name="idService")
     @GeneratedValue(strategy= GenerationType.AUTO,generator="native")
@@ -25,12 +25,12 @@ public class Service implements Serializable {
     private int price;
 
 
-    public Service(String nameService, int priceService) {
+    public ServiceOrder(String nameService, int priceService) {
         this.name = nameService;
         this.price = priceService;
     }
 
-    public Service() {
+    public ServiceOrder() {
     }
 
     public Integer getId() {

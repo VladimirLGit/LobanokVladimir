@@ -27,8 +27,9 @@ import java.time.LocalDate;
 import java.util.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.stereotype.Controller;
 
-@Component
+@Controller
 public class HotelController {
     private static final Logger logger = LogManager.getLogger();
 
@@ -145,8 +146,8 @@ public class HotelController {
             int indexService = Integer.parseInt(reader.readLine());
             System.out.println("Введите стоимость");
             int price = Integer.parseInt(reader.readLine());
-            Service service = new Service(listNameServices[indexService], price);
-            hotelService.addService(service);
+            ServiceOrder serviceOrder = new ServiceOrder(listNameServices[indexService], price);
+            hotelService.addService(serviceOrder);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -226,9 +227,9 @@ public class HotelController {
     public void changePriceService() {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         try {
-            List<Service> services = hotelService.getServices();
-            System.out.println(services);
-            if (services.size() > 0) {
+            List<ServiceOrder> serviceOrders = hotelService.getServices();
+            System.out.println(serviceOrders);
+            if (serviceOrders.size() > 0) {
                 System.out.println("Введите номер услуги");
                 int indexService = Integer.parseInt(reader.readLine());
                 System.out.println("Введите новую стоимость услуги");
@@ -305,9 +306,9 @@ public class HotelController {
     public void callService() {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         try {
-            List<Service> services = hotelService.getServices();
-            System.out.println(services);
-            if (services.size() > 0) {
+            List<ServiceOrder> serviceOrders = hotelService.getServices();
+            System.out.println(serviceOrders);
+            if (serviceOrders.size() > 0) {
                 System.out.println("Введите номер услуги");
                 int indexService = Integer.parseInt(reader.readLine());
                 List<Guest> guests = guestService.getGuests();
@@ -321,8 +322,8 @@ public class HotelController {
                 for (Guest guest : guests) {
                     if ((guest.getState() == StateGuest.CHECK_IN) &&
                             (guest.getName().equals(nameGuest))) {
-                        Service service = services.get(indexService);
-                        hotelService.order(guest, service);
+                        ServiceOrder serviceOrder = serviceOrders.get(indexService);
+                        hotelService.order(guest, serviceOrder);
                         //guest.addOrderedService(service);
                         break;
                     }

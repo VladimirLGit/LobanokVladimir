@@ -3,13 +3,14 @@ package eu.senla.hotel.service;
 import eu.senla.hotel.api.dao.IServiceDao;
 import eu.senla.hotel.api.sevice.IServiceService;
 import eu.senla.hotel.model.Guest;
-import eu.senla.hotel.model.Service;
+import eu.senla.hotel.model.ServiceOrder;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-
+@Service
 public class HotelService implements IServiceService {
     private static final Logger logger = LogManager.getLogger();
 
@@ -24,29 +25,29 @@ public class HotelService implements IServiceService {
     }
 
     @Override
-    public void order(Guest guest, Service service) {
-        System.out.println(service + " service done");
-        if ((guest != null) && (service != null))
-            serviceDao.addOrderGuest(guest, service);
+    public void order(Guest guest, ServiceOrder serviceOrder) {
+        System.out.println(serviceOrder + " service done");
+        if ((guest != null) && (serviceOrder != null))
+            serviceDao.addOrderGuest(guest, serviceOrder);
         else
            logger.info("guest is null or service is null");
     }
 
-    public void addService(Service service) {
-        serviceDao.addService(service);
+    public void addService(ServiceOrder serviceOrder) {
+        serviceDao.addService(serviceOrder);
     }
 
-    public void deleteService(Service service) {
-        serviceDao.deleteService(service);
+    public void deleteService(ServiceOrder serviceOrder) {
+        serviceDao.deleteService(serviceOrder);
     }
 
-    public List<Service> getServices() {
+    public List<ServiceOrder> getServices() {
         return serviceDao.allServices();
     }
 
-    public void setServices(List<Service> services) {
-        if (services != null)
-            this.serviceDao.setServices(services);
+    public void setServices(List<ServiceOrder> serviceOrders) {
+        if (serviceOrders != null)
+            this.serviceDao.setServices(serviceOrders);
     }
 
     @Override
@@ -59,18 +60,18 @@ public class HotelService implements IServiceService {
         if (newPrice <= 0) {
             logger.info("Cost is below zero");
         } else {
-            Service service = serviceDao.allServices().get(indexOrder);
-            service.setPrice(newPrice);
-            serviceDao.updateService(service);
+            ServiceOrder serviceOrder = serviceDao.allServices().get(indexOrder);
+            serviceOrder.setPrice(newPrice);
+            serviceDao.updateService(serviceOrder);
         }
     }
 
     @Override
-    public Service viewService(int indexService) {
-        List<Service> services = serviceDao.allServices();
-        if (indexService < services.size()) {
-            System.out.println(services.get(indexService));
-            return services.get(indexService);
+    public ServiceOrder viewService(int indexService) {
+        List<ServiceOrder> serviceOrders = serviceDao.allServices();
+        if (indexService < serviceOrders.size()) {
+            System.out.println(serviceOrders.get(indexService));
+            return serviceOrders.get(indexService);
         } else
             System.out.println("Такой услуги не существует");
         return null;

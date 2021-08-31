@@ -4,7 +4,7 @@ import eu.senla.hotel.api.dao.IServiceDao;
 import eu.senla.hotel.dependency2.annotation.Component;
 import eu.senla.hotel.exception.NotExistObject;
 import eu.senla.hotel.model.Guest;
-import eu.senla.hotel.model.Service;
+import eu.senla.hotel.model.ServiceOrder;
 import eu.senla.hotel.model.links.LinkService;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -15,13 +15,13 @@ import java.util.List;
 @Component
 public class HServiceDao implements IServiceDao {
     @Override
-    public void addService(Service service) {
+    public void addService(ServiceOrder serviceOrder) {
         Session session = null;
         Transaction transaction;
         try {
             session = HibernateConnector.getInstance().getSession();
             transaction = session.beginTransaction();
-            session.save(service);
+            session.save(serviceOrder);
             transaction.commit();
         } catch (Exception e) {
             e.printStackTrace();
@@ -31,13 +31,13 @@ public class HServiceDao implements IServiceDao {
     }
 
     @Override
-    public void deleteService(Service service) {
+    public void deleteService(ServiceOrder serviceOrder) {
         Session session = null;
         try {
             session = HibernateConnector.getInstance().getSession();
             Transaction beginTransaction = session.beginTransaction();
             Query createQuery = session.createQuery("delete from Services s where s.idService =:id");
-            createQuery.setParameter("id", service.getId());
+            createQuery.setParameter("id", serviceOrder.getId());
             createQuery.executeUpdate();
             beginTransaction.commit();
         } catch (Exception e) {
@@ -48,12 +48,12 @@ public class HServiceDao implements IServiceDao {
     }
 
     @Override
-    public void updateService(Service service) {
+    public void updateService(ServiceOrder serviceOrder) {
         Session session = null;
         try {
             session = HibernateConnector.getInstance().getSession();
             Transaction beginTransaction = session.beginTransaction();
-            session.saveOrUpdate(service);
+            session.saveOrUpdate(serviceOrder);
             session.flush();
             beginTransaction.commit();
         } catch (Exception e) {
@@ -64,7 +64,7 @@ public class HServiceDao implements IServiceDao {
     }
 
     @Override
-    public List<Service> allServices() {
+    public List<ServiceOrder> allServices() {
         Session session = null;
         try {
             session = HibernateConnector.getInstance().getSession();
@@ -74,7 +74,7 @@ public class HServiceDao implements IServiceDao {
             if (queryList != null && queryList.isEmpty()) {
                 return null;
             } else {
-                return (List<Service>) queryList;
+                return (List<ServiceOrder>) queryList;
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -85,8 +85,8 @@ public class HServiceDao implements IServiceDao {
     }
 
     @Override
-    public void addOrderGuest(Guest guest, Service service) {
-        LinkService linkService = new LinkService(service.getId(), guest.getId());
+    public void addOrderGuest(Guest guest, ServiceOrder serviceOrder) {
+        LinkService linkService = new LinkService(serviceOrder.getId(), guest.getId());
         Session session = null;
         Transaction transaction;
         try {
@@ -108,7 +108,7 @@ public class HServiceDao implements IServiceDao {
     }
 
     @Override
-    public Service readService(Integer idService) {
+    public ServiceOrder readService(Integer idService) {
         Session session = null;
         try {
             session = HibernateConnector.getInstance().getSession();
@@ -119,7 +119,7 @@ public class HServiceDao implements IServiceDao {
             if (queryList != null && queryList.isEmpty()) {
                 return null;
             } else {
-                return (Service) queryList.get(0);
+                return (ServiceOrder) queryList.get(0);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -130,7 +130,7 @@ public class HServiceDao implements IServiceDao {
     }
 
     @Override
-    public void setServices(List<Service> services) {
+    public void setServices(List<ServiceOrder> serviceOrders) {
 
     }
 }

@@ -1,7 +1,6 @@
 package eu.senla.hotel.model;
 
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 import java.util.List;
@@ -11,13 +10,13 @@ import java.util.List;
 public class Services {
 
     @XmlElement(name = "Service")
-    private List<Service> servicesList;
+    private List<ServiceOrder> servicesList;
 
-    public List<Service> getServices() {
+    public List<ServiceOrder> getServices() {
         return servicesList;
     }
 
-    public void setServices(List<Service> services) {
-        this.servicesList = services;
+    public void setServices(List<ServiceOrder> serviceOrders) {
+        this.servicesList = serviceOrders;
     }
 }

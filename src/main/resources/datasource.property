@@ -1,0 +1,5 @@
+mysql.DB=hotelBase
+mysql.USERNAME=root
+mysql.PASSWORD=root
+mysql.HOST=localhost
+mysql.PORT=3306

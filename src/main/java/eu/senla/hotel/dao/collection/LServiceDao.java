@@ -4,60 +4,59 @@ import eu.senla.hotel.api.dao.IServiceDao;
 import eu.senla.hotel.dependency2.annotation.Component;
 import eu.senla.hotel.exception.NotExistObject;
 import eu.senla.hotel.model.Guest;
-import eu.senla.hotel.model.Room;
-import eu.senla.hotel.model.Service;
+import eu.senla.hotel.model.ServiceOrder;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Component
 public class LServiceDao implements IServiceDao {
-    private List<Service> services;
+    private List<ServiceOrder> serviceOrders;
 
     public LServiceDao() {
-        services = new ArrayList<>();
+        serviceOrders = new ArrayList<>();
     }
 
-    public List<Service> getServices() {
-        return services;
+    public List<ServiceOrder> getServices() {
+        return serviceOrders;
     }
 
-    public void setServices(List<Service> services) {
-        this.services = services;
+    public void setServices(List<ServiceOrder> serviceOrders) {
+        this.serviceOrders = serviceOrders;
     }
 
     @Override
-    public void addService(Service service) {
-        int newId = services.size() == 0 ? 0 : services.stream()
-                .mapToInt(Service::getId)
+    public void addService(ServiceOrder serviceOrder) {
+        int newId = serviceOrders.size() == 0 ? 0 : serviceOrders.stream()
+                .mapToInt(ServiceOrder::getId)
                 .summaryStatistics()
                 .getMax();
-        service.setId(newId + 1);
-        services.add(service);
+        serviceOrder.setId(newId + 1);
+        serviceOrders.add(serviceOrder);
     }
 
     @Override
-    public void deleteService(Service service) {
-        services.remove(service);
+    public void deleteService(ServiceOrder serviceOrder) {
+        serviceOrders.remove(serviceOrder);
     }
 
     @Override
-    public void updateService(Service service) {
-        int i = services.indexOf(service);
+    public void updateService(ServiceOrder serviceOrder) {
+        int i = serviceOrders.indexOf(serviceOrder);
         if (i!=-1) {
-            service.setId(services.get(i).getId());
-            services.set(i, service);
+            serviceOrder.setId(serviceOrders.get(i).getId());
+            serviceOrders.set(i, serviceOrder);
         }
     }
 
     @Override
-    public List<Service> allServices() {
-        return services;
+    public List<ServiceOrder> allServices() {
+        return serviceOrders;
     }
 
     @Override
-    public void addOrderGuest(Guest guest, Service service) {
-        guest.addOrderedService(service);
+    public void addOrderGuest(Guest guest, ServiceOrder serviceOrder) {
+        guest.addOrderedService(serviceOrder);
     }
 
     @Override
@@ -66,10 +65,10 @@ public class LServiceDao implements IServiceDao {
     }
 
     @Override
-    public Service readService(Integer idService) {
-        for (Service service : services) {
-            if (service.getId().equals(idService))
-                return service;
+    public ServiceOrder readService(Integer idService) {
+        for (ServiceOrder serviceOrder : serviceOrders) {
+            if (serviceOrder.getId().equals(idService))
+                return serviceOrder;
         }
         return null;
     }

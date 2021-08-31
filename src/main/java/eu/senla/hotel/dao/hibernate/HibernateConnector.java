@@ -2,7 +2,7 @@ package eu.senla.hotel.dao.hibernate;
 
 import eu.senla.hotel.model.Guest;
 import eu.senla.hotel.model.Room;
-import eu.senla.hotel.model.Service;
+import eu.senla.hotel.model.ServiceOrder;
 import eu.senla.hotel.model.links.ItemTable;
 import eu.senla.hotel.model.links.LinkGuest;
 import eu.senla.hotel.model.links.LinkService;
@@ -23,7 +23,7 @@ public class HibernateConnector {
         cfg = new Configuration().configure();
         cfg.addAnnotatedClass(Guest.class);
         cfg.addAnnotatedClass(Room.class);
-        cfg.addAnnotatedClass(Service.class);
+        cfg.addAnnotatedClass(ServiceOrder.class);
 
         cfg.addAnnotatedClass(ItemTable.class);
         cfg.addAnnotatedClass(LinkGuest.class);
