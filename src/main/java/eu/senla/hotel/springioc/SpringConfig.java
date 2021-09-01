@@ -5,7 +5,9 @@ import eu.senla.hotel.dao.MainDao;
 import eu.senla.hotel.dao.RoomDao;
 import eu.senla.hotel.dao.ServiceDao;
 import eu.senla.hotel.dao.collection.LGuestDao;
+import eu.senla.hotel.ui.HotelController;
 import eu.senla.hotel.ui.actions.*;
+import eu.senla.hotel.ui.menu.MenuController;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -89,6 +91,16 @@ public class SpringConfig {
             throwables.printStackTrace();
             return null;
         }
+    }
+
+    @Bean
+    public MenuController menuController() {
+        return MenuController.getInstance();
+    }
+
+    @Bean
+    public HotelController hotelController() {
+        return HotelController.getInstance();
     }
 
     @Bean

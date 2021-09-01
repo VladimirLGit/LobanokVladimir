@@ -13,45 +13,45 @@ public class Builder {
     private IAction addGuest;
     private IAction checkInGuest;
     @Autowired
-    @Qualifier(value = "CheckOutGuest")
+    @Qualifier("CheckOutGuest")
     private IAction checkOutGuest;
     @Autowired
-    @Qualifier(value = "CallService")
+    @Qualifier("CallService")
     private IAction callService;
     @Autowired
-    @Qualifier(value = "ViewGuestsHotel")
+    @Qualifier("ViewGuestsHotel")
     private IAction viewGuestsHotel;
     @Autowired
-    @Qualifier(value = "ChangePriceService")
+    @Qualifier("ChangePriceService")
     private IAction changePriceService;
     @Autowired
-    @Qualifier(value = "ViewServices")
+    @Qualifier("ViewServices")
     private IAction viewServices;
     @Autowired
-    @Qualifier(value = "DeleteService")
+    @Qualifier("DeleteService")
     private IAction deleteService;
     @Autowired
-    @Qualifier(value = "AddService")
+    @Qualifier("AddService")
     private IAction addService;
     @Autowired
-    @Qualifier(value = "ChangeStateRoom")
+    @Qualifier("ChangeStateRoom")
     private IAction changeStateRoom;
     @Autowired
-    @Qualifier(value = "ChangePriceRoom")
+    @Qualifier("ChangePriceRoom")
     private IAction changePriceRoom;
 
     private IAction viewRooms;
     @Autowired
-    @Qualifier(value = "DeleteRoom")
+    @Qualifier("DeleteRoom")
     private IAction deleteRoom;
     @Autowired
-    @Qualifier(value = "AddRoom")
+    @Qualifier("AddRoom")
     private IAction addRoom;
     @Autowired
-    @Qualifier(value = "SerializationsObjects")
+    @Qualifier("SerializationsObjects")
     private IAction serializationsObjects;
     @Autowired
-    @Qualifier(value = "DeserializationObject")
+    @Qualifier("DeserializationObject")
     private IAction deserializationObject;
 
     public static Builder getInstance() {
@@ -135,17 +135,17 @@ public class Builder {
         return guestMenu;
     }
     @Autowired
-    @Qualifier(value = "AddGuest")
+    @Qualifier("AddGuest")
     public void setAddGuest(IAction addGuest) {
         this.addGuest = addGuest;
     }
     @Autowired
-    @Qualifier(value = "CheckInGuest")
+    @Qualifier("CheckInGuest")
     public void setCheckInGuest(IAction checkInGuest) {
         this.checkInGuest = checkInGuest;
     }
     @Autowired
-    @Qualifier(value = "ViewRooms")
+    @Qualifier("ViewRooms")
     public void setViewRooms(IAction viewRooms) {
         this.viewRooms = viewRooms;
     }

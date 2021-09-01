@@ -77,8 +77,8 @@ public class GuestServiceTest {
                                                 "Тренажерный зал"};
         Random RANDOM = new Random();
         for (String listNameService : listNameServices) {
-            Service service = new Service(listNameService, RANDOM.nextInt(99) + 1);
-            hotelService.addService(service);
+            ServiceOrder ServiceOrder = new ServiceOrder(listNameService, RANDOM.nextInt(99) + 1);
+            hotelService.addService(ServiceOrder);
         }
     }
 
@@ -126,11 +126,11 @@ public class GuestServiceTest {
         } catch (NotExistObject notExistObject) {
             notExistObject.printStackTrace();
         }
-        Service service = new Service("Заказ еды в номер",15);
-        guestService.orderService(guest, service);
+        ServiceOrder ServiceOrder = new ServiceOrder("Заказ еды в номер",15);
+        guestService.orderService(guest, ServiceOrder);
         Assert.assertFalse(guest.getOrderedServices().isEmpty());
-        Service service2 = new Service("Массаж",45);
-        guestService.orderService(guest, service2);
+        ServiceOrder ServiceOrder2 = new ServiceOrder("Массаж",45);
+        guestService.orderService(guest, ServiceOrder2);
     }
 
     @Test
@@ -205,7 +205,7 @@ public class GuestServiceTest {
         guests = guestDao.allGuests();
         Guest guestOut = guests.get(RANDOM.nextInt(guests.size()));
         Room room = roomDao.checkGuest(guestOut.getId());
-        guestOut.setIdRoom(room.getId());
+        guestOut.setRoom(room);
 
         roomService.checkOut(guestOut);
         try {
@@ -228,22 +228,22 @@ public class GuestServiceTest {
 
         for (Guest guest : guests) {
             Room room = roomDao.checkGuest(guest.getId());
-            guest.setIdRoom(room.getId());
-            List<Service> services = hotelService.getServices();
+            guest.setRoom(room);
+            List<ServiceOrder> services = hotelService.getServices();
 
             for (int i = 0; i < 3; i++) {
-                Service service = services.get(RANDOM.nextInt(services.size()));
+                ServiceOrder service = services.get(RANDOM.nextInt(services.size()));
                 guestService.orderService(guest, service);
                 hotelService.order(guest, service);
             }
             roomService.checkOut(guest);
             System.out.println(guest);
 
-            List<Integer> orderedServices = guest.getOrderedServices();
+            List<ServiceOrder> orderedServices = guest.getOrderedServices();
             int priceServices = 0;
-            for (Integer idService : orderedServices) {
-                Service service = serviceDao.readService(idService);
-                priceServices += service.getPrice();
+            for (ServiceOrder serviceOrder : orderedServices) {
+                ServiceOrder serviceOrder2 = serviceDao.readService(serviceOrder.getId());
+                priceServices += serviceOrder2.getPrice();
             }
             try {
                 serviceDao.deleteOrderGuest(guest);
@@ -324,7 +324,7 @@ public class GuestServiceTest {
         roomService.checkIn(guest);
         Assert.assertNotEquals(guest.getDateOfCheckIn(),null);
         Assert.assertNotEquals(guest.getDateOfCheckOut(),null);
-        Assert.assertNotEquals(java.util.Optional.ofNullable(guest.getIdRoom()),-1);
+        Assert.assertNotEquals(java.util.Optional.ofNullable(guest.getRoom().getId()),-1);
 
         try {
             guestDao.updateGuest(guest);

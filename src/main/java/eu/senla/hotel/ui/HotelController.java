@@ -50,18 +50,21 @@ public class HotelController {
             "Тренажерный зал"};
     private static HotelController instance; //static
     @Autowired
-    @Qualifier(value = "HGuestDao")
+    @Qualifier("GuestDao")
     private IGuestDao guestDao;
     @Autowired
-    @Qualifier(value = "HRoomDao")
+    @Qualifier("RoomDao")
     private IRoomDao roomDao;
     @Autowired
-    @Qualifier(value = "HServiceDao")
+    @Qualifier("ServiceDao")
     private IServiceDao serviceDao;
-
+    @Autowired
     private IGuestService guestService;
+    @Autowired
     private IRoomService roomService;
+    @Autowired
     private IServiceService hotelService;
+    @Autowired
     private MainDao mainDao;
 
 

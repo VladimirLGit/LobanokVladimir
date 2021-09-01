@@ -8,11 +8,12 @@ import org.hibernate.boot.Metadata;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 
 import java.util.Scanner;
 
-@Controller
+@Component
 public class MenuController {
     private static MenuController instance;
     //private final Injector injector = new Injector();
