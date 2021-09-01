@@ -9,21 +9,27 @@ import eu.senla.hotel.springioc.SpringConfig;
 import eu.senla.hotel.ui.HotelController;
 import eu.senla.hotel.ui.actions.ViewRooms;
 import eu.senla.hotel.ui.menu.MenuController;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
-@SpringBootApplication
+import javax.sql.DataSource;
+import java.sql.SQLException;
+
+
 public class Main {
     public static void main(String[] args) {
         ApplicationContext context = new AnnotationConfigApplicationContext(SpringConfig.class);
-
+        MenuController menuController = context.getBean(MenuController.class);
+        menuController.run();
 
         //ApplicationContext act = SpringApplication.run(SpringConfig.class, args);
-        HotelController obj = (HotelController) context.getBean(HotelController.class);
-        obj.setUp((DataSourceFactory) context.getBean(DataSourceFactory.class).getDataSource());
-        obj.viewRooms();
+        //HotelController obj = (HotelController) context.getBean(HotelController.class);
+//        try {
+//            obj.setUp((DataSource) context.getBean(DataSourceFactory.class).getDataSource());
+//        } catch (SQLException throwables) {
+//            throwables.printStackTrace();
+//        }
+//        obj.viewRooms();
         //ViewRooms  obj = (ViewRooms) context.getBean(ViewRooms.class);
         //obj.execute();
         //MenuController menuController = context.getBean(MenuController.class);

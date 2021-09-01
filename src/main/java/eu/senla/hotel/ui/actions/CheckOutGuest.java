@@ -1,6 +1,5 @@
 package eu.senla.hotel.ui.actions;
-
-import eu.senla.hotel.dependency2.annotation.Component;
+import org.springframework.stereotype.Component;
 
 @Component
 public class CheckOutGuest extends AbstractAction implements IAction {
