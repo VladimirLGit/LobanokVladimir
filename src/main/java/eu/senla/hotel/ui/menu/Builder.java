@@ -4,8 +4,10 @@ package eu.senla.hotel.ui.menu;
 import eu.senla.hotel.ui.actions.IAction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Required;
 import org.springframework.stereotype.Component;
 
+@Component
 public class Builder {
     private static Builder instance;
     private Menu rootMenu;

@@ -8,6 +8,8 @@ import org.hibernate.boot.Metadata;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 
@@ -19,8 +21,9 @@ public class MenuController {
     //private final Injector injector = new Injector();
     private Builder builder;
     private Navigator navigator;
+
     private MenuController() {
-        builder = Builder.getInstance();
+        //builder = Builder.getInstance();
         //try {
             //this.injector.initFramework(Main.class);
             //StandardServiceRegistry ssr = new StandardServiceRegistryBuilder().configure("hibernate.cfg.xml").build();
@@ -32,7 +35,7 @@ public class MenuController {
         //} catch (Exception ex) {
         //    ex.printStackTrace();
         //}
-        builder.buildMenu();
+        //builder.buildMenu();
         navigator = Navigator.getInstance();
     }
 
@@ -57,5 +60,10 @@ public class MenuController {
                 break;
 
         }
+    }
+    @Autowired
+    @Qualifier("builder")
+    public void setBuilder(Builder builder) {
+        this.builder = builder;
     }
 }

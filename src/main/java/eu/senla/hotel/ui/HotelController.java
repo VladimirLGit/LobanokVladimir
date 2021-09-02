@@ -50,13 +50,13 @@ public class HotelController {
             "Тренажерный зал"};
     private static HotelController instance; //static
     @Autowired
-    @Qualifier("GuestDao")
+    @Qualifier("guestDao")
     private IGuestDao guestDao;
     @Autowired
-    @Qualifier("RoomDao")
+    @Qualifier("roomDao")
     private IRoomDao roomDao;
     @Autowired
-    @Qualifier("ServiceDao")
+    @Qualifier("serviceDao")
     private IServiceDao serviceDao;
     @Autowired
     private IGuestService guestService;
@@ -64,10 +64,27 @@ public class HotelController {
     private IRoomService roomService;
     @Autowired
     private IServiceService hotelService;
+
     @Autowired
+    @Qualifier("mainDao")
     private MainDao mainDao;
 
 
+    public void setGuestDao(IGuestDao guestDao) {
+        this.guestDao = guestDao;
+    }
+
+    public void setRoomDao(IRoomDao roomDao) {
+        this.roomDao = roomDao;
+    }
+
+    public void setServiceDao(IServiceDao serviceDao) {
+        this.serviceDao = serviceDao;
+    }
+
+    public void setMainDao(MainDao mainDao) {
+        this.mainDao = mainDao;
+    }
 //    private HotelController() {
 //        DataSource ds = null;
 //        try {
@@ -95,6 +112,20 @@ public class HotelController {
 
     public void setUp(DataSource ds) {
         mainDao = new MainDao(ds);
+        createBaseTables();
+        //guestDao = new LGuestDao();
+        //roomDao = new LRoomDao();
+        //serviceDao = new LServiceDao();
+        createServices();
+    }
+
+    public void createServices() {
+        guestService = new GuestService(guestDao);
+        roomService = new RoomService(roomDao);
+        hotelService = new HotelService(serviceDao);
+    }
+
+    public void createBaseTables() {
         mainDao.createHotelBase();
         mainDao.createTableGuests();
         mainDao.createLinkTableServices();
@@ -103,12 +134,6 @@ public class HotelController {
         mainDao.createTableRooms();
         mainDao.createLinkTableRooms();
         mainDao.createTableServices();
-        //guestDao = new LGuestDao();
-        //roomDao = new LRoomDao();
-        //serviceDao = new LServiceDao();
-        guestService = new GuestService(guestDao);
-        roomService = new RoomService(roomDao);
-        hotelService = new HotelService(serviceDao);
     }
 
     public void addRoom() {

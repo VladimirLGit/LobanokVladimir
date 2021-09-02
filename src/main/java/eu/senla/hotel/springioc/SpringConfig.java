@@ -9,10 +9,7 @@ import eu.senla.hotel.ui.actions.*;
 import eu.senla.hotel.ui.menu.Builder;
 import eu.senla.hotel.ui.menu.MenuController;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.annotation.*;
 
 import java.sql.SQLException;
 
@@ -97,17 +94,44 @@ public class SpringConfig {
 
     @Bean
     public MenuController menuController() {
-        return MenuController.getInstance();
+        MenuController controller = MenuController.getInstance();
+        controller.setBuilder(builder());
+        return controller;
     }
 
     @Bean
     public HotelController hotelController() {
-        return HotelController.getInstance();
+        HotelController controller = HotelController.getInstance();
+        controller.setGuestDao(guestDao());
+        controller.setRoomDao(roomDao());
+        controller.setServiceDao(serviceDao());
+        controller.setMainDao(mainDao());
+        controller.createBaseTables();
+        controller.createServices();
+        return controller;
     }
 
     @Bean
     public Builder builder() {
-        return new Builder();
+        Builder builderLoc = new Builder();
+        builderLoc.setAddGuest(addGuest());
+        builderLoc.setAddRoom(addRoom());
+        builderLoc.setAddService(addService());
+        builderLoc.setDeleteRoom(deleteRoom());
+        builderLoc.setDeleteService(deleteService());
+        builderLoc.setSerializationsObjects(serializationsObjects());
+        builderLoc.setDeserializationObject(deserializationObject());
+        builderLoc.setViewRooms(viewRooms());
+        builderLoc.setViewGuestsHotel(viewGuestsHotel());
+        builderLoc.setViewServices(viewServices());
+        builderLoc.setCallService(callService());
+        builderLoc.setChangePriceRoom(changePriceRoom());
+        builderLoc.setChangePriceService(changePriceService());
+        builderLoc.setChangeStateRoom(changeStateRoom());
+        builderLoc.setCheckInGuest(checkInGuest());
+        builderLoc.setCheckOutGuest(checkOutGuest());
+        builderLoc.buildMenu();
+        return builderLoc;
     }
 
     @Bean
