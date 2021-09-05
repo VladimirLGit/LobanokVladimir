@@ -39,9 +39,9 @@ public class Room implements java.io.Serializable {
     private double rating;
     @Column(name="numberOfGuests")
     private int numberOfGuests;
-    @OneToMany(targetEntity = Guest.class, mappedBy = "room",
-            cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    //@OneToMany (mappedBy="room", fetch=FetchType.EAGER)
+    //@OneToMany(targetEntity = Guest.class, mappedBy = "room",
+    //        cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany (mappedBy="room", fetch=FetchType.EAGER)
     private List<Guest> guests;
     @Column(name="stateRoom")
     private StateRoom state;

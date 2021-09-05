@@ -4,7 +4,6 @@ import eu.senla.hotel.utils.guest.LocalDateAdapter;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
-import javax.persistence.Entity;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -29,9 +28,9 @@ import java.util.Objects;
 @Entity(name = "Guests")
 public class Guest implements Serializable {
     @Id
-    @Column(name="idGuest")
-    @GeneratedValue(strategy= GenerationType.AUTO,generator="native")
-    @GenericGenerator(name = "native",strategy = "native")
+    @Column(name = "idGuest")
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
+    @GenericGenerator(name = "native", strategy = "native")
     private Integer id;
     @Column(name = "name")
     private String name;
@@ -43,8 +42,8 @@ public class Guest implements Serializable {
     private StateGuest state;
     //@ManyToOne
     //@JoinColumn(name="idRoom")
-    @ManyToOne (optional=false, cascade=CascadeType.ALL)
-    @JoinColumn (name="idRoom")
+    @ManyToOne(optional = false, cascade = CascadeType.ALL)
+    @JoinColumn(name = "idRoom")
     private Room room;
 
     @XmlElementWrapper(name = "orderedServices")
@@ -56,8 +55,11 @@ public class Guest implements Serializable {
     //@OneToMany(fetch = FetchType.LAZY,
     //        mappedBy = "guest",
     //        cascade = CascadeType.ALL)
+    //@OneToMany(fetch = FetchType.LAZY)
+    //@JoinColumn(name = "service_id", nullable = false)
+    //@OneToMany (mappedBy="service", fetch=FetchType.EAGER)
     @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "service_id", nullable = false)
+    @JoinColumn(name = "idService", nullable = false, insertable = false, updatable = false)
     private List<Service> orderedServices;
 
     public Guest() {
@@ -65,7 +67,7 @@ public class Guest implements Serializable {
 
     public Guest(String nameGuest) {
         this.name = nameGuest;
-        this.room = new Room(0, 0,0, TypeRoom.STANDARD);
+        this.room = new Room(0, 0, 0, TypeRoom.STANDARD);
         this.state = StateGuest.NO_STATE;
         orderedServices = new ArrayList<>();
     }
@@ -73,6 +75,7 @@ public class Guest implements Serializable {
     public void clearListOrder() {
         orderedServices.clear();
     }
+
     /*
     public void addOrderedService(Service service) {
         orderedServices.add(service.getId());
